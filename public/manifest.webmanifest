@@ -1,0 +1,16 @@
+{
+  "name": "MKR Music",
+  "short_name": "MKR Music",
+  "description": "An elite open-source music streaming and offline audio player for Android.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#060709",
+  "theme_color": "#0a0b0e",
+  "icons": [
+    {
+      "src": "./assets/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
