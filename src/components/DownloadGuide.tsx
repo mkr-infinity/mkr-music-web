@@ -42,7 +42,7 @@ export const DownloadGuide: React.FC = () => {
     {
       step: '05',
       title: 'Launch & Enjoy Pure Audio',
-      description: 'Open MKR Music, grant storage/audio notification permissions when requested, and immerse yourself in sovereign sound.',
+      description: 'Open MKR Music, grant storage/audio notification permissions when requested, and immerse yourself in pure sound without ads.',
       color: 'text-sonic-emerald',
       border: 'border-sonic-emerald/30',
       bg: 'bg-sonic-emerald/10',
@@ -53,8 +53,8 @@ export const DownloadGuide: React.FC = () => {
     <section id="install" className="py-24 md:py-32 relative overflow-hidden" aria-label="Download and Installation Guide">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-sonic-emerald text-xs font-mono uppercase tracking-widest mb-4 backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5" /> Official Distribution
+          <div className="neo-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sonic-emerald text-xs font-mono uppercase tracking-widest mb-4">
+            <Sparkles className="w-3.5 h-3.5" /> Direct Installation
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-6">
             Get MKR Music for Android
@@ -66,7 +66,7 @@ export const DownloadGuide: React.FC = () => {
 
         {/* Central Download Card */}
         <TiltCard maxTilt={5} spotlightColor="rgba(6, 182, 212, 0.2)" className="max-w-2xl mx-auto mb-16">
-          <div className="glass-panel rounded-[2.5rem] p-8 md:p-12 border border-white/15 shadow-2xl text-center relative overflow-hidden">
+          <div className="neo-glass rounded-[2.5rem] p-8 md:p-12 border border-white/15 shadow-2xl text-center relative overflow-hidden">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-80 h-32 bg-sonic-cyan/15 blur-[80px] pointer-events-none -z-10" />
 
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sonic-emerald/15 text-sonic-emerald border border-sonic-emerald/30 text-xs font-mono font-medium mb-6">
@@ -83,13 +83,13 @@ export const DownloadGuide: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               <a
                 href={release.downloadUrl}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full font-semibold text-base bg-white text-obsidian-950 hover:bg-sonic-cyan hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-xl shadow-cyan-500/20"
+                className="w-full sm:w-auto neo-button inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full font-bold text-base text-white hover:text-sonic-cyan transition-all duration-300 transform hover:-translate-y-1 shadow-2xl"
                 download={release.status === 'success' ? 'mkr-music-universal.apk' : undefined}
               >
-                <Download className="w-5 h-5" />
+                <Download className="w-5 h-5 text-sonic-cyan" />
                 <span>Download Universal APK</span>
                 {release.fileSize && (
-                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-obsidian-950/15 font-mono">
+                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-white/10 text-ivory-200 font-mono">
                     {release.fileSize}
                   </span>
                 )}
@@ -99,7 +99,7 @@ export const DownloadGuide: React.FC = () => {
                 href={release.releasesPageUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full font-medium text-sm text-ivory-200 bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 hover:border-sonic-cyan/40 transition-all"
+                className="w-full sm:w-auto neo-pill inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full font-medium text-sm text-ivory-200 hover:text-white hover:border-sonic-cyan/40 transition-all"
               >
                 <ExternalLink className="w-4 h-4 text-sonic-cyan" />
                 <span>View Release on GitHub</span>
@@ -139,7 +139,7 @@ export const DownloadGuide: React.FC = () => {
                 spotlightColor="rgba(255, 255, 255, 0.08)"
                 className={idx === 4 ? 'md:col-span-2 md:max-w-md md:mx-auto w-full' : ''}
               >
-                <div className="h-full p-6 rounded-3xl glass-panel border border-white/10 hover:border-white/20 transition-all flex gap-4">
+                <div className="h-full p-6 rounded-3xl neo-glass border border-white/10 hover:border-white/20 transition-all flex gap-4">
                   <div
                     className={`w-11 h-11 rounded-2xl ${item.bg} border ${item.border} ${item.color} flex items-center justify-center text-base font-mono font-bold flex-shrink-0`}
                   >

@@ -52,30 +52,30 @@ export const Navbar: React.FC = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-obsidian-950/85 backdrop-blur-xl border-b border-white/10 shadow-2xl py-3.5'
+          ? 'neo-glass py-3 border-b border-white/10'
           : 'bg-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Brand Logo */}
+          {/* Brand Logo with Default App Logo */}
           <a
             href="./"
-            className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-sonic-cyan rounded-xl p-1"
+            className="flex items-center gap-3.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-sonic-cyan rounded-2xl p-1"
           >
-            <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-obsidian-850 p-1 border border-white/10 group-hover:border-sonic-cyan/50 transition-colors shadow-lg">
+            <div className="relative w-10 h-10 rounded-2xl overflow-hidden bg-obsidian-900 p-0.5 border border-white/15 shadow-xl group-hover:border-sonic-cyan/60 transition-all">
               <img
-                src="./assets/icon.png"
-                alt="MKR Music Icon"
-                className="w-full h-full object-cover rounded-lg"
+                src="./assets/logo.jpg"
+                alt="MKR Music Logo"
+                className="w-full h-full object-cover rounded-[14px]"
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-display font-bold text-lg tracking-tight text-white group-hover:text-sonic-cyan transition-colors">
+              <span className="font-display font-extrabold text-xl tracking-tight text-white group-hover:text-sonic-cyan transition-colors">
                 MKR Music
               </span>
-              <span className="text-[10px] font-mono tracking-widest uppercase text-ivory-400">
-                Sonic Sanctuary
+              <span className="text-[11px] font-medium tracking-wide text-ivory-300">
+                Your music. Your mood. Your style.
               </span>
             </div>
           </a>
@@ -97,13 +97,13 @@ export const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center gap-4">
             <a
               href={release.downloadUrl}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-gradient-to-r from-white via-ivory-100 to-white text-obsidian-950 hover:from-sonic-cyan hover:to-sonic-violet hover:text-white transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-cyan-500/15"
+              className="neo-button inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full text-xs font-semibold text-white hover:text-sonic-cyan active:scale-95"
               download={release.status === 'success' ? 'mkr-music-universal.apk' : undefined}
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-3.5 h-3.5 text-sonic-cyan" />
               <span>Download APK</span>
               {release.fileSize && (
-                <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-obsidian-950/20 font-mono">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 font-mono text-ivory-200">
                   {release.fileSize}
                 </span>
               )}
@@ -114,20 +114,20 @@ export const Navbar: React.FC = () => {
           <div className="flex md:hidden items-center gap-3">
             <a
               href={release.downloadUrl}
-              className="p-2 rounded-full bg-white text-obsidian-950 hover:bg-sonic-cyan hover:text-white transition-colors"
+              className="p-2.5 rounded-xl neo-button text-white hover:text-sonic-cyan transition-colors"
               aria-label="Download APK"
               download={release.status === 'success' ? 'mkr-music-universal.apk' : undefined}
             >
-              <Download className="w-4 h-4" />
+              <Download className="w-4 h-4 text-sonic-cyan" />
             </a>
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-xl text-ivory-300 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-sonic-cyan"
+              className="p-2.5 rounded-xl neo-button text-ivory-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-sonic-cyan"
               aria-expanded={isMobileMenuOpen}
               aria-label="Toggle navigation menu"
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -136,7 +136,7 @@ export const Navbar: React.FC = () => {
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 top-[65px] z-40 bg-obsidian-950/98 backdrop-blur-2xl md:hidden overflow-y-auto border-t border-white/10 animate-in fade-in duration-200"
+          className="fixed inset-0 top-[68px] z-40 neo-glass md:hidden overflow-y-auto border-t border-white/10 animate-in fade-in duration-200"
           role="dialog"
           aria-modal="true"
         >
@@ -147,7 +147,7 @@ export const Navbar: React.FC = () => {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg font-medium text-ivory-200 hover:text-sonic-cyan py-2 transition-colors border-b border-white/[0.06]"
+                  className="text-lg font-medium text-ivory-200 hover:text-sonic-cyan py-2.5 transition-colors border-b border-white/[0.06]"
                 >
                   {link.name}
                 </a>
@@ -158,7 +158,7 @@ export const Navbar: React.FC = () => {
               <a
                 href={release.downloadUrl}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold bg-gradient-to-r from-sonic-cyan to-sonic-violet text-white transition-all shadow-xl shadow-cyan-500/20"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-semibold bg-gradient-to-r from-sonic-cyan to-sonic-violet text-white transition-all shadow-xl shadow-cyan-500/20"
                 download={release.status === 'success' ? 'mkr-music-universal.apk' : undefined}
               >
                 <Download className="w-4 h-4" />
@@ -172,11 +172,11 @@ export const Navbar: React.FC = () => {
 
               <div className="flex items-center justify-center gap-4 text-xs text-ivory-400 pt-4">
                 <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-sonic-emerald" /> 100% Ad-Free & Private
+                  <ShieldCheck className="w-4 h-4 text-sonic-emerald" /> 100% Ad-Free
                 </span>
                 <span>•</span>
                 <span className="flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-sonic-cyan" /> 320 kbps Lossless
+                  <Sparkles className="w-4 h-4 text-sonic-cyan" /> 320 kbps Sound
                 </span>
               </div>
             </div>

@@ -44,8 +44,8 @@ export const SupportSection: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* Card 1: Buy Me a Coffee */}
-          <TiltCard maxTilt={6} spotlightColor="rgba(245, 158, 11, 0.2)">
-            <div className="h-full glass-panel rounded-3xl p-8 sm:p-10 border border-sonic-gold/30 shadow-2xl flex flex-col justify-between hover:border-sonic-gold/50 transition-all">
+          <TiltCard maxTilt={6} spotlightColor="rgba(245, 158, 11, 0.25)">
+            <div className="h-full neo-glass rounded-3xl p-8 sm:p-10 border border-sonic-gold/30 shadow-2xl flex flex-col justify-between hover:border-sonic-gold/50 transition-all">
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="p-3.5 rounded-2xl bg-amber-500/15 text-amber-400 border border-amber-500/30">
@@ -65,17 +65,17 @@ export const SupportSection: React.FC = () => {
                 href="https://buymeacoffee.com/mkr_infinity"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl font-semibold text-sm bg-gradient-to-r from-amber-400 via-sonic-gold to-amber-500 text-obsidian-950 hover:brightness-110 transition-all shadow-xl shadow-amber-500/20 transform hover:-translate-y-0.5"
+                className="w-full neo-button inline-flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl font-bold text-sm text-amber-300 hover:text-white transition-all shadow-xl shadow-amber-500/20 transform hover:-translate-y-0.5"
               >
-                <Heart className="w-4 h-4 fill-obsidian-950" />
+                <Heart className="w-4 h-4 fill-amber-300" />
                 <span>Support on Buy Me A Coffee</span>
               </a>
             </div>
           </TiltCard>
 
           {/* Card 2: UPI Support */}
-          <TiltCard maxTilt={6} spotlightColor="rgba(16, 185, 129, 0.2)">
-            <div className="h-full glass-panel rounded-3xl p-8 sm:p-10 border border-sonic-emerald/30 shadow-2xl flex flex-col justify-between hover:border-sonic-emerald/50 transition-all">
+          <TiltCard maxTilt={6} spotlightColor="rgba(16, 185, 129, 0.25)">
+            <div className="h-full neo-glass rounded-3xl p-8 sm:p-10 border border-sonic-emerald/30 shadow-2xl flex flex-col justify-between hover:border-sonic-emerald/50 transition-all">
               <div>
                 <div className="flex items-center justify-between mb-6">
                   <div className="p-3.5 rounded-2xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
@@ -100,10 +100,10 @@ export const SupportSection: React.FC = () => {
               <button
                 type="button"
                 onClick={handleCopyUpi}
-                className={`w-full inline-flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl font-semibold text-sm transition-all focus:outline-none focus:ring-2 focus:ring-sonic-emerald transform hover:-translate-y-0.5 ${
+                className={`w-full neo-button inline-flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl font-bold text-sm transition-all focus:outline-none focus:ring-2 focus:ring-sonic-emerald transform hover:-translate-y-0.5 ${
                   copied
                     ? 'bg-sonic-emerald text-obsidian-950 shadow-xl shadow-emerald-500/30'
-                    : 'bg-white text-obsidian-950 hover:bg-sonic-emerald hover:text-obsidian-950 shadow-xl shadow-white/5'
+                    : 'text-white hover:text-sonic-emerald'
                 }`}
                 aria-label="Copy UPI ID to clipboard"
               >

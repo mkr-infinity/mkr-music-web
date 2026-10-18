@@ -200,7 +200,7 @@ export const ScreenshotGallery: React.FC = () => {
                 spotlightColor={colors.glow}
                 className="h-full"
               >
-                <div className="h-full glass-panel rounded-3xl p-4 sm:p-5 border border-white/10 hover:border-white/20 transition-all duration-300 shadow-xl flex flex-col justify-between group">
+                <div className="h-full neo-glass rounded-3xl p-4 sm:p-5 border border-white/10 hover:border-white/20 transition-all duration-300 shadow-2xl flex flex-col justify-between group">
                   <div className="mb-3.5 px-1 flex items-center justify-between">
                     <div>
                       <h3 className="text-base font-bold text-white group-hover:text-sonic-cyan transition-colors">

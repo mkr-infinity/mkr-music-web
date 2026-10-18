@@ -46,7 +46,7 @@ export const FAQ: React.FC = () => {
     <section id="faq" className="py-24 md:py-32 relative overflow-hidden" aria-label="Frequently Asked Questions">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-sonic-cyan text-xs font-mono uppercase tracking-widest mb-4 backdrop-blur-md">
+          <div className="neo-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sonic-cyan text-xs font-mono uppercase tracking-widest mb-4">
             <HelpCircle className="w-3.5 h-3.5" /> Answers & Clarifications
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-6">
@@ -63,7 +63,7 @@ export const FAQ: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="rounded-2xl glass-panel border border-white/10 overflow-hidden transition-all duration-300 hover:border-sonic-cyan/30"
+                className="rounded-2xl neo-glass border border-white/10 overflow-hidden transition-all duration-300 hover:border-sonic-cyan/40 shadow-xl"
               >
                 <button
                   type="button"
