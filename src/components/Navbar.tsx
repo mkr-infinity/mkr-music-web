@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Download, Menu, X, ExternalLink, Music, Disc, Sliders, Smartphone, Heart, Sparkles as _Unused } from 'lucide-react';
+import { Download, Menu, X, ExternalLink, Music, Disc, Sliders, Smartphone, Heart } from 'lucide-react';
 import { OFFICIAL_LINKS } from '@/lib/release';
 import { APP_LOGO } from '@/lib/assets';
 import { GithubIcon } from './BrandIcons';

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Download, ArrowRight, Disc3, Zap, Headphones, Sliders, Shield } from 'lucide-react';
+import { Download, ArrowRight, Disc3, Zap, Headphones, Sliders, Shield, Layers, Radio } from 'lucide-react';
 import { OFFICIAL_LINKS } from '@/lib/release';
 import { getAssetUrl, APP_LOGO } from '@/lib/assets';
-import { GithubIcon } from './BrandIcons';
+import { GithubIcon, SpotifyIcon, YouTubeMusicIcon } from './BrandIcons';
 import { AudioVisualizer } from './AudioVisualizer';
 
 interface HeroProps {
@@ -17,14 +17,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
           
           {/* Left Column: Copy & Actions */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
-            {/* Authentic Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-graphite-900/90 border border-white/10 text-xs font-mono text-anime-cream/80 mb-6 backdrop-blur-md">
-              <Headphones size={13} className="text-anime-green" />
-              <span>Independent Audio Player for Android</span>
+            
+            {/* Top Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-graphite-900/90 border border-white/10 text-xs font-mono text-anime-cream/90 mb-6 backdrop-blur-md shadow-neo-card">
+              <Headphones size={13} className="text-anime-green animate-pulse" />
+              <span>Sovereign Android Audio Engine</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-anime-green" />
+              <span className="text-anime-green font-semibold">Tri-Engine Ready</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-anime-cream leading-[1.08] mb-6">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-anime-cream leading-[1.06] mb-6">
               Your Music. <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-anime-green via-anime-yellow to-anime-cream">
                 Without Limits.
@@ -33,8 +36,25 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
 
             {/* Description */}
             <p className="text-base sm:text-lg text-anime-cream/75 max-w-2xl leading-relaxed mb-8">
-              A high-fidelity Material Design music client for Android. Built for seamless streaming without buffering delays, dynamic artwork-adaptive theming, synchronized lyrics, group listening, and 10-band equalization with zero ads.
+              A high-fidelity Material Design music client for Android. Import Spotify playlists, sync your YouTube Music library, and stream JioSaavn regional audio simultaneously with dynamic artwork-adaptive theming, synchronized karaoke lyrics, and 10-band studio equalization — 100% free and without ads.
             </p>
+
+            {/* Tri-Engine Quick Chips */}
+            <div className="flex flex-wrap items-center gap-2 mb-8 font-mono text-xs">
+              <span className="text-anime-cream/50 text-[11px] uppercase mr-1">Supported:</span>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-graphite-900/90 border border-anime-green/30 text-anime-green">
+                <SpotifyIcon size={13} />
+                <span>Spotify Import</span>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-graphite-900/90 border border-anime-yellow/30 text-anime-yellow">
+                <YouTubeMusicIcon size={13} />
+                <span>YT Music Sync</span>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-graphite-900/90 border border-white/20 text-anime-cream">
+                <Layers size={13} className="text-anime-cream" />
+                <span>JioSaavn Dual Stream</span>
+              </div>
+            </div>
 
             {/* Primary Action Buttons */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-8">
@@ -65,7 +85,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-anime-green animate-pulse" />
                 <span className="text-anime-cream font-semibold">Package:</span>
-                <span className="text-anime-green">{OFFICIAL_LINKS.universalApkName}</span>
+                <span className="text-anime-green font-bold">{OFFICIAL_LINKS.universalApkName}</span>
               </div>
               <span className="hidden sm:inline text-white/20">|</span>
               <div className="flex items-center gap-1.5">
@@ -80,27 +100,35 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
             </div>
           </div>
 
-          {/* Right Column: Phone Showcase */}
-          <div className="lg:col-span-5 flex justify-center relative">
-            <div className="relative w-full max-w-[340px] sm:max-w-[380px] group">
+          {/* Right Column: Phone Showcase with 3D Perspective */}
+          <div className="lg:col-span-5 flex justify-center relative perspective-1000">
+            <div className="relative w-full max-w-[340px] sm:max-w-[380px] group transition-transform duration-500 hover:rotate-y-2 hover:-rotate-x-2">
               
               {/* Subtle Ambient Frame Glow */}
               <div
-                className="absolute -inset-2 bg-gradient-to-r from-anime-green/30 via-anime-yellow/20 to-transparent rounded-[44px] blur-2xl opacity-60 group-hover:opacity-90 transition duration-500 pointer-events-none"
+                className="absolute -inset-3 bg-gradient-to-r from-anime-green/30 via-anime-yellow/20 to-transparent rounded-[46px] blur-2xl opacity-60 group-hover:opacity-90 transition duration-500 pointer-events-none"
                 aria-hidden="true"
               />
 
               {/* Phone Chassis */}
-              <div className="relative rounded-[38px] p-3 bg-graphite-900/90 border border-white/20 shadow-neo-card backdrop-blur-2xl">
-                {/* Phone Notch */}
-                <div className="w-28 h-4 bg-graphite-950 rounded-full mx-auto mb-3 flex items-center justify-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-graphite-800" />
-                  <span className="w-10 h-1 rounded-full bg-graphite-800" />
+              <div className="relative rounded-[40px] p-3 bg-gradient-to-b from-graphite-900 to-graphite-950 border border-white/20 shadow-2xl backdrop-blur-2xl">
+                
+                {/* Dynamic Island / Speaker Island */}
+                <div className="w-32 h-4 bg-graphite-950 rounded-full mx-auto mb-3 flex items-center justify-between px-3 border border-white/10 shadow-inner">
+                  <div className="flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-graphite-700" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-graphite-800" />
+                  </div>
+                  <div className="flex items-center gap-0.5">
+                    <span className="w-0.5 h-2 bg-anime-green animate-pulse" />
+                    <span className="w-0.5 h-1.5 bg-anime-green animate-bounce" />
+                    <span className="w-0.5 h-2 bg-anime-green animate-pulse" />
+                  </div>
                 </div>
 
                 {/* Display Content: Clickable Real App Screenshot */}
                 <div
-                  className="relative rounded-[28px] overflow-hidden cursor-pointer group/screen bg-graphite-950 aspect-[9/16]"
+                  className="relative rounded-[30px] overflow-hidden cursor-pointer group/screen bg-graphite-950 aspect-[9/16] shadow-inner"
                   onClick={() => onOpenScreenshot(7)} // opens canvas_player.jpg
                   title="Click to view full screenshot"
                 >
@@ -115,10 +143,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
                     alt="MKR Music Canvas Player interface"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover/screen:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/80 via-transparent to-transparent flex items-end p-4">
+                  <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/85 via-transparent to-transparent flex items-end p-4">
                     <span className="text-xs font-mono text-anime-cream/90 flex items-center gap-2">
                       <Disc3 size={14} className="text-anime-yellow animate-spin-slow" />
-                      <span>Tap to preview player</span>
+                      <span>Tap to preview canvas player</span>
                     </span>
                   </div>
                 </div>
@@ -130,10 +158,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[10px] font-mono uppercase text-anime-green font-bold">
-                      Instant Streaming
+                      Instant Audio
                     </span>
                     <span className="text-xs text-anime-cream font-medium">
-                      Zero Initial Buffer Lag
+                      0-Buffer Lag
                     </span>
                   </div>
                 </div>
@@ -145,10 +173,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[10px] font-mono uppercase text-anime-yellow font-bold">
-                      10-Band Equalizer
+                      10-Band DSP
                     </span>
                     <span className="text-xs text-anime-cream font-medium">
-                      Studio Parametric Audio
+                      Studio Equalizer
                     </span>
                   </div>
                 </div>

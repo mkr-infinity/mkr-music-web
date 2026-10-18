@@ -14,7 +14,10 @@ import {
   Radio,
   Share2,
   Activity,
-  Layers
+  Layers,
+  Music2,
+  Volume2,
+  CheckCircle2
 } from 'lucide-react';
 import { getAssetUrl } from '@/lib/assets';
 import {
@@ -31,128 +34,55 @@ interface FeaturesShowcaseProps {
 
 export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreenshot }) => {
   const [cacheDelay, setCacheDelay] = useState<number>(10);
+  const [activeEngineTab, setActiveEngineTab] = useState<'spotify' | 'yt' | 'jiosaavn'>('spotify');
 
-  // Tri-Engine Cards Data
-  const triEngineCards = [
-    {
-      icon: SpotifyIcon,
-      tag: 'ZERO BARRIERS',
+  const engineTabs = {
+    spotify: {
       title: 'Import Spotify Playlists',
-      description:
-        'Migrate your favorite Spotify playlists and liked songs in seconds without any premium accounts or API restrictions. Automated metadata lookup pairs each track for high-bitrate playback.',
-      shotIndex: 0, // spotify.jpg
+      service: 'Spotify Migration',
+      tag: 'ZERO COST',
+      shotIndex: 0,
       file: 'spotify.jpg',
-      badge: 'Spotify Engine',
+      icon: SpotifyIcon,
       accent: 'green',
+      headline: 'Bring All Your Playlists Over Instantly',
+      description:
+        'Migrate unlimited Spotify playlists, followed artists, and liked tracks in seconds with automated acoustic track matching. Zero subscription required.',
+      metric: 'Instant Sync',
+      badge: 'No API Key Needed',
     },
-    {
-      icon: YouTubeMusicIcon,
+    yt: {
+      title: 'YouTube Music Account Sync',
+      service: 'YT Music Engine',
       tag: 'BI-DIRECTIONAL',
-      title: 'YouTube Music Library Sync',
-      description:
-        'Log in securely to keep your YouTube Music likes, personalized mixes, artist subscriptions, and listening history updated across both mobile and desktop in real time.',
-      shotIndex: 1, // ytsync.jpg
+      shotIndex: 1,
       file: 'ytsync.jpg',
-      badge: 'YT Music Engine',
+      icon: YouTubeMusicIcon,
       accent: 'yellow',
+      headline: 'Synchronize Your Complete YouTube Music Library',
+      description:
+        'Seamlessly sync your personal likes, curated algorithmic mixes, custom playlists, and listening history with low-latency streaming.',
+      metric: 'Live Cloud Sync',
+      badge: 'Account Paired',
     },
-    {
-      icon: Layers,
-      tag: 'SIMULTANEOUS STREAM',
+    jiosaavn: {
       title: 'JioSaavn & YT Music All-in-One',
-      description:
-        'Unite JioSaavn’s rich regional music catalogue with YouTube Music’s vast global library. Search once and stream seamlessly from either source inside one single audio queue.',
-      shotIndex: 2, // iosavan.jpg
+      service: 'Dual Engine Stream',
+      tag: 'REGIONAL & GLOBAL',
+      shotIndex: 2,
       file: 'iosavan.jpg',
-      badge: 'Dual Streaming Engine',
+      icon: Layers,
       accent: 'cream',
+      headline: 'Stream Millions of Regional & Global Tracks',
+      description:
+        'Search across JioSaavn’s rich Indian regional catalogue and YouTube Music’s global library in a single search bar and unified audio queue.',
+      metric: 'Dual Catalog',
+      badge: '3-in-1 Architecture',
     },
-  ];
+  };
 
-  // Advanced Capabilities
-  const coreFeatures = [
-    {
-      icon: Palette,
-      category: 'DYNAMIC AESTHETICS',
-      title: 'Automatic Artwork Theming',
-      description:
-        'The interface dynamically extracts color harmonies directly from the currently playing album artwork, fluidly morphing background hues, glowing waveforms, and controls in real time.',
-      actionText: 'View appearance settings',
-      shotIndex: 12, // appearance.jpg
-      color: 'green',
-    },
-    {
-      icon: Users,
-      category: 'SOCIAL SYNC',
-      title: 'Listen Together Rooms',
-      description:
-        'Host synchronized listening sessions with your friends. Share a room link to stream the exact same track simultaneously across devices without delay or desync.',
-      actionText: 'Explore community features',
-      shotIndex: 3, // home.jpg
-      color: 'yellow',
-    },
-    {
-      icon: Smartphone,
-      category: 'EXPRESSIVE PLAYER',
-      title: 'Apple-Inspired Fluid UI',
-      description:
-        'Engineered with tactile spring physics, floating miniplayer, expandable now-playing modal, edge-to-edge canvas artwork, and intuitive swipe gestures.',
-      actionText: 'Preview canvas player',
-      shotIndex: 7, // canvas_player.jpg
-      color: 'cream',
-    },
-    {
-      icon: Disc3,
-      category: 'REAL-TIME LYRICS',
-      title: 'Synchronized Karaoke Lyrics',
-      description:
-        'Sing along with time-aligned scrolling lyrics rendered over softened ambient cover art. Tap any verse to instantly seek playback to that exact lyric moment.',
-      actionText: 'Preview lyrics view',
-      shotIndex: 8, // lyrics.jpg
-      color: 'green',
-    },
-    {
-      icon: Zap,
-      category: 'STREAMING ENGINE',
-      title: 'Instant Audio Playback',
-      description:
-        'Bypasses the traditional initial write-cache buffer lag to start track streaming immediately upon tap on low-priority IO threads.',
-      actionText: 'View player controls',
-      shotIndex: 5, // player.jpg
-      color: 'yellow',
-    },
-    {
-      icon: HardDrive,
-      category: 'STORAGE PRESERVATION',
-      title: 'Smart Delayed Caching',
-      description:
-        'Never waste device storage on songs you skip. Caching initiates only after you listen past your customized delay threshold (5s–90s).',
-      actionText: 'View cache controls',
-      shotIndex: 13, // storage_cache.jpg
-      color: 'cream',
-      hasSlider: true,
-    },
-    {
-      icon: AudioLines,
-      category: 'AUDIOPHILE SOUND',
-      title: 'Lossless Streaming & DAC Output',
-      description:
-        'Stream audio with high-res 32-bit float internal routing, external USB-C DAC compatibility, and Bluetooth LDAC output selection.',
-      actionText: 'View audio output options',
-      shotIndex: 10, // audio_output.jpg
-      color: 'green',
-    },
-    {
-      icon: ShieldCheck,
-      category: 'PRIVACY FIRST',
-      title: 'Offline Vault & Zero Telemetry',
-      description:
-        'Your downloads and cached tracks are strictly protected from automated eviction. Completely private with zero user tracking, analytics, or ads.',
-      actionText: 'View library storage',
-      shotIndex: 14, // settings.jpg
-      color: 'yellow',
-    },
-  ];
+  const activeEngine = engineTabs[activeEngineTab];
+  const ActiveEngineIcon = activeEngine.icon;
 
   return (
     <section id="features" className="py-24 md:py-32 relative overflow-hidden" aria-label="MKR Music Features">
@@ -162,12 +92,12 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-graphite-900/90 border border-white/10 text-xs font-mono text-anime-green mb-4">
             <Radio size={13} className="text-anime-green" />
-            <span>Tri-Engine & Ecosystem Integration</span>
+            <span>Tri-Engine & Connected Ecosystem</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-anime-cream tracking-tight mb-6">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-anime-cream tracking-tight mb-6">
             3 Streaming Universes. <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-anime-green via-anime-yellow to-anime-cream">
-              One Unified Music Haven.
+              One Unified Audio Haven.
             </span>
           </h2>
           <p className="text-base sm:text-lg text-anime-cream/70 leading-relaxed">
@@ -175,277 +105,518 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
           </p>
         </div>
 
-        {/* 1. TRI-ENGINE 3-IN-1 FEATURE CARDS WITH 3D PERSPECTIVE */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 perspective-1000">
-          {triEngineCards.map((card) => {
-            const Icon = card.icon;
-            const isGreen = card.accent === 'green';
-            const isYellow = card.accent === 'yellow';
+        {/* 1. ASYMMETRIC BENTO GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-16">
+          
+          {/* BENTO BLOCK 1: Hero Tri-Engine Interactive Card (Span 12 on mobile, 8 on desktop) */}
+          <div className="md:col-span-12 lg:col-span-8 neo-glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between border-white/10 relative overflow-hidden group">
+            
+            {/* Ambient Background Gradient */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-anime-green/10 via-anime-yellow/5 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-            return (
-              <div
-                key={card.title}
-                className="neo-glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between group transition-all duration-300 hover:-translate-y-2 hover:rotate-x-2 border-white/10"
-              >
-                <div>
-                  {/* Top Bar with Icon & Badge */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div
-                      className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 ${
-                        isGreen
-                          ? 'bg-anime-green/15 text-anime-green border border-anime-green/30'
-                          : isYellow
-                          ? 'bg-anime-yellow/15 text-anime-yellow border border-anime-yellow/30'
-                          : 'bg-white/10 text-anime-cream border border-white/20'
-                      }`}
-                    >
-                      <Icon size={24} />
-                    </div>
-                    <span className="text-[10px] font-mono uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-anime-cream/80">
-                      {card.tag}
-                    </span>
+            <div>
+              {/* Tab Selector */}
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-anime-green font-bold">
+                  TRI-ENGINE ARCHITECTURE
+                </span>
+                
+                <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-graphite-950/80 border border-white/10">
+                  {(['spotify', 'yt', 'jiosaavn'] as const).map((key) => {
+                    const tab = engineTabs[key];
+                    const Icon = tab.icon;
+                    const isActive = activeEngineTab === key;
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        onClick={() => setActiveEngineTab(key)}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                          isActive
+                            ? 'bg-anime-green text-graphite-950 font-bold shadow-neo-glow-green scale-102'
+                            : 'text-anime-cream/70 hover:text-anime-cream hover:bg-white/5'
+                        }`}
+                      >
+                        <Icon size={13} />
+                        <span>{tab.service}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Active Tab Content */}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                
+                {/* Details */}
+                <div className="md:col-span-7 flex flex-col justify-center">
+                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono text-anime-yellow mb-3 w-fit">
+                    <ActiveEngineIcon size={12} />
+                    <span>{activeEngine.tag}</span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-bold text-anime-cream mb-3 group-hover:text-anime-green transition-colors">
-                    {card.title}
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-anime-cream mb-3">
+                    {activeEngine.headline}
                   </h3>
 
-                  <p className="text-sm text-anime-cream/70 leading-relaxed mb-6">
-                    {card.description}
+                  <p className="text-sm text-anime-cream/75 leading-relaxed mb-6">
+                    {activeEngine.description}
                   </p>
 
-                  {/* Thumbnail Preview (Clickable to open uncropped lightbox) */}
+                  <div className="flex items-center gap-4 text-xs font-mono text-anime-cream/70 mb-4">
+                    <div className="flex items-center gap-1.5">
+                      <CheckCircle2 size={14} className="text-anime-green" />
+                      <span>{activeEngine.metric}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-anime-yellow animate-pulse" />
+                      <span>{activeEngine.badge}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Screenshot Interactive Preview */}
+                <div className="md:col-span-5">
                   <div
-                    onClick={() => onOpenScreenshot(card.shotIndex)}
-                    className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-graphite-950 mb-6 border border-white/10 cursor-pointer group/thumb shadow-inner"
-                    title={`Click to preview ${card.title} in full screen`}
+                    onClick={() => onOpenScreenshot(activeEngine.shotIndex)}
+                    className="relative aspect-[9/15] max-w-[220px] mx-auto rounded-2xl overflow-hidden bg-graphite-950 border border-white/15 cursor-pointer group/thumb shadow-2xl transition-transform duration-300 group-hover/thumb:scale-102"
+                    title={`Click to preview ${activeEngine.title} in full screen`}
                   >
                     <img
-                      src={getAssetUrl(`assets/screenshots/${card.file}`)}
+                      src={getAssetUrl(`assets/screenshots/${activeEngine.file}`)}
                       onError={(e) => {
                         const target = e.currentTarget;
                         if (!target.src.includes('/assets/screenshots/')) {
-                          target.src = `./assets/screenshots/${card.file}`;
+                          target.src = `./assets/screenshots/${activeEngine.file}`;
                         }
                       }}
-                      alt={card.title}
+                      alt={activeEngine.title}
                       loading="lazy"
-                      className="w-full h-full object-cover object-top transition-transform duration-500 group-hover/thumb:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover/thumb:scale-105"
                     />
                     <div className="absolute inset-0 bg-graphite-950/40 opacity-0 group-hover/thumb:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-xs">
-                      <span className="px-3 py-1.5 rounded-xl bg-graphite-950/90 text-anime-cream text-xs font-mono flex items-center gap-2 border border-white/20 shadow-lg">
+                      <span className="px-3 py-1.5 rounded-xl bg-graphite-950/90 text-anime-cream text-xs font-mono flex items-center gap-1.5 border border-white/20 shadow-lg">
                         <Eye size={13} className="text-anime-green" />
-                        <span>Inspect Screenshot</span>
+                        <span>Inspect Full</span>
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Bottom Trigger */}
-                <button
-                  type="button"
-                  onClick={() => onOpenScreenshot(card.shotIndex)}
-                  className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-anime-cream/80 hover:text-anime-green transition-colors cursor-pointer w-full text-left"
-                >
-                  <span className="font-semibold">{card.badge}</span>
-                  <div className="flex items-center gap-1 text-anime-green">
-                    <span>Full Screen</span>
-                    <ArrowRight size={13} />
-                  </div>
-                </button>
               </div>
-            );
-          })}
-        </div>
+            </div>
 
-        {/* 2. CONNECTED ECOSYSTEM: DISCORD RPC & LAST.FM */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-          
-          {/* Card A: Discord Rich Presence */}
-          <div className="neo-glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between border-anime-green/30 hover:border-anime-green/50">
+            {/* Bottom Bar */}
+            <div className="pt-6 mt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-anime-cream/70">
+              <span>All 3 services unified in one single audio queue</span>
+              <button
+                type="button"
+                onClick={() => onOpenScreenshot(activeEngine.shotIndex)}
+                className="flex items-center gap-1 text-anime-green hover:underline cursor-pointer"
+              >
+                <span>View Full Screenshot</span>
+                <ArrowRight size={13} />
+              </button>
+            </div>
+          </div>
+
+          {/* BENTO BLOCK 2: Discord Rich Presence Card (Span 12 on mobile, 4 on desktop) */}
+          <div className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between border-anime-green/30 hover:border-anime-green/50">
             <div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 rounded-2xl bg-anime-green/15 text-anime-green flex items-center justify-center border border-anime-green/30">
-                  <DiscordIcon size={24} />
+              <div className="flex items-center justify-between mb-5">
+                <div className="w-11 h-11 rounded-2xl bg-anime-green/15 text-anime-green flex items-center justify-center border border-anime-green/30">
+                  <DiscordIcon size={22} />
                 </div>
                 <span className="text-[10px] font-mono text-anime-green uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full bg-anime-green/10 border border-anime-green/20">
-                  Live Status Broadcast
+                  Live Status RPC
                 </span>
               </div>
 
-              <h3 className="text-2xl font-bold text-anime-cream mb-2">
-                Discord Rich Presence (RPC)
+              <h3 className="text-xl font-bold text-anime-cream mb-2">
+                Discord Rich Presence
               </h3>
-              <p className="text-sm text-anime-cream/70 leading-relaxed mb-6">
-                Share what you are listening to effortlessly. Broadcasts your live track title, artist name, elapsed/total playback timer, and high-resolution album artwork directly onto your Discord profile.
+              <p className="text-xs sm:text-sm text-anime-cream/70 leading-relaxed mb-5">
+                Broadcast what you're vibing to in real time. Shows track title, artist, cover art, and playback progress on your Discord profile.
               </p>
 
-              {/* Discord Mockup Pill */}
-              <div className="p-4 rounded-2xl bg-graphite-950/90 border border-white/10 mb-4 flex items-center gap-3 font-mono text-xs">
-                <div className="w-10 h-10 rounded-xl bg-graphite-900 border border-anime-green/30 flex items-center justify-center text-anime-green flex-shrink-0">
-                  <Activity size={18} className="animate-pulse" />
-                </div>
-                <div className="flex flex-col min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="text-anime-cream font-bold truncate">Listening to MKR Music</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-anime-green" />
+              {/* Realistic Discord Mockup Card */}
+              <div className="p-4 rounded-2xl bg-graphite-950 border border-white/10 font-mono text-xs mb-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="relative w-10 h-10 rounded-full bg-graphite-900 border border-white/15 overflow-hidden flex-shrink-0">
+                    <img
+                      src={getAssetUrl('assets/developer_avatar.png')}
+                      alt="Discord Avatar"
+                      className="w-full h-full object-cover"
+                    />
+                    <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-anime-green border-2 border-graphite-950" />
                   </div>
-                  <span className="text-anime-cream/50 text-[11px] truncate">
-                    Streaming in high fidelity · 03:42 elapsed
-                  </span>
+                  <div className="min-w-0">
+                    <div className="text-anime-cream font-bold text-xs truncate">Kaif Raja</div>
+                    <div className="text-[10px] text-anime-green uppercase tracking-wide">Playing MKR Music</div>
+                  </div>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-graphite-900/90 border border-white/5 space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-anime-cream font-semibold text-xs truncate">Vinland Horizon</span>
+                    {/* Mini Equalizer Wave Animation */}
+                    <div className="flex items-end gap-0.5 h-3">
+                      <span className="w-0.5 h-3 bg-anime-green animate-pulse" />
+                      <span className="w-0.5 h-1.5 bg-anime-green animate-bounce" />
+                      <span className="w-0.5 h-2.5 bg-anime-green animate-pulse" />
+                    </div>
+                  </div>
+                  <div className="text-[10px] text-anime-cream/50 truncate">MKR Acoustic Studio · Lossless</div>
+                  
+                  {/* Progress Bar */}
+                  <div className="w-full bg-white/10 rounded-full h-1 mt-2 overflow-hidden">
+                    <div className="bg-anime-green h-full w-2/3 rounded-full" />
+                  </div>
+                  <div className="flex justify-between text-[9px] text-anime-cream/40 pt-0.5">
+                    <span>02:34</span>
+                    <span>03:48</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-anime-cream/60">
-              <span>Automatic Background Sync</span>
-              <span className="text-anime-green">Configurable in Settings</span>
+            <div className="pt-3 border-t border-white/5 text-[11px] font-mono text-anime-green flex items-center justify-between">
+              <span>Native Discord Integration</span>
+              <Activity size={13} className="animate-pulse" />
             </div>
           </div>
 
-          {/* Card B: Last.fm Real-Time Scrobbling */}
-          <div className="neo-glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between border-anime-yellow/30 hover:border-anime-yellow/50 neo-glass-yellow-card">
+          {/* BENTO BLOCK 3: Last.fm Real-Time Scrobbler (Span 12 on mobile, 4 on desktop) */}
+          <div className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between border-anime-yellow/30 hover:border-anime-yellow/50 neo-glass-yellow-card">
             <div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 rounded-2xl bg-anime-yellow/15 text-anime-yellow flex items-center justify-center border border-anime-yellow/30">
-                  <LastfmIcon size={24} />
+              <div className="flex items-center justify-between mb-5">
+                <div className="w-11 h-11 rounded-2xl bg-anime-yellow/15 text-anime-yellow flex items-center justify-center border border-anime-yellow/30">
+                  <LastfmIcon size={22} />
                 </div>
                 <span className="text-[10px] font-mono text-anime-yellow uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full bg-anime-yellow/10 border border-anime-yellow/20">
-                  Automatic Scrobbler
+                  Background Scrobbler
+                </span>
+              </div>
+
+              <h3 className="text-xl font-bold text-anime-cream mb-2">
+                Last.fm Scrobbler
+              </h3>
+              <p className="text-xs sm:text-sm text-anime-cream/70 leading-relaxed mb-5">
+                Automatically scrobbles every song in the background. Builds your listening history, artist milestones, and charts with zero companion apps.
+              </p>
+
+              {/* Realistic Last.fm Mockup Pill */}
+              <div className="p-4 rounded-2xl bg-graphite-950 border border-white/10 font-mono text-xs mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] uppercase text-anime-yellow font-bold">Scrobbled Just Now</span>
+                  <span className="text-[10px] text-anime-cream/40">1,248 total scrobbles</span>
+                </div>
+                <div className="flex items-center gap-3 p-2 rounded-xl bg-graphite-900/90 border border-white/5">
+                  <div className="w-8 h-8 rounded-lg bg-anime-yellow/15 text-anime-yellow flex items-center justify-center font-bold text-xs flex-shrink-0">
+                    <Music2 size={15} />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-anime-cream font-semibold text-xs truncate">Acoustic Serenity</div>
+                    <div className="text-[10px] text-anime-cream/50 truncate">MKR Studio Master</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/5 text-[11px] font-mono text-anime-yellow flex items-center justify-between">
+              <span>Automatic Background Tracking</span>
+              <Share2 size={13} />
+            </div>
+          </div>
+
+          {/* BENTO BLOCK 4: Automatic Artwork Monet Theming (Span 12 on mobile, 4 on desktop) */}
+          <div
+            onClick={() => onOpenScreenshot(12)}
+            className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <div className="w-11 h-11 rounded-2xl bg-anime-green/15 text-anime-green flex items-center justify-center border border-anime-green/30">
+                  <Palette size={22} />
+                </div>
+                <span className="text-[10px] font-mono text-anime-green uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full bg-anime-green/10 border border-anime-green/20">
+                  Dynamic Aesthetics
+                </span>
+              </div>
+
+              <h3 className="text-xl font-bold text-anime-cream mb-2 group-hover:text-anime-green transition-colors">
+                Automatic Artwork Theming
+              </h3>
+              <p className="text-xs sm:text-sm text-anime-cream/70 leading-relaxed mb-5">
+                The interface dynamically extracts dominant color harmonies directly from the album art, morphing UI buttons, glowing waves, and headers.
+              </p>
+
+              {/* Palette Visualizer */}
+              <div className="p-3.5 rounded-2xl bg-graphite-950 border border-white/10 flex items-center justify-between gap-2 mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="w-5 h-5 rounded-full bg-anime-green shadow-sm" />
+                  <span className="w-5 h-5 rounded-full bg-anime-yellow shadow-sm" />
+                  <span className="w-5 h-5 rounded-full bg-anime-cream shadow-sm" />
+                  <span className="w-5 h-5 rounded-full bg-graphite-700 shadow-sm" />
+                </div>
+                <span className="text-[10px] font-mono text-anime-cream/50">Extracted Palette</span>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/5 text-[11px] font-mono text-anime-cream/70 group-hover:text-anime-green flex items-center justify-between transition-colors">
+              <span>View Appearance Screen</span>
+              <ArrowRight size={13} />
+            </div>
+          </div>
+
+          {/* BENTO BLOCK 5: Synchronized Karaoke Lyrics (Span 12 on mobile, 4 on desktop) */}
+          <div
+            onClick={() => onOpenScreenshot(8)}
+            className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <div className="w-11 h-11 rounded-2xl bg-anime-yellow/15 text-anime-yellow flex items-center justify-center border border-anime-yellow/30">
+                  <Disc3 size={22} />
+                </div>
+                <span className="text-[10px] font-mono text-anime-yellow uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full bg-anime-yellow/10 border border-anime-yellow/20">
+                  Real-time Karaoke
+                </span>
+              </div>
+
+              <h3 className="text-xl font-bold text-anime-cream mb-2 group-hover:text-anime-yellow transition-colors">
+                Synchronized Lyrics
+              </h3>
+              <p className="text-xs sm:text-sm text-anime-cream/70 leading-relaxed mb-5">
+                Sing along with time-aligned scrolling verses rendered over softened cover art. Tap any verse to instantly seek playback to that exact second.
+              </p>
+
+              {/* Karaoke Lyrics Mockup */}
+              <div className="p-3.5 rounded-2xl bg-graphite-950 border border-white/10 space-y-1.5 font-mono text-xs mb-4">
+                <div className="text-anime-cream/35 text-[11px]">In the quiet of the morning breeze...</div>
+                <div className="text-anime-yellow font-bold text-xs flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-anime-yellow animate-ping" />
+                  <span>The song of freedom echoes clear</span>
+                </div>
+                <div className="text-anime-cream/35 text-[11px]">Beyond the horizons of the sea...</div>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/5 text-[11px] font-mono text-anime-cream/70 group-hover:text-anime-yellow flex items-center justify-between transition-colors">
+              <span>Preview Lyrics Interface</span>
+              <ArrowRight size={13} />
+            </div>
+          </div>
+
+          {/* BENTO BLOCK 6: Apple-Inspired Fluid UI & Canvas Video (Span 12 on mobile, 6 on desktop) */}
+          <div
+            onClick={() => onOpenScreenshot(7)}
+            className="md:col-span-12 lg:col-span-6 neo-glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between cursor-pointer group"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <div className="w-11 h-11 rounded-2xl bg-white/10 text-anime-cream flex items-center justify-center border border-white/20">
+                  <Smartphone size={22} />
+                </div>
+                <span className="text-[10px] font-mono text-anime-cream/70 uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full bg-white/5 border border-white/10">
+                  Fluid Dynamics
+                </span>
+              </div>
+
+              <h3 className="text-2xl font-bold text-anime-cream mb-2 group-hover:text-anime-green transition-colors">
+                Apple-Inspired Fluid Player UI
+              </h3>
+              <p className="text-sm text-anime-cream/75 leading-relaxed mb-6">
+                Engineered with tactile spring physics, floating miniplayer, expandable now-playing modal, edge-to-edge canvas artwork loops, and intuitive swipe gestures.
+              </p>
+
+              <div className="grid grid-cols-3 gap-3 font-mono text-xs text-center mb-4">
+                <div className="p-3 rounded-2xl bg-graphite-950 border border-white/10">
+                  <span className="text-anime-green font-bold block text-sm">60 FPS</span>
+                  <span className="text-[10px] text-anime-cream/50">Spring Physics</span>
+                </div>
+                <div className="p-3 rounded-2xl bg-graphite-950 border border-white/10">
+                  <span className="text-anime-yellow font-bold block text-sm">Canvas</span>
+                  <span className="text-[10px] text-anime-cream/50">Looping Video</span>
+                </div>
+                <div className="p-3 rounded-2xl bg-graphite-950 border border-white/10">
+                  <span className="text-anime-cream font-bold block text-sm">Gestures</span>
+                  <span className="text-[10px] text-anime-cream/50">Tactile Swipe</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-white/5 text-xs font-mono text-anime-cream/70 group-hover:text-anime-green flex items-center justify-between transition-colors">
+              <span>Preview Canvas Video Screen</span>
+              <ArrowRight size={13} />
+            </div>
+          </div>
+
+          {/* BENTO BLOCK 7: Smart Delayed Caching (Span 12 on mobile, 6 on desktop) */}
+          <div className="md:col-span-12 lg:col-span-6 neo-glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <div className="w-11 h-11 rounded-2xl bg-anime-yellow/15 text-anime-yellow flex items-center justify-center border border-anime-yellow/30">
+                  <HardDrive size={22} />
+                </div>
+                <span className="text-[10px] font-mono text-anime-yellow uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full bg-anime-yellow/10 border border-anime-yellow/20">
+                  Storage Preservation
                 </span>
               </div>
 
               <h3 className="text-2xl font-bold text-anime-cream mb-2">
-                Last.fm Integration
+                Smart Delayed Caching Engine
               </h3>
-              <p className="text-sm text-anime-cream/70 leading-relaxed mb-6">
-                Log every single song you stream in the background without needing battery-draining third-party companion apps. Automatically updates your personal listening stats, top artists, and music charts.
+              <p className="text-sm text-anime-cream/75 leading-relaxed mb-6">
+                Never waste precious device storage on songs you skip. Caching initiates strictly after you listen past your customized delay threshold (5s–90s).
               </p>
 
-              {/* Last.fm Mockup Pill */}
-              <div className="p-4 rounded-2xl bg-graphite-950/90 border border-white/10 mb-4 flex items-center gap-3 font-mono text-xs">
-                <div className="w-10 h-10 rounded-xl bg-graphite-900 border border-anime-yellow/30 flex items-center justify-center text-anime-yellow flex-shrink-0">
-                  <Share2 size={18} />
+              {/* Interactive Slider */}
+              <div className="p-4 rounded-2xl bg-graphite-950/90 border border-white/10 mb-4">
+                <div className="flex justify-between items-center text-xs font-mono mb-2">
+                  <span className="text-anime-cream/70">Custom Delay Threshold:</span>
+                  <span className="text-anime-yellow font-bold text-sm">{cacheDelay} Seconds</span>
                 </div>
-                <div className="flex flex-col min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="text-anime-cream font-bold truncate">Real-time Scrobble Engine</span>
-                    <span className="text-anime-yellow text-[10px]">VERIFIED</span>
-                  </div>
-                  <span className="text-anime-cream/50 text-[11px] truncate">
-                    Syncs loved tracks & playback counts to profile
-                  </span>
+                <input
+                  type="range"
+                  min="5"
+                  max="90"
+                  step="5"
+                  value={cacheDelay}
+                  onChange={(e) => setCacheDelay(parseInt(e.target.value, 10))}
+                  className="w-full accent-anime-yellow cursor-pointer"
+                  aria-label="Cache delay threshold in seconds"
+                />
+                <div className="flex justify-between text-[10px] text-anime-cream/40 font-mono mt-1">
+                  <span>5s (Instant Cache)</span>
+                  <span>45s (Standard)</span>
+                  <span>90s (Strict Selective)</span>
                 </div>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono text-anime-cream/60">
-              <span>Zero Companion App Required</span>
-              <span className="text-anime-yellow">Native Integration</span>
+            <div className="pt-4 border-t border-white/5 text-xs font-mono text-anime-cream/70 flex items-center justify-between">
+              <span>Saves up to 70% of device storage</span>
+              <button
+                type="button"
+                onClick={() => onOpenScreenshot(13)}
+                className="text-anime-yellow hover:underline cursor-pointer flex items-center gap-1"
+              >
+                <span>View Cache Screen</span>
+                <ArrowRight size={13} />
+              </button>
+            </div>
+          </div>
+
+          {/* BENTO BLOCK 8: Audiophile Lossless & DAC (Span 12 on mobile, 4 on desktop) */}
+          <div
+            onClick={() => onOpenScreenshot(10)}
+            className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <div className="w-11 h-11 rounded-2xl bg-anime-green/15 text-anime-green flex items-center justify-center border border-anime-green/30">
+                  <AudioLines size={22} />
+                </div>
+                <span className="text-[10px] font-mono text-anime-green uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full bg-anime-green/10 border border-anime-green/20">
+                  Hi-Res Audio
+                </span>
+              </div>
+
+              <h3 className="text-xl font-bold text-anime-cream mb-2 group-hover:text-anime-green transition-colors">
+                Lossless DAC & Audio Routing
+              </h3>
+              <p className="text-xs sm:text-sm text-anime-cream/70 leading-relaxed mb-5">
+                Stream with internal 32-bit float audio routing, external USB-C DAC direct hardware pass-through, and Bluetooth LDAC output selection.
+              </p>
+
+              <div className="flex flex-wrap gap-1.5 font-mono text-[10px] text-anime-cream/80 mb-4">
+                <span className="px-2.5 py-1 rounded-lg bg-graphite-950 border border-white/10">32-Bit Float</span>
+                <span className="px-2.5 py-1 rounded-lg bg-graphite-950 border border-white/10">Direct USB DAC</span>
+                <span className="px-2.5 py-1 rounded-lg bg-graphite-950 border border-white/10">LDAC 990kbps</span>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/5 text-[11px] font-mono text-anime-cream/70 group-hover:text-anime-green flex items-center justify-between transition-colors">
+              <span>Inspect Audio Chooser</span>
+              <ArrowRight size={13} />
+            </div>
+          </div>
+
+          {/* BENTO BLOCK 9: Listen Together (Span 12 on mobile, 4 on desktop) */}
+          <div
+            onClick={() => onOpenScreenshot(3)}
+            className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <div className="w-11 h-11 rounded-2xl bg-anime-yellow/15 text-anime-yellow flex items-center justify-center border border-anime-yellow/30">
+                  <Users size={22} />
+                </div>
+                <span className="text-[10px] font-mono text-anime-yellow uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full bg-anime-yellow/10 border border-anime-yellow/20">
+                  Synchronized Rooms
+                </span>
+              </div>
+
+              <h3 className="text-xl font-bold text-anime-cream mb-2 group-hover:text-anime-yellow transition-colors">
+                Listen Together Rooms
+              </h3>
+              <p className="text-xs sm:text-sm text-anime-cream/70 leading-relaxed mb-5">
+                Host synchronized listening sessions with your friends. Share a room link to stream the exact same track simultaneously across devices without delay.
+              </p>
+
+              <div className="p-3 rounded-2xl bg-graphite-950 border border-white/10 flex items-center justify-between font-mono text-xs mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-anime-green animate-ping" />
+                  <span className="text-anime-cream font-bold">Room #MKR-892</span>
+                </div>
+                <span className="text-[10px] text-anime-yellow">3 Friends Synced</span>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/5 text-[11px] font-mono text-anime-cream/70 group-hover:text-anime-yellow flex items-center justify-between transition-colors">
+              <span>Explore Community</span>
+              <ArrowRight size={13} />
+            </div>
+          </div>
+
+          {/* BENTO BLOCK 10: Zero Telemetry & Offline Vault (Span 12 on mobile, 4 on desktop) */}
+          <div
+            onClick={() => onOpenScreenshot(14)}
+            className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <div className="w-11 h-11 rounded-2xl bg-anime-cream/15 text-anime-cream flex items-center justify-center border border-white/20">
+                  <ShieldCheck size={22} />
+                </div>
+                <span className="text-[10px] font-mono text-anime-cream/70 uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full bg-white/5 border border-white/10">
+                  Zero Telemetry
+                </span>
+              </div>
+
+              <h3 className="text-xl font-bold text-anime-cream mb-2 group-hover:text-anime-green transition-colors">
+                Offline Vault & Privacy First
+              </h3>
+              <p className="text-xs sm:text-sm text-anime-cream/70 leading-relaxed mb-5">
+                Your downloads and cached tracks are strictly protected from automated eviction. Completely private with zero user tracking, analytics, or ads.
+              </p>
+
+              <div className="p-3 rounded-2xl bg-graphite-950 border border-white/10 flex items-center justify-between font-mono text-xs mb-4">
+                <span className="text-anime-green font-bold">100% Offline Vault</span>
+                <span className="text-[10px] text-anime-cream/50">GPL-3.0 Sovereign</span>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-white/5 text-[11px] font-mono text-anime-cream/70 group-hover:text-anime-green flex items-center justify-between transition-colors">
+              <span>View Settings Screen</span>
+              <ArrowRight size={13} />
             </div>
           </div>
 
         </div>
 
-        {/* 3. CORE AUDIO & INTERFACE CAPABILITIES (3D GRID) */}
-        <div className="mb-12">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-anime-cream mb-3">
-              Advanced Acoustic Architecture
-            </h3>
-            <p className="text-sm text-anime-cream/70">
-              Tactile Material Design, parametric equalization, and dynamic artwork color morphing engineered for Android.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {coreFeatures.map((item) => {
-              const Icon = item.icon;
-              const isYellow = item.color === 'yellow';
-              const isGreen = item.color === 'green';
-
-              return (
-                <div
-                  key={item.title}
-                  className={`neo-glass-card p-6 rounded-3xl flex flex-col justify-between group ${
-                    isYellow ? 'neo-glass-yellow-card' : ''
-                  }`}
-                >
-                  <div>
-                    {/* Icon Header */}
-                    <div
-                      className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-5 transition-transform group-hover:scale-105 ${
-                        isGreen
-                          ? 'bg-anime-green/15 text-anime-green border border-anime-green/30'
-                          : isYellow
-                          ? 'bg-anime-yellow/15 text-anime-yellow border border-anime-yellow/30'
-                          : 'bg-white/10 text-anime-cream border border-white/20'
-                      }`}
-                    >
-                      <Icon size={22} />
-                    </div>
-
-                    <span
-                      className={`text-[10px] font-mono tracking-wider font-semibold uppercase block mb-2 ${
-                        isGreen
-                          ? 'text-anime-green'
-                          : isYellow
-                          ? 'text-anime-yellow'
-                          : 'text-anime-cream/60'
-                      }`}
-                    >
-                      {item.category}
-                    </span>
-
-                    <h3 className="text-lg font-bold text-anime-cream mb-2 group-hover:text-anime-green transition-colors">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-xs text-anime-cream/70 leading-relaxed mb-4">
-                      {item.description}
-                    </p>
-
-                    {/* Interactive Slider on Delayed Caching Card */}
-                    {item.hasSlider && (
-                      <div className="p-3 rounded-2xl bg-graphite-950/80 border border-white/10 mb-4">
-                        <div className="flex justify-between items-center text-[11px] font-mono mb-1.5">
-                          <span className="text-anime-cream/70">Delay:</span>
-                          <span className="text-anime-yellow font-bold">{cacheDelay}s</span>
-                        </div>
-                        <input
-                          type="range"
-                          min="5"
-                          max="90"
-                          step="5"
-                          value={cacheDelay}
-                          onChange={(e) => setCacheDelay(parseInt(e.target.value, 10))}
-                          className="w-full accent-anime-yellow cursor-pointer"
-                          aria-label="Cache delay threshold in seconds"
-                        />
-                        <div className="flex justify-between text-[9px] text-anime-cream/40 font-mono mt-0.5">
-                          <span>5s (Instant)</span>
-                          <span>90s (Selective)</span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Bottom Action Trigger */}
-                  <button
-                    type="button"
-                    onClick={() => onOpenScreenshot(item.shotIndex)}
-                    className="pt-3 border-t border-white/5 flex items-center justify-between text-xs font-mono text-anime-cream/70 hover:text-anime-green transition-colors cursor-pointer w-full text-left"
-                  >
-                    <span>{item.actionText}</span>
-                    <ArrowRight size={13} />
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* 4. STUDIO 10-BAND EQUALIZER */}
+        {/* 2. STUDIO 10-BAND GRAPHIC EQUALIZER ANCHOR */}
         <div id="sound" className="mt-16 scroll-mt-28">
           <InteractiveEqualizer />
         </div>
