@@ -19,10 +19,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             
             {/* Top Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-graphite-900/90 border border-white/10 text-xs font-mono text-anime-cream/90 mb-6 backdrop-blur-md shadow-neo-card">
-              <Headphones size={13} className="text-anime-green animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-graphite-900/90 border border-white/12 text-xs font-mono text-anime-cream/90 mb-6 backdrop-blur-md shadow-neo-card">
+              <Headphones size={13} className="text-anime-green" />
               <span>Sovereign Android Audio Engine</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-anime-green" />
+              <span className="text-white/20">|</span>
               <span className="text-anime-green font-semibold">Tri-Engine Ready</span>
             </div>
 
@@ -83,7 +83,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
             {/* Specification Feature Badges */}
             <div className="p-3.5 rounded-2xl neo-glass border border-white/10 flex flex-wrap items-center gap-4 text-xs font-mono text-anime-cream/70">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-anime-green animate-pulse" />
                 <span className="text-anime-cream font-semibold">Package:</span>
                 <span className="text-anime-green font-bold">{OFFICIAL_LINKS.universalApkName}</span>
               </div>
@@ -119,10 +118,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
                     <span className="w-1.5 h-1.5 rounded-full bg-graphite-700" />
                     <span className="w-1.5 h-1.5 rounded-full bg-graphite-800" />
                   </div>
-                  <div className="flex items-center gap-0.5">
-                    <span className="w-0.5 h-2 bg-anime-green animate-pulse" />
-                    <span className="w-0.5 h-1.5 bg-anime-green animate-bounce" />
-                    <span className="w-0.5 h-2 bg-anime-green animate-pulse" />
+                  <div className="flex items-center gap-1">
+                    <span className="w-8 h-1 rounded-full bg-graphite-800" />
                   </div>
                 </div>
 

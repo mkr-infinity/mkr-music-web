@@ -8,7 +8,7 @@ export const DeveloperSection: React.FC = () => {
   return (
     <section className="py-20 relative overflow-hidden" aria-label="About the Crafter">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="neo-glass-card rounded-3xl p-8 sm:p-12 border border-white/10 relative overflow-hidden group">
+        <div className="neo-glass-card neo-glass-yellow-card rounded-3xl p-8 sm:p-12 border border-anime-yellow/30 hover:border-anime-yellow/60 relative overflow-hidden group">
           
           {/* Subtle Ambient Glow Behind Card */}
           <div

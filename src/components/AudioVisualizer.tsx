@@ -106,7 +106,7 @@ export const AudioVisualizer: React.FC = () => {
     <div className="w-full relative py-4 overflow-hidden select-none pointer-events-none">
       <div className="flex items-center justify-between text-[11px] font-mono text-anime-green/80 uppercase tracking-widest px-4 mb-2">
         <span className="flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-anime-green animate-ping" />
+          <span className="text-anime-green">◈</span>
           <span>Acoustic Frequency Monitor · 48 kHz High-Res</span>
         </span>
         <span className="text-anime-yellow/80">32-Bit Float DSP</span>

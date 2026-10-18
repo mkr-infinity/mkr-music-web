@@ -28,7 +28,7 @@ export const InteractiveEqualizer: React.FC = () => {
   };
 
   return (
-    <div className="neo-glass-card p-6 sm:p-8 rounded-3xl border border-white/10 relative overflow-hidden">
+    <div className="neo-glass-card p-6 sm:p-8 rounded-3xl border border-anime-green/30 hover:border-anime-green/60 relative overflow-hidden">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <div>

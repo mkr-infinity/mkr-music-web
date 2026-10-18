@@ -28,7 +28,7 @@ export const Requirements: React.FC = () => {
         {/* Specs Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           
-          <div className="neo-glass-card p-6 sm:p-8 flex flex-col justify-between">
+          <div className="neo-glass-card p-6 sm:p-8 flex flex-col justify-between border-anime-green/30 hover:border-anime-green/60">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-anime-green/15 text-anime-green flex items-center justify-center border border-anime-green/30 mb-6">
                 <Smartphone size={24} />
@@ -48,7 +48,7 @@ export const Requirements: React.FC = () => {
             </div>
           </div>
 
-          <div className="neo-glass-card p-6 sm:p-8 flex flex-col justify-between border-anime-yellow/20">
+          <div className="neo-glass-card neo-glass-yellow-card p-6 sm:p-8 flex flex-col justify-between border-anime-yellow/30 hover:border-anime-yellow/60">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-anime-yellow/15 text-anime-yellow flex items-center justify-center border border-anime-yellow/30 mb-6">
                 <HardDrive size={24} />
@@ -68,7 +68,7 @@ export const Requirements: React.FC = () => {
             </div>
           </div>
 
-          <div className="neo-glass-card p-6 sm:p-8 flex flex-col justify-between">
+          <div className="neo-glass-card p-6 sm:p-8 flex flex-col justify-between border-white/10 hover:border-anime-cream/40">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-anime-cream/15 text-anime-cream flex items-center justify-center border border-white/20 mb-6">
                 <Cpu size={24} />
@@ -90,7 +90,7 @@ export const Requirements: React.FC = () => {
         </div>
 
         {/* Open Source Banner */}
-        <div id="open-source" className="neo-glass-card p-8 sm:p-12 border border-white/10 relative overflow-hidden">
+        <div id="open-source" className="neo-glass-card p-8 sm:p-12 border border-anime-green/30 hover:border-anime-green/60 relative overflow-hidden">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-graphite-900 border border-white/10 text-xs font-mono text-anime-green mb-3">

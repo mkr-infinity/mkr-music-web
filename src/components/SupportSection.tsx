@@ -228,11 +228,11 @@ export const SupportSection: React.FC = () => {
               <X size={18} />
             </button>
 
-            {/* Pulsing Icon */}
+            {/* Appreciation Icon */}
             <div className="relative mx-auto w-16 h-16 mb-5 flex items-center justify-center">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-anime-green to-anime-yellow blur-md opacity-50 animate-pulse" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-anime-green to-anime-yellow blur-lg opacity-40" />
               <div className="relative w-full h-full rounded-2xl bg-graphite-950 border border-anime-green/40 flex items-center justify-center shadow-lg">
-                <HeartHandshake size={32} className="text-anime-green animate-bounce" />
+                <HeartHandshake size={32} className="text-anime-green" />
               </div>
             </div>
 

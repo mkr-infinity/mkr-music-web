@@ -28,11 +28,11 @@ export const Navbar: React.FC = () => {
     <header className="fixed top-0 inset-x-0 z-50 px-3 sm:px-6 pt-3 sm:pt-5 pointer-events-none flex justify-center">
       <div className="w-full max-w-5xl pointer-events-auto">
         <div
-          className={`flex items-center justify-between px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-300 ${
+          className={`neo-glass-navbar flex items-center justify-between px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-300 ${
             scrolled
-              ? 'bg-graphite-950/75 backdrop-blur-2xl border border-white/15 shadow-[0_20px_48px_-12px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(255,255,255,0.14)]'
-              : 'bg-graphite-950/50 backdrop-blur-xl border border-white/10 shadow-[0_12px_32px_-8px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.08)]'
-          } hover:border-anime-green/30 hover:shadow-[0_24px_54px_-10px_rgba(0,0,0,0.95),0_0_24px_-4px_rgba(34,197,94,0.18)]`}
+              ? 'opacity-100 shadow-[0_24px_50px_-12px_rgba(0,0,0,0.95)]'
+              : 'opacity-95'
+          }`}
         >
           {/* Brand Logo & Name */}
           <a
@@ -52,9 +52,8 @@ export const Navbar: React.FC = () => {
                 <span className="font-extrabold text-sm sm:text-base tracking-tight text-anime-cream group-hover:text-anime-green transition-colors leading-none">
                   MKR Music
                 </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-anime-green animate-pulse" />
               </div>
-              <span className="text-[9px] font-mono text-anime-cream/50 mt-0.5 hidden xs:inline">
+              <span className="text-[9px] font-mono text-anime-cream/60 mt-0.5 hidden xs:inline tracking-wider">
                 Sovereign Audio
               </span>
             </div>
@@ -68,9 +67,9 @@ export const Navbar: React.FC = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold text-anime-cream/75 hover:text-anime-cream hover:bg-white/[0.07] transition-all"
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold text-anime-cream/75 hover:text-anime-cream hover:bg-white/[0.08] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] transition-all duration-200"
                 >
-                  <Icon size={13} className="text-anime-green/80" />
+                  <Icon size={13} className="text-anime-green/80 group-hover:text-anime-green" />
                   <span>{item.label}</span>
                 </a>
               );
@@ -83,7 +82,7 @@ export const Navbar: React.FC = () => {
               href={OFFICIAL_LINKS.androidRepo}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-anime-cream/80 hover:text-anime-cream hover:border-anime-green/40 transition-all"
+              className="p-2 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/12 text-anime-cream/80 hover:text-anime-cream hover:border-anime-green/50 transition-all hover:scale-105"
               aria-label="GitHub Repository"
             >
               <GithubIcon size={15} />
@@ -92,7 +91,7 @@ export const Navbar: React.FC = () => {
             <a
               href={OFFICIAL_LINKS.universalApkDownload}
               download={OFFICIAL_LINKS.universalApkName}
-              className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full text-xs font-bold bg-gradient-to-r from-anime-green via-emerald-400 to-anime-green text-graphite-950 shadow-neo-glow-green hover:shadow-lg hover:shadow-anime-green/50 hover:brightness-110 active:scale-95 transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full text-xs font-bold bg-gradient-to-r from-anime-green via-emerald-400 to-anime-green text-graphite-950 shadow-[0_4px_16px_rgba(34,197,94,0.4),inset_0_1px_0_rgba(255,255,255,0.4)] hover:shadow-[0_8px_24px_rgba(34,197,94,0.6)] hover:brightness-110 active:scale-95 transition-all cursor-pointer"
             >
               <Download size={13} />
               <span>Download APK</span>
@@ -103,7 +102,7 @@ export const Navbar: React.FC = () => {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-full bg-white/[0.05] border border-white/10 text-anime-cream hover:text-anime-green transition-colors cursor-pointer"
+            className="md:hidden p-2 rounded-full bg-white/[0.06] border border-white/12 text-anime-cream hover:text-anime-green hover:bg-white/10 transition-colors cursor-pointer"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
             {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}

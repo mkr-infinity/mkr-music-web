@@ -169,7 +169,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
                       <span>{activeEngine.metric}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-anime-yellow animate-pulse" />
+                      <span className="text-anime-yellow text-xs">◈</span>
                       <span>{activeEngine.badge}</span>
                     </div>
                   </div>
@@ -255,11 +255,11 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
                 <div className="p-2.5 rounded-xl bg-graphite-900/90 border border-white/5 space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span className="text-anime-cream font-semibold text-xs truncate">Vinland Horizon</span>
-                    {/* Mini Equalizer Wave Animation */}
+                    {/* Mini Equalizer Wave */}
                     <div className="flex items-end gap-0.5 h-3">
-                      <span className="w-0.5 h-3 bg-anime-green animate-pulse" />
-                      <span className="w-0.5 h-1.5 bg-anime-green animate-bounce" />
-                      <span className="w-0.5 h-2.5 bg-anime-green animate-pulse" />
+                      <span className="w-0.5 h-3 bg-anime-green" />
+                      <span className="w-0.5 h-1.5 bg-anime-green" />
+                      <span className="w-0.5 h-2.5 bg-anime-green" />
                     </div>
                   </div>
                   <div className="text-[10px] text-anime-cream/50 truncate">MKR Acoustic Studio · Lossless</div>
@@ -278,7 +278,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
 
             <div className="pt-3 border-t border-white/5 text-[11px] font-mono text-anime-green flex items-center justify-between">
               <span>Native Discord Integration</span>
-              <Activity size={13} className="animate-pulse" />
+              <Activity size={13} />
             </div>
           </div>
 
@@ -328,7 +328,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
           {/* BENTO BLOCK 4: Automatic Artwork Monet Theming (Span 12 on mobile, 4 on desktop) */}
           <div
             onClick={() => onOpenScreenshot(12)}
-            className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group"
+            className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group border-anime-green/30 hover:border-anime-green/60"
           >
             <div>
               <div className="flex items-center justify-between mb-5">
@@ -368,7 +368,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
           {/* BENTO BLOCK 5: Synchronized Karaoke Lyrics (Span 12 on mobile, 4 on desktop) */}
           <div
             onClick={() => onOpenScreenshot(8)}
-            className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group"
+            className="md:col-span-12 lg:col-span-4 neo-glass-card neo-glass-yellow-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group border-anime-yellow/30 hover:border-anime-yellow/60"
           >
             <div>
               <div className="flex items-center justify-between mb-5">
@@ -391,7 +391,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
               <div className="p-3.5 rounded-2xl bg-graphite-950 border border-white/10 space-y-1.5 font-mono text-xs mb-4">
                 <div className="text-anime-cream/35 text-[11px]">In the quiet of the morning breeze...</div>
                 <div className="text-anime-yellow font-bold text-xs flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-anime-yellow animate-ping" />
+                  <span className="text-anime-yellow text-[10px]">▶</span>
                   <span>The song of freedom echoes clear</span>
                 </div>
                 <div className="text-anime-cream/35 text-[11px]">Beyond the horizons of the sea...</div>
@@ -407,7 +407,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
           {/* BENTO BLOCK 6: Apple-Inspired Fluid UI & Canvas Video (Span 12 on mobile, 6 on desktop) */}
           <div
             onClick={() => onOpenScreenshot(7)}
-            className="md:col-span-12 lg:col-span-6 neo-glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between cursor-pointer group"
+            className="md:col-span-12 lg:col-span-6 neo-glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between cursor-pointer group border-white/12 hover:border-anime-green/50"
           >
             <div>
               <div className="flex items-center justify-between mb-5">
@@ -449,7 +449,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
           </div>
 
           {/* BENTO BLOCK 7: Smart Delayed Caching (Span 12 on mobile, 6 on desktop) */}
-          <div className="md:col-span-12 lg:col-span-6 neo-glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between">
+          <div className="md:col-span-12 lg:col-span-6 neo-glass-card neo-glass-yellow-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between border-anime-yellow/30 hover:border-anime-yellow/60">
             <div>
               <div className="flex items-center justify-between mb-5">
                 <div className="w-11 h-11 rounded-2xl bg-anime-yellow/15 text-anime-yellow flex items-center justify-center border border-anime-yellow/30">
@@ -507,7 +507,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
           {/* BENTO BLOCK 8: Audiophile Lossless & DAC (Span 12 on mobile, 4 on desktop) */}
           <div
             onClick={() => onOpenScreenshot(10)}
-            className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group"
+            className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group border-anime-green/30 hover:border-anime-green/60"
           >
             <div>
               <div className="flex items-center justify-between mb-5">
@@ -542,7 +542,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
           {/* BENTO BLOCK 9: Listen Together (Span 12 on mobile, 4 on desktop) */}
           <div
             onClick={() => onOpenScreenshot(3)}
-            className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group"
+            className="md:col-span-12 lg:col-span-4 neo-glass-card neo-glass-yellow-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group border-anime-yellow/30 hover:border-anime-yellow/60"
           >
             <div>
               <div className="flex items-center justify-between mb-5">
@@ -563,7 +563,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
 
               <div className="p-3 rounded-2xl bg-graphite-950 border border-white/10 flex items-center justify-between font-mono text-xs mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-anime-green animate-ping" />
+                  <span className="w-2 h-2 rounded-full bg-anime-green/80" />
                   <span className="text-anime-cream font-bold">Room #MKR-892</span>
                 </div>
                 <span className="text-[10px] text-anime-yellow">3 Friends Synced</span>
@@ -579,7 +579,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
           {/* BENTO BLOCK 10: Zero Telemetry & Offline Vault (Span 12 on mobile, 4 on desktop) */}
           <div
             onClick={() => onOpenScreenshot(14)}
-            className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group"
+            className="md:col-span-12 lg:col-span-4 neo-glass-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer group border-white/12 hover:border-anime-cream/50"
           >
             <div>
               <div className="flex items-center justify-between mb-5">

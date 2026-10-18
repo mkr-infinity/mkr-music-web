@@ -183,7 +183,7 @@ export const ScreenshotGallery: React.FC<ScreenshotGalleryProps> = ({ onOpenScre
             <div
               key={item.file}
               onClick={() => onOpenScreenshot(item.originalIndex)}
-              className="neo-glass-card rounded-2xl sm:rounded-3xl p-2.5 sm:p-3 flex flex-col cursor-pointer group hover:scale-[1.02] transition-all"
+              className="neo-glass-card rounded-2xl sm:rounded-3xl p-2.5 sm:p-3 flex flex-col cursor-pointer group hover:-translate-y-2 hover:shadow-[0_24px_48px_-10px_rgba(0,0,0,0.95),0_0_24px_-4px_rgba(34,197,94,0.3)] transition-all duration-300"
             >
               <div className="relative aspect-[9/16] rounded-xl sm:rounded-2xl overflow-hidden bg-graphite-950 mb-3">
                 <img
