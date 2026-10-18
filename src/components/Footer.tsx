@@ -186,21 +186,12 @@ export const Footer: React.FC = () => {
         {/* Bottom Attribution */}
         <div className="pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ivory-500">
           <div>
-            Crafted with dedication by{' '}
-            <a
-              href="https://github.com/mkr-infinity"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-ivory-300 font-semibold hover:text-white transition-colors"
-            >
-              Mohammad Kaif Raja
-            </a>{' '}
-            ([@mkr-infinity](https://github.com/mkr-infinity))
+            © {new Date().getFullYear()} MKR Music. Sovereign Open-Source Audio Project.
           </div>
           <div className="flex items-center gap-4 text-[11px] font-mono">
             <span>Universal Latest</span>
             <span>•</span>
-            <span>GPL-3.0 Open-Source</span>
+            <span>GNU GPL-3.0 License</span>
           </div>
         </div>
       </div>

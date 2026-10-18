@@ -12,6 +12,7 @@ import { Disclaimer } from './components/Disclaimer';
 import { FAQ } from './components/FAQ';
 import { Footer } from './components/Footer';
 import { NotFound } from './components/NotFound';
+import { InteractiveBackground } from './components/InteractiveBackground';
 
 export const App: React.FC = () => {
   const [is404, setIs404] = useState(false);
@@ -29,7 +30,10 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-obsidian-950 text-ivory-100 selection:bg-sonic-gold/30 selection:text-white flex flex-col">
+    <div className="min-h-screen bg-obsidian-950 text-ivory-100 selection:bg-sonic-cyan/30 selection:text-white flex flex-col relative">
+      {/* Interactive Audio-Particle & Aurora Mesh Background */}
+      <InteractiveBackground />
+
       {/* Top Navigation */}
       <Navbar />
 

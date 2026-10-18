@@ -11,15 +11,15 @@ export const Disclaimer: React.FC = () => {
             <span>Independent Project & Trademark Disclaimer</span>
           </div>
 
-          <div className="space-y-3 leading-relaxed text-ivory-400">
+          <div className="space-y-3 leading-relaxed text-ivory-300">
             <p>
-              <strong className="text-white">MKR Music</strong> is an independent open-source audio player developed solely by <strong>Mohammad Kaif Raja</strong>. MKR Music is <strong className="text-white">not affiliated with, endorsed by, sponsored by, or funded by Google LLC, YouTube, JioSaavn, Spotify AB, or any of their respective subsidiaries or affiliates</strong>.
+              <strong className="text-white">MKR Music</strong> is an independent open-source audio player project. MKR Music is <strong className="text-white">not affiliated with, endorsed by, sponsored by, or funded by Google LLC, YouTube, JioSaavn, Spotify AB, or any of their respective subsidiaries or affiliates</strong>.
             </p>
             <p>
-              All music metadata, audio streams, cover artwork, artist names, and third-party trademarks belong exclusively to their respective copyright owners. This software is provided strictly for personal, educational, and fair-use listening under the terms of the GNU General Public License v3.0 (GPL-3.0).
+              All music metadata, audio streams, cover artwork, artist names, and third-party trademarks belong exclusively to their respective copyright owners. This software is provided strictly for personal, educational, and fair-use listening under the terms of the GNU General Public License v3.0 (GNU GPL-3.0).
             </p>
             <p>
-              <strong className="text-white">Website Privacy Notice:</strong> This website makes a direct, unauthenticated client-side GET request to the public GitHub Releases API (<code className="text-sonic-gold font-mono">api.github.com</code>) to retrieve the latest stable release download URL and APK file size. No cookies, trackers, advertising identifiers, or analytics services are used on this website or inside the MKR Music application.
+              <strong className="text-white">Website Privacy Notice:</strong> This website makes a direct, unauthenticated client-side GET request to the public GitHub Releases API (<code className="text-sonic-cyan font-mono">api.github.com</code>) to retrieve the latest stable release download URL and APK file size. No cookies, trackers, advertising identifiers, or analytics services are used on this website or inside the MKR Music application.
             </p>
           </div>
 
