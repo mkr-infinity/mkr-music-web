@@ -9,63 +9,57 @@ export default {
     extend: {
       colors: {
         graphite: {
-          950: '#090a0d', // Ultra dark obsidian graphite base
-          900: '#0e1015', // Deep graphite background
-          850: '#13161e', // Card background / surface
-          800: '#1a1d27', // Card border / hover surface
-          750: '#222634', // Secondary surface
-          700: '#2d3345',
-          600: '#424a63',
-          500: '#64708d',
+          950: '#090a0d', // Deep Nordic charcoal base
+          900: '#0f1116', // Dark earth tone
+          850: '#14171f', // Surface card
+          800: '#1b1f2a', // Elevated surface / border
+          750: '#232836',
+          700: '#2e3547',
+          600: '#434d65',
         },
         anime: {
           green: {
             DEFAULT: '#22c55e',
-            neon: '#00ff87',
+            moss: '#16a34a',
+            forest: '#15803d',
             light: '#4ade80',
-            mint: '#86efac',
-            dark: '#15803d',
-            glow: 'rgba(34, 197, 94, 0.4)',
+            glow: 'rgba(34, 197, 94, 0.35)',
           },
           yellow: {
             DEFAULT: '#facc15',
-            electric: '#ffe600',
             amber: '#fbbf24',
-            gold: '#f59e0b',
-            cream: '#fef08a',
-            glow: 'rgba(250, 204, 21, 0.4)',
+            gold: '#eab308',
+            wheat: '#fde047',
+            glow: 'rgba(250, 204, 21, 0.35)',
           },
           cream: {
             DEFAULT: '#fbf8ee',
+            parchment: '#f6f1df',
             pure: '#fdfbf7',
-            soft: '#f5f0dc',
-            warm: '#ece4c9',
-            muted: '#c7bea5',
-            dark: '#8c8269',
+            soft: '#ede5cf',
+            warm: '#dfd4b7',
+            muted: '#b5aa8d',
+            dark: '#7e7356',
           },
         },
       },
       fontFamily: {
         sans: ['Manrope', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
         display: ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
-        mono: ['DM Mono', 'JetBrains Mono', 'Fira Code', 'monospace'],
-        anime: ['"Zen Kaku Gothic New"', 'Manrope', 'sans-serif'],
+        mono: ['DM Mono', 'JetBrains Mono', 'monospace'],
       },
       boxShadow: {
-        'neo-glass': '0 8px 32px 0 rgba(0, 0, 0, 0.45)',
+        'neo-glass': '0 12px 36px 0 rgba(0, 0, 0, 0.55)',
         'neo-glow-green': '0 0 35px -5px rgba(34, 197, 94, 0.4)',
         'neo-glow-yellow': '0 0 35px -5px rgba(250, 204, 21, 0.35)',
         'neo-glow-cream': '0 0 35px -5px rgba(251, 248, 238, 0.25)',
-        'neo-card': '0 16px 40px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
-        'neo-card-hover': '0 20px 48px -10px rgba(0, 0, 0, 0.8), 0 0 25px -5px rgba(34, 197, 94, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.2)',
+        'neo-card': '0 16px 40px -10px rgba(0, 0, 0, 0.75), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
       },
       animation: {
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 5s ease-in-out infinite',
         'float-alt': 'float-alt 6s ease-in-out infinite',
-        'glow-pulse': 'glow-pulse 3s ease-in-out infinite alternate',
-        'spin-slow': 'spin 18s linear infinite',
-        'scanline': 'scanline 8s linear infinite',
+        'spin-slow': 'spin 22s linear infinite',
       },
       keyframes: {
         float: {
@@ -75,14 +69,6 @@ export default {
         'float-alt': {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(10px)' },
-        },
-        'glow-pulse': {
-          '0%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(34, 197, 94, 0.3))' },
-          '100%': { opacity: '0.9', filter: 'drop-shadow(0 0 25px rgba(250, 204, 21, 0.5))' },
-        },
-        scanline: {
-          '0%': { transform: 'translateY(-100%)' },
-          '100%': { transform: 'translateY(1000%)' },
         },
       },
     },

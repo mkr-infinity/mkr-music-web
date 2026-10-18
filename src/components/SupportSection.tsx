@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Heart,
   Copy,
@@ -56,6 +57,17 @@ export const SupportSection: React.FC = () => {
       setCopyError('Unable to copy automatically. Please copy the UPI ID manually.');
     }
   };
+
+  useEffect(() => {
+    if (!showThankYouModal) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setShowThankYouModal(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showThankYouModal]);
 
   return (
     <section id="support" className="py-24 md:py-32 relative overflow-hidden" aria-label="Support & Voluntary Contributions">
@@ -193,17 +205,17 @@ export const SupportSection: React.FC = () => {
         </p>
       </div>
 
-      {/* Celebratory Appreciation Modal */}
-      {showThankYouModal && (
+      {/* Celebratory Appreciation Modal (Portaled to body to guarantee center alignment on all viewports) */}
+      {showThankYouModal && typeof document !== 'undefined' && createPortal(
         <div
           role="dialog"
           aria-modal="true"
           aria-labelledby="thank-you-heading"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-graphite-950/90 backdrop-blur-2xl animate-in fade-in duration-200"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-graphite-950/85 backdrop-blur-xl animate-in fade-in duration-200"
           onClick={() => setShowThankYouModal(false)}
         >
           <div
-            className="relative w-full max-w-md p-6 sm:p-8 rounded-3xl neo-glass-card border border-anime-green/40 shadow-2xl overflow-hidden text-center"
+            className="relative w-full max-w-md p-6 sm:p-8 rounded-3xl neo-glass-card border border-anime-green/40 shadow-2xl overflow-hidden text-center m-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -255,7 +267,8 @@ export const SupportSection: React.FC = () => {
               You're Awesome! Close
             </button>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

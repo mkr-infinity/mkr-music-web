@@ -4,6 +4,7 @@ import { Hero } from './components/Hero';
 import { FeaturesShowcase } from './components/FeaturesShowcase';
 import { ScreenshotGallery, ScreenshotLightbox } from './components/ScreenshotGallery';
 import { Requirements } from './components/Requirements';
+import { DeveloperSection } from './components/DeveloperSection';
 import { SupportSection } from './components/SupportSection';
 import { StickyDownload } from './components/StickyDownload';
 import { Footer } from './components/Footer';
@@ -59,6 +60,10 @@ export function App() {
 
         <div className="reveal-item">
           <Requirements />
+        </div>
+
+        <div className="reveal-item">
+          <DeveloperSection />
         </div>
 
         <div className="reveal-item">

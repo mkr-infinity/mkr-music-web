@@ -101,7 +101,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
                 {/* Display Content: Clickable Real App Screenshot */}
                 <div
                   className="relative rounded-[28px] overflow-hidden cursor-pointer group/screen bg-graphite-950 aspect-[9/16]"
-                  onClick={() => onOpenScreenshot(3)} // opens immersive_player
+                  onClick={() => onOpenScreenshot(7)} // opens canvas_player.jpg
                   title="Click to view full screenshot"
                 >
                   <img
