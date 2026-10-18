@@ -37,30 +37,30 @@ The official website for **MKR Music**, a refined, Material Design, free & open-
 
 ### Prerequisites
 - Node.js `v18.0.0` or higher (tested on Node `v22.x`)
-- npm `v9.0.0` or higher
+- pnpm `v9.0.0` or higher
 
 ### Install Dependencies
 ```bash
-npm install
+pnpm install
 ```
 
 ### Start Development Server
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ### Typecheck & Production Build
 ```bash
 # Typecheck
-npm run typecheck
+pnpm run typecheck
 
 # Build for production (outputs to dist/)
-npm run build
+pnpm run build
 ```
 
 ### Preview Production Build
 ```bash
-npm run preview
+pnpm run preview
 ```
 
 ---
