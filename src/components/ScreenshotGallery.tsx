@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Eye, ArrowLeft, ArrowRight, X, Smartphone, Layers, Radio, Music, Sliders } from 'lucide-react';
-import { getAssetUrl } from '@/lib/assets';
+import { getAssetUrl, handleScreenshotError } from '@/lib/assets';
 
 export interface ScreenshotItem {
   title: string;
@@ -188,12 +188,7 @@ export const ScreenshotGallery: React.FC<ScreenshotGalleryProps> = ({ onOpenScre
               <div className="relative aspect-[9/16] rounded-xl sm:rounded-2xl overflow-hidden bg-graphite-950 mb-3">
                 <img
                   src={getAssetUrl(`assets/screenshots/${item.file}`)}
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (!target.src.includes('/assets/screenshots/')) {
-                      target.src = `./assets/screenshots/${item.file}`;
-                    }
-                  }}
+                  onError={(e) => handleScreenshotError(e, item.file)}
                   alt={item.alt}
                   loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -291,12 +286,7 @@ export const ScreenshotLightbox: React.FC<ScreenshotLightboxProps> = ({
         <div className="relative flex-1 min-h-0 flex items-center justify-center overflow-hidden my-auto py-1">
           <img
             src={getAssetUrl(`assets/screenshots/${current.file}`)}
-            onError={(e) => {
-              const target = e.currentTarget;
-              if (!target.src.includes('/assets/screenshots/')) {
-                target.src = `./assets/screenshots/${current.file}`;
-              }
-            }}
+            onError={(e) => handleScreenshotError(e, current.file)}
             alt={current.alt}
             className="max-h-[64vh] sm:max-h-[72vh] w-auto max-w-full object-contain rounded-xl shadow-2xl mx-auto block"
           />

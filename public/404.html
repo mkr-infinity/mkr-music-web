@@ -72,7 +72,7 @@
   </head>
   <body>
     <div class="card">
-      <img src="./favicon.jpg" alt="MKR Music" class="logo" />
+      <img src="./favicon.jpg" onerror="if(!this.src.endsWith('/mkr-music/favicon.jpg')){this.src='/mkr-music/favicon.jpg';}else if(!this.src.includes('mkr-music-logo.jpg')){this.src='./assets/branding/mkr-music-logo.jpg';}" alt="MKR Music" class="logo" />
       <span class="badge">[ 404 · TRACK NOT FOUND ]</span>
       <h1>Out of Range</h1>
       <p>The frequency you are searching for does not exist or has moved. Return to the main station to resume playback.</p>

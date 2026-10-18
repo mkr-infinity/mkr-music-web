@@ -19,7 +19,7 @@ import {
   Volume2,
   CheckCircle2
 } from 'lucide-react';
-import { getAssetUrl } from '@/lib/assets';
+import { getAssetUrl, handleScreenshotError, handleDeveloperAvatarError } from '@/lib/assets';
 import {
   DiscordIcon,
   LastfmIcon,
@@ -184,12 +184,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
                   >
                     <img
                       src={getAssetUrl(`assets/screenshots/${activeEngine.file}`)}
-                      onError={(e) => {
-                        const target = e.currentTarget;
-                        if (!target.src.includes('/assets/screenshots/')) {
-                          target.src = `./assets/screenshots/${activeEngine.file}`;
-                        }
-                      }}
+                      onError={(e) => handleScreenshotError(e, activeEngine.file)}
                       alt={activeEngine.title}
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover/thumb:scale-105"
@@ -245,6 +240,7 @@ export const FeaturesShowcase: React.FC<FeaturesShowcaseProps> = ({ onOpenScreen
                   <div className="relative w-10 h-10 rounded-full bg-graphite-900 border border-white/15 overflow-hidden flex-shrink-0">
                     <img
                       src={getAssetUrl('assets/developer_avatar.png')}
+                      onError={handleDeveloperAvatarError}
                       alt="Discord Avatar"
                       className="w-full h-full object-cover"
                     />

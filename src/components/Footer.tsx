@@ -7,7 +7,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { OFFICIAL_LINKS } from '@/lib/release';
-import { APP_LOGO } from '@/lib/assets';
+import { APP_LOGO, handleLogoError } from '@/lib/assets';
 import { GithubIcon, InstagramIcon, TelegramIcon } from './BrandIcons';
 
 export const Footer: React.FC = () => {
@@ -28,12 +28,7 @@ export const Footer: React.FC = () => {
               <div className="w-10 h-10 rounded-full p-0.5 bg-gradient-to-tr from-anime-green via-anime-yellow to-anime-cream shadow-neo-glow-green overflow-hidden">
                 <img
                   src={APP_LOGO}
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (!target.src.endsWith('/favicon.jpg')) {
-                      target.src = './favicon.jpg';
-                    }
-                  }}
+                  onError={handleLogoError}
                   alt="MKR Music"
                   className="w-full h-full object-cover rounded-full"
                 />

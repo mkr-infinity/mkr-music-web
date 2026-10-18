@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Download } from 'lucide-react';
 import { OFFICIAL_LINKS } from '@/lib/release';
-import { APP_LOGO } from '@/lib/assets';
+import { APP_LOGO, handleLogoError } from '@/lib/assets';
 
 export const StickyDownload: React.FC = () => {
   const [visible, setVisible] = useState(false);
@@ -37,12 +37,7 @@ export const StickyDownload: React.FC = () => {
         <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-full overflow-hidden flex-shrink-0 border border-white/20 bg-graphite-950">
           <img
             src={APP_LOGO}
-            onError={(e) => {
-              const target = e.currentTarget;
-              if (!target.src.endsWith('/favicon.jpg')) {
-                target.src = './favicon.jpg';
-              }
-            }}
+            onError={handleLogoError}
             alt="MKR Music"
             className="w-full h-full object-cover"
           />

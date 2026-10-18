@@ -1,7 +1,7 @@
 import React from 'react';
 import { Download, ArrowRight, Disc3, Zap, Headphones, Sliders, Shield, Layers, Radio } from 'lucide-react';
 import { OFFICIAL_LINKS } from '@/lib/release';
-import { getAssetUrl, APP_LOGO } from '@/lib/assets';
+import { getAssetUrl, APP_LOGO, handleScreenshotError } from '@/lib/assets';
 import { GithubIcon, SpotifyIcon, YouTubeMusicIcon } from './BrandIcons';
 import { AudioVisualizer } from './AudioVisualizer';
 
@@ -134,12 +134,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
                 >
                   <img
                     src={getAssetUrl('assets/screenshots/canvas_player.jpg')}
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      if (!target.src.includes('/assets/screenshots/')) {
-                        target.src = './assets/screenshots/canvas_player.jpg';
-                      }
-                    }}
+                    onError={(e) => handleScreenshotError(e, 'canvas_player.jpg')}
                     alt="MKR Music Canvas Player interface"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover/screen:scale-105"
                   />

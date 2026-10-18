@@ -1,7 +1,7 @@
 import React from 'react';
 import { ExternalLink, Globe } from 'lucide-react';
 import { OFFICIAL_LINKS } from '@/lib/release';
-import { getAssetUrl } from '@/lib/assets';
+import { getAssetUrl, handleDeveloperAvatarError } from '@/lib/assets';
 import { GithubIcon, InstagramIcon, TelegramIcon } from './BrandIcons';
 
 export const DeveloperSection: React.FC = () => {
@@ -24,12 +24,7 @@ export const DeveloperSection: React.FC = () => {
                 <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-3xl p-1 bg-gradient-to-tr from-anime-green via-anime-yellow to-anime-cream shadow-neo-card overflow-hidden transition-transform duration-300 group-hover/pic:scale-105">
                   <img
                     src="https://avatars.githubusercontent.com/u/125804924?v=4"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      if (!target.src.includes('developer_avatar.png')) {
-                        target.src = getAssetUrl('assets/developer_avatar.png');
-                      }
-                    }}
+                    onError={handleDeveloperAvatarError}
                     alt="Mohammad Kaif Raja (mkr-infinity)"
                     className="w-full h-full object-cover rounded-[22px]"
                   />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Download, Menu, X, ExternalLink, Music, Disc, Sliders, Smartphone, Heart } from 'lucide-react';
 import { OFFICIAL_LINKS } from '@/lib/release';
-import { APP_LOGO } from '@/lib/assets';
+import { APP_LOGO, handleLogoError } from '@/lib/assets';
 import { GithubIcon } from './BrandIcons';
 
 export const Navbar: React.FC = () => {
@@ -42,12 +42,7 @@ export const Navbar: React.FC = () => {
             <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full p-0.5 bg-gradient-to-tr from-anime-green via-anime-yellow to-anime-cream shadow-neo-glow-green transition-transform duration-300 group-hover:scale-105 overflow-hidden">
               <img
                 src={APP_LOGO}
-                onError={(e) => {
-                  const target = e.currentTarget;
-                  if (!target.src.endsWith('/favicon.jpg')) {
-                    target.src = './favicon.jpg';
-                  }
-                }}
+                onError={handleLogoError}
                 alt="MKR Music logo"
                 className="w-full h-full object-cover rounded-full"
               />
