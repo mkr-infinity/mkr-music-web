@@ -1,37 +1,140 @@
-import React from 'react';
-import { Download, ArrowRight, Disc3, Zap, Headphones, Sliders, Shield, Layers, Radio } from 'lucide-react';
+import React, { useState } from 'react';
+import { Download, ArrowRight, Disc3, Zap, Headphones, Sliders, Shield, Layers, Radio, Monitor, Palette } from 'lucide-react';
 import { OFFICIAL_LINKS } from '@/lib/release';
-import { getAssetUrl, APP_LOGO, handleScreenshotError, SOLO_LEVELING_BG, handleSoloLevelingBgError } from '@/lib/assets';
+import { getAssetUrl, APP_LOGO, handleScreenshotError, VINLAND_SAGA_ASSETS, handleVinlandBgError } from '@/lib/assets';
 import { GithubIcon, SpotifyIcon, YouTubeMusicIcon } from './BrandIcons';
 import { AudioVisualizer } from './AudioVisualizer';
+
+type VinlandStyle = 'duality' | 'dawn' | 'emerald' | 'obsidian';
+type DesktopViewMode = 'auto' | 'ultrawide' | 'studio' | 'laptop';
 
 interface HeroProps {
   onOpenScreenshot: (index: number) => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
+  const [artStyle, setArtStyle] = useState<VinlandStyle>('duality');
+  const [viewMode, setViewMode] = useState<DesktopViewMode>('auto');
+
+  const getContainerClasses = () => {
+    if (viewMode === 'ultrawide') {
+      return 'vinland-ultrawide-mask max-w-[2600px] mx-auto';
+    }
+    if (viewMode === 'studio') {
+      return 'max-w-[1920px] mx-auto';
+    }
+    if (viewMode === 'laptop') {
+      return 'max-w-[1440px] mx-auto';
+    }
+    // auto responsive for desktop displays
+    return '2xl:vinland-ultrawide-mask 2xl:max-w-[2600px] mx-auto';
+  };
+
+  const getImageClasses = () => {
+    const base = 'transform-gpu transition-all duration-700 ease-out';
+    if (viewMode === 'ultrawide') {
+      return `${base} object-[50%_35%] scale-100 opacity-55 lg:opacity-65`;
+    }
+    if (viewMode === 'studio') {
+      return `${base} object-[52%_30%] scale-105 opacity-50 lg:opacity-60`;
+    }
+    if (viewMode === 'laptop') {
+      return `${base} object-[58%_25%] scale-100 opacity-45 lg:opacity-55`;
+    }
+    // auto responsive
+    return `${base} object-[center_28%] sm:object-[54%_28%] lg:object-[58%_25%] xl:object-[52%_32%] 2xl:object-[50%_35%] scale-100 sm:scale-105 opacity-45 sm:opacity-55 lg:opacity-60`;
+  };
+
+  const renderAmbientAura = () => {
+    switch (artStyle) {
+      case 'dawn':
+        return (
+          <>
+            <div className="absolute inset-0 vinland-dawn-ambient pointer-events-none" />
+            <div className="absolute top-1/6 right-1/4 w-[650px] h-[550px] bg-anime-yellow/18 rounded-full blur-[150px] pointer-events-none" />
+            <div className="absolute -top-20 left-1/3 w-[500px] h-[450px] bg-amber-500/12 rounded-full blur-[140px] pointer-events-none" />
+          </>
+        );
+      case 'emerald':
+        return (
+          <>
+            <div className="absolute inset-0 vinland-emerald-ambient pointer-events-none" />
+            <div className="absolute -top-20 left-1/4 w-[650px] h-[550px] bg-anime-green/20 rounded-full blur-[150px] pointer-events-none" />
+            <div className="absolute top-1/4 right-1/5 w-[500px] h-[450px] bg-emerald-400/14 rounded-full blur-[140px] pointer-events-none" />
+          </>
+        );
+      case 'obsidian':
+        return (
+          <>
+            <div className="absolute inset-0 vinland-obsidian-ambient pointer-events-none" />
+            <div className="absolute inset-0 bg-graphite-950/45 pointer-events-none" />
+          </>
+        );
+      case 'duality':
+      default:
+        return (
+          <>
+            <div className="absolute inset-0 vinland-duality-ambient pointer-events-none" />
+            {/* Young Thorfinn fiery crimson & obsidian shadow on left */}
+            <div className="absolute -top-20 left-6 sm:left-12 w-[550px] h-[500px] bg-red-600/14 rounded-full blur-[160px] pointer-events-none" />
+            {/* Peaceful Farmland Thorfinn golden wheat & sovereign emerald glow on right */}
+            <div className="absolute top-1/5 right-6 sm:right-12 w-[600px] h-[550px] bg-anime-yellow/16 rounded-full blur-[150px] pointer-events-none" />
+            <div className="absolute -bottom-10 right-1/3 w-[500px] h-[400px] bg-anime-green/12 rounded-full blur-[130px] pointer-events-none" />
+          </>
+        );
+    }
+  };
+
   return (
     <section className="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden">
-      {/* Solo Leveling Anime Aesthetic Hero Wallpaper Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
-        <img
-          src={SOLO_LEVELING_BG}
-          onError={handleSoloLevelingBgError}
-          alt="Solo Leveling anime listening music aesthetic"
-          role="presentation"
-          className="w-full h-full object-cover object-[center_30%] sm:object-center opacity-40 sm:opacity-50 scale-100 sm:scale-105 transform-gpu transition-all duration-1000"
-        />
-        {/* Cinematic Vignette, Dark Obsidian & Emerald Fog Gradients for Crisp Typography */}
-        <div className="absolute inset-0 bg-gradient-to-t from-graphite-950 via-graphite-950/70 to-graphite-950/35" />
-        <div className="absolute inset-0 bg-gradient-to-r from-graphite-950/95 via-graphite-950/65 to-graphite-950/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_0%,rgba(8,8,9,0.6)_55%,#080809_100%)]" />
-        {/* Subtle glowing emerald and golden acoustic mist */}
-        <div className="absolute -top-24 left-1/4 w-[600px] h-[500px] bg-anime-green/10 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute top-1/4 -right-16 w-[500px] h-[500px] bg-anime-yellow/10 rounded-full blur-[130px] pointer-events-none" />
+      {/* Vinland Saga Desktop Responsive Hero Background */}
+      <div className={`absolute inset-0 z-0 pointer-events-none select-none overflow-hidden ${getContainerClasses()}`}>
+        <picture className="w-full h-full block">
+          {/* Ultrawide 21:9 & 4K displays (3840px+) */}
+          <source
+            media="(min-width: 1920px)"
+            srcSet={`${VINLAND_SAGA_ASSETS.ultrawideWebp} 3840w, ${VINLAND_SAGA_ASSETS.qhdWebp} 2560w`}
+            type="image/webp"
+          />
+          {/* QHD / 1440p standard desktop monitors (1280px - 1920px) */}
+          <source
+            media="(min-width: 1280px)"
+            srcSet={`${VINLAND_SAGA_ASSETS.qhdWebp} 2560w, ${VINLAND_SAGA_ASSETS.fhdWebp} 1920w`}
+            type="image/webp"
+          />
+          {/* Laptop 16:10 / FHD desktop screens (768px - 1280px) */}
+          <source
+            media="(min-width: 768px)"
+            srcSet={`${VINLAND_SAGA_ASSETS.laptopWebp} 1440w, ${VINLAND_SAGA_ASSETS.fhdWebp} 1920w`}
+            type="image/webp"
+          />
+          {/* Compact viewports */}
+          <source srcSet={VINLAND_SAGA_ASSETS.laptopWebp} type="image/webp" />
+          {/* High-res JPEG fallbacks */}
+          <source media="(min-width: 1440px)" srcSet={VINLAND_SAGA_ASSETS.qhdJpg} type="image/jpeg" />
+          <source srcSet={VINLAND_SAGA_ASSETS.fhdJpg} type="image/jpeg" />
+          {/* Base image element */}
+          <img
+            src={VINLAND_SAGA_ASSETS.qhdJpg}
+            onError={handleVinlandBgError}
+            alt="Vinland Saga Thorfinn Duality"
+            role="presentation"
+            className={`w-full h-full object-cover ${getImageClasses()}`}
+          />
+        </picture>
+
+        {/* Ambient Mood Aura */}
+        {renderAmbientAura()}
+
+        {/* Multi-stop Contrast Gradients for Razor-Sharp Text Readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-graphite-950 via-graphite-950/70 to-graphite-950/35 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-graphite-950/95 via-graphite-950/65 to-graphite-950/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_0%,rgba(8,8,9,0.55)_55%,#080809_100%)] pointer-events-none" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+
           
           {/* Left Column: Copy & Actions */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
@@ -195,8 +298,73 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
           </div>
         </div>
 
+        {/* Desktop Device Profile & Aesthetic Style Selector */}
+        <div className="mt-14 pt-6 pb-2 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-5 text-xs font-mono">
+          {/* Device Profile */}
+          <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
+            <span className="text-anime-cream/60 uppercase text-[11px] tracking-wider flex items-center gap-1.5 font-semibold">
+              <Monitor size={14} className="text-anime-yellow" />
+              <span>Desktop Framing:</span>
+            </span>
+            <div className="inline-flex p-1 rounded-xl bg-graphite-900/90 border border-white/10 backdrop-blur-md">
+              {(
+                [
+                  { id: 'auto', label: 'Auto (Responsive)' },
+                  { id: 'ultrawide', label: 'Ultrawide 21:9' },
+                  { id: 'studio', label: 'Studio 16:9' },
+                  { id: 'laptop', label: 'Laptop 16:10' },
+                ] as const
+              ).map(({ id, label }) => (
+                <button
+                  key={id}
+                  onClick={() => setViewMode(id)}
+                  className={`px-3 py-1.5 rounded-lg transition-all font-medium text-[11px] cursor-pointer ${
+                    viewMode === id
+                      ? 'bg-anime-yellow/20 text-anime-yellow border border-anime-yellow/40 shadow-sm font-semibold'
+                      : 'text-anime-cream/60 hover:text-anime-cream hover:bg-white/5 border border-transparent'
+                  }`}
+                  title={`Apply ${label} desktop presentation style`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Aesthetic Aura */}
+          <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
+            <span className="text-anime-cream/60 uppercase text-[11px] tracking-wider flex items-center gap-1.5 font-semibold">
+              <Palette size={14} className="text-anime-green" />
+              <span>Vinland Aesthetic:</span>
+            </span>
+            <div className="inline-flex p-1 rounded-xl bg-graphite-900/90 border border-white/10 backdrop-blur-md">
+              {(
+                [
+                  { id: 'duality', label: '◈ Duality' },
+                  { id: 'dawn', label: '◈ Golden Dawn' },
+                  { id: 'emerald', label: '◈ Sovereign Emerald' },
+                  { id: 'obsidian', label: '◈ Pure Obsidian' },
+                ] as const
+              ).map(({ id, label }) => (
+                <button
+                  key={id}
+                  onClick={() => setArtStyle(id)}
+                  className={`px-3 py-1.5 rounded-lg transition-all font-medium text-[11px] cursor-pointer ${
+                    artStyle === id
+                      ? 'bg-anime-green/20 text-anime-green border border-anime-green/40 shadow-sm font-semibold'
+                      : 'text-anime-cream/60 hover:text-anime-cream hover:bg-white/5 border border-transparent'
+                  }`}
+                  title={`Switch to ${label} visual aesthetic`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Embedded Audio Visualizer */}
-        <div className="mt-16 md:mt-24 pt-8 border-t border-white/5">
+        <div className="mt-8 pt-8 border-t border-white/5">
           <AudioVisualizer />
         </div>
       </div>
