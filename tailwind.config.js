@@ -9,12 +9,24 @@ export default {
     extend: {
       colors: {
         obsidian: {
-          950: '#090d20', // Rich deep cosmic midnight sapphire (eliminates harsh black)
-          900: '#0e1533', // Royal indigo obsidian
-          850: '#141d44',
-          800: '#1b2656',
-          750: '#23316e',
-          700: '#2c3c86',
+          950: '#07080c', // Pure cinematic obsidian
+          900: '#0c0e14', // Deep velvet night
+          850: '#12151e',
+          800: '#191d29',
+          750: '#212635',
+          700: '#2a3142',
+        },
+        cinematic: {
+          crimson: '#991b1b', // Deep blood crimson from Silent Soul
+          blood: '#7f1d1d',
+          wine: '#450a0a',
+          vermilion: '#ea580c',
+          gold: '#f59e0b',    // Sunset gold from MKR Music banner
+          amber: '#d97706',
+          copper: '#b45309',
+          champagne: '#fef3c7',
+          charcoal: '#161922',
+          smoke: '#232836',
         },
         sonic: {
           gold: '#f59e0b',
@@ -29,17 +41,19 @@ export default {
           sky: '#38bdf8',
         },
         ivory: {
-          50: '#fafafa',
-          100: '#f4f4f6',
-          200: '#e5e7eb',
-          300: '#d1d5db',
-          400: '#9ca3af',
-          500: '#6b7280',
+          50: '#fdfbf7',
+          100: '#f5f2eb',
+          200: '#e7e3d8',
+          300: '#c9c4b7',
+          400: '#9e998c',
+          500: '#6e695d',
         }
       },
       fontFamily: {
+        cinzel: ['Cinzel', 'serif'],
+        serif: ['Playfair Display', 'serif'],
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        display: ['Cal Sans', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['Cinzel', 'Playfair Display', 'Inter', 'serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       boxShadow: {

@@ -25,7 +25,7 @@ export const AudioVisualizerWidget: React.FC = () => {
       <div
         className={`absolute -inset-1 rounded-2xl transition-opacity duration-700 blur-xl pointer-events-none -z-10 ${
           isPlaying
-            ? 'opacity-30 bg-gradient-to-r from-sonic-cyan via-sonic-violet to-sonic-gold'
+            ? 'opacity-30 bg-gradient-to-r from-amber-600 via-rose-900 to-amber-500'
             : 'opacity-0'
         }`}
       />
@@ -34,7 +34,7 @@ export const AudioVisualizerWidget: React.FC = () => {
         {/* Play / Pause Toggle Button */}
         <button
           onClick={() => setIsPlaying(!isPlaying)}
-          className="flex-shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br from-white/15 to-white/5 hover:from-sonic-cyan hover:to-sonic-violet text-white flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-white/25 shadow-lg group/btn focus:outline-none focus:ring-2 focus:ring-sonic-cyan"
+          className="flex-shrink-0 w-11 h-11 rounded-xl bg-gradient-to-br from-white/10 to-white/5 hover:from-amber-500/20 hover:to-red-900/30 text-white hover:text-amber-300 flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-amber-500/40 shadow-lg group/btn focus:outline-none focus:ring-2 focus:ring-amber-500"
           aria-label={isPlaying ? 'Pause visualizer simulation' : 'Play visualizer simulation'}
         >
           {isPlaying ? (
@@ -54,10 +54,10 @@ export const AudioVisualizerWidget: React.FC = () => {
                 style={{
                   height: isPlaying ? `${height}%` : '15%',
                   background: isPlaying
-                    ? `linear-gradient(to top, rgba(6, 182, 212, 0.6), rgba(139, 92, 246, 0.9))`
+                    ? `linear-gradient(to top, rgba(217, 119, 6, 0.7), rgba(245, 158, 11, 0.95))`
                     : 'rgba(255, 255, 255, 0.1)',
                   boxShadow: isPlaying && height > 60
-                    ? `0 0 10px rgba(139, 92, 246, 0.5)`
+                    ? `0 0 10px rgba(245, 158, 11, 0.4)`
                     : 'none',
                 }}
               />
@@ -68,7 +68,7 @@ export const AudioVisualizerWidget: React.FC = () => {
         {/* Live Status Badge */}
         <div className="flex-shrink-0 flex items-center gap-2 pl-2 border-l border-white/10 text-right">
           <div className="flex flex-col items-end">
-            <span className="text-[10px] font-mono tracking-wider uppercase text-sonic-cyan flex items-center gap-1 font-semibold">
+            <span className="text-[10px] font-mono tracking-wider uppercase text-amber-400 flex items-center gap-1 font-semibold">
               <span className={`w-1.5 h-1.5 rounded-full ${isPlaying ? 'bg-sonic-emerald animate-ping' : 'bg-ivory-500'}`} />
               {isPlaying ? '320 KBPS LIVE' : 'PAUSED'}
             </span>

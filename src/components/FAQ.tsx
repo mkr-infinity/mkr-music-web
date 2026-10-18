@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, ExternalLink, HelpCircle } from 'lucide-react';
+import { ChevronDown, ExternalLink } from 'lucide-react';
 import { FAQItem } from '../types';
 
 export const FAQ: React.FC = () => {
@@ -46,13 +46,14 @@ export const FAQ: React.FC = () => {
     <section id="faq" className="py-24 md:py-32 relative overflow-hidden" aria-label="Frequently Asked Questions">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <div className="neo-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sonic-cyan text-xs font-mono uppercase tracking-widest mb-4">
-            <HelpCircle className="w-3.5 h-3.5" /> Answers & Clarifications
+          <div className="cinematic-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-amber-300 text-xs font-kicker mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+            <span>— QUESTIONS & CLARIFICATIONS</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-6">
+          <h2 className="font-cinematic text-3xl sm:text-5xl font-black tracking-tight text-white mb-6">
             Frequently Asked Questions
           </h2>
-          <p className="text-base sm:text-lg text-ivory-300">
+          <p className="text-base sm:text-lg text-[#c9c4b7]">
             Everything you need to know about installation, privacy, streaming engines, and contributions.
           </p>
         </div>
@@ -63,20 +64,20 @@ export const FAQ: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="rounded-2xl neo-glass border border-white/10 overflow-hidden transition-all duration-300 hover:border-sonic-cyan/40 shadow-xl"
+                className="rounded-2xl cinematic-card border border-white/10 overflow-hidden transition-all duration-300 hover:border-amber-500/40 shadow-xl"
               >
                 <button
                   type="button"
                   onClick={() => toggle(idx)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-sonic-cyan group"
+                  className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 group"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-base font-semibold text-white group-hover:text-sonic-cyan transition-colors pr-4">
+                  <span className="font-cinematic text-base font-semibold text-white group-hover:text-amber-300 transition-colors pr-4">
                     {faq.question}
                   </span>
                   <div
-                    className={`p-2 rounded-xl bg-white/[0.04] text-ivory-400 group-hover:text-white transition-all duration-300 ${
-                      isOpen ? 'rotate-180 bg-sonic-cyan/15 text-sonic-cyan border border-sonic-cyan/30' : ''
+                    className={`p-2 rounded-xl bg-white/[0.04] text-[#9e998c] group-hover:text-white transition-all duration-300 ${
+                      isOpen ? 'rotate-180 bg-amber-500/15 text-amber-300 border border-amber-500/30' : ''
                     }`}
                   >
                     <ChevronDown className="w-4 h-4" />
@@ -84,7 +85,7 @@ export const FAQ: React.FC = () => {
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-6 pt-1 text-sm text-ivory-300 leading-relaxed border-t border-white/[0.06] animate-in fade-in duration-200">
+                  <div className="px-6 pb-6 pt-1 text-sm text-[#c9c4b7] leading-relaxed border-t border-white/[0.06] animate-in fade-in duration-200">
                     <p>{faq.answer}</p>
                   </div>
                 )}
@@ -94,15 +95,15 @@ export const FAQ: React.FC = () => {
         </div>
 
         {/* Contributing Link */}
-        <div className="text-center mt-12 p-6 rounded-2xl glass-panel border border-white/10 max-w-xl mx-auto">
-          <p className="text-sm text-ivory-300 mb-3">
+        <div className="text-center mt-12 p-6 rounded-2xl cinematic-card border border-amber-500/20 max-w-xl mx-auto">
+          <p className="text-sm text-[#c9c4b7] mb-3">
             Have a question not listed here or want to propose a feature?
           </p>
           <a
             href="https://github.com/mkr-infinity/mkr-music/issues"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-xs font-semibold text-sonic-cyan hover:underline"
+            className="inline-flex items-center gap-2 text-xs font-semibold text-amber-400 hover:text-amber-300 transition-colors"
           >
             <span>Open an Issue or Discussion on GitHub</span>
             <ExternalLink className="w-3.5 h-3.5" />

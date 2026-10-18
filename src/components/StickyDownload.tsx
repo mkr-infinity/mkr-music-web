@@ -32,15 +32,15 @@ export const StickyDownload: React.FC = () => {
     >
       <a
         href={release.downloadUrl}
-        className="flex items-center gap-2.5 px-5 py-3.5 rounded-full bg-gradient-to-r from-sonic-cyan via-sonic-sky to-sonic-violet text-white font-semibold text-sm shadow-2xl shadow-cyan-500/30 hover:scale-105 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-white border border-white/20"
+        className="flex items-center gap-2.5 px-6 py-3.5 rounded-full cinematic-button text-amber-950 font-cinematic uppercase tracking-widest text-xs font-bold shadow-2xl shadow-amber-500/30 hover:scale-105 active:scale-95 transition-all focus:outline-none focus:ring-2 focus:ring-amber-400 border border-amber-300/40"
         download={release.status === 'success' ? 'mkr-music-universal.apk' : undefined}
         aria-label="Download Universal Latest APK"
       >
         <Download className="w-4 h-4 animate-bounce" />
-        <span className="hidden sm:inline">Download Universal APK</span>
+        <span className="hidden sm:inline">Get Universal APK</span>
         <span className="sm:hidden">Get APK</span>
         {release.fileSize && (
-          <span className="text-[11px] px-2 py-0.5 rounded-full bg-white/20 font-mono">
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-black/15 font-mono">
             {release.fileSize}
           </span>
         )}

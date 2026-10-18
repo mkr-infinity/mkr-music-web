@@ -13,6 +13,7 @@ import { FAQ } from './components/FAQ';
 import { Footer } from './components/Footer';
 import { NotFound } from './components/NotFound';
 import { InteractiveBackground } from './components/InteractiveBackground';
+import { CustomCursor } from './components/CustomCursor';
 
 export const App: React.FC = () => {
   const [is404, setIs404] = useState(false);
@@ -30,8 +31,11 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-transparent text-ivory-100 selection:bg-sonic-cyan/30 selection:text-white flex flex-col relative">
-      {/* Interactive Audio-Particle & Aurora Mesh Background */}
+    <div className="min-h-screen bg-transparent text-ivory-100 selection:bg-amber-500/30 selection:text-white flex flex-col relative">
+      {/* Lag-free Desktop Cursor Companion & Ember Ring */}
+      <CustomCursor />
+
+      {/* Interactive Audio Tension Strings, Parallax Artwork & Ember Background */}
       <InteractiveBackground />
 
       {/* Top Navigation */}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, ChevronLeft, ChevronRight, Eye, Sparkles } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
 import { ScreenshotItem } from '../types';
 import { TiltCard } from './TiltCard';
 
@@ -9,15 +9,15 @@ export const ScreenshotGallery: React.FC = () => {
   const modalCloseBtnRef = useRef<HTMLButtonElement | null>(null);
 
   const categoryColors: Record<string, { text: string; bg: string; border: string; glow: string }> = {
-    Browse: { text: 'text-sonic-cyan', bg: 'bg-sonic-cyan/10', border: 'border-sonic-cyan/25', glow: 'rgba(6, 182, 212, 0.2)' },
-    Discovery: { text: 'text-sonic-sky', bg: 'bg-sonic-sky/10', border: 'border-sonic-sky/25', glow: 'rgba(56, 189, 248, 0.2)' },
-    Playback: { text: 'text-sonic-violet', bg: 'bg-sonic-violet/10', border: 'border-sonic-violet/25', glow: 'rgba(139, 92, 246, 0.2)' },
-    Visuals: { text: 'text-sonic-pink', bg: 'bg-sonic-pink/10', border: 'border-sonic-pink/25', glow: 'rgba(236, 72, 153, 0.2)' },
-    Lyrics: { text: 'text-sonic-amber', bg: 'bg-sonic-amber/10', border: 'border-sonic-amber/25', glow: 'rgba(251, 191, 36, 0.2)' },
-    Acoustics: { text: 'text-sonic-emerald', bg: 'bg-sonic-emerald/10', border: 'border-sonic-emerald/25', glow: 'rgba(16, 185, 129, 0.2)' },
-    Preferences: { text: 'text-ivory-300', bg: 'bg-white/[0.06]', border: 'border-white/10', glow: 'rgba(255, 255, 255, 0.1)' },
-    Customization: { text: 'text-sonic-fuchsia', bg: 'bg-sonic-fuchsia/10', border: 'border-sonic-fuchsia/25', glow: 'rgba(217, 70, 239, 0.2)' },
-    Storage: { text: 'text-sonic-indigo', bg: 'bg-sonic-indigo/10', border: 'border-sonic-indigo/25', glow: 'rgba(99, 102, 241, 0.2)' },
+    Browse: { text: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/25', glow: 'rgba(245, 158, 11, 0.2)' },
+    Discovery: { text: 'text-amber-300', bg: 'bg-amber-400/10', border: 'border-amber-400/25', glow: 'rgba(251, 191, 36, 0.2)' },
+    Playback: { text: 'text-rose-400', bg: 'bg-rose-500/10', border: 'border-rose-500/25', glow: 'rgba(225, 29, 72, 0.2)' },
+    Visuals: { text: 'text-orange-400', bg: 'bg-orange-500/10', border: 'border-orange-500/25', glow: 'rgba(234, 88, 12, 0.2)' },
+    Lyrics: { text: 'text-amber-300', bg: 'bg-amber-500/10', border: 'border-amber-500/25', glow: 'rgba(245, 158, 11, 0.2)' },
+    Acoustics: { text: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/25', glow: 'rgba(16, 185, 129, 0.2)' },
+    Preferences: { text: 'text-[#c9c4b7]', bg: 'bg-white/[0.06]', border: 'border-white/10', glow: 'rgba(255, 255, 255, 0.1)' },
+    Customization: { text: 'text-amber-300', bg: 'bg-amber-500/10', border: 'border-amber-500/25', glow: 'rgba(245, 158, 11, 0.2)' },
+    Storage: { text: 'text-rose-300', bg: 'bg-rose-500/10', border: 'border-rose-500/25', glow: 'rgba(244, 63, 94, 0.2)' },
   };
 
   const screenshots: ScreenshotItem[] = [
@@ -178,14 +178,15 @@ export const ScreenshotGallery: React.FC = () => {
     <section id="gallery" className="py-24 md:py-32 relative overflow-hidden" aria-label="Screenshot Gallery">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-sonic-pink text-xs font-mono uppercase tracking-widest mb-4 backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5" /> High-Resolution Showcase
+          <div className="cinematic-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-amber-300 text-xs font-kicker mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+            <span>— AUTHENTIC INTERFACE GALLERY</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-6">
-            Crafted for Android. Built with Precision.
+          <h2 className="font-cinematic text-3xl sm:text-5xl font-black tracking-tight text-white mb-6">
+            Crafted with Precision
           </h2>
-          <p className="text-base sm:text-lg text-ivory-300">
-            Hover to experience 3D perspective, or click any screenshot to inspect the application in high-resolution clarity.
+          <p className="text-base sm:text-lg text-[#c9c4b7]">
+            Hover to experience 3D depth, or click any screenshot to inspect the application in high-resolution clarity.
           </p>
         </div>
 
@@ -200,13 +201,13 @@ export const ScreenshotGallery: React.FC = () => {
                 spotlightColor={colors.glow}
                 className="h-full"
               >
-                <div className="h-full neo-glass rounded-3xl p-4 sm:p-5 border border-white/10 hover:border-white/20 transition-all duration-300 shadow-2xl flex flex-col justify-between group">
+                <div className="h-full cinematic-card rounded-3xl p-4 sm:p-5 border border-amber-500/15 hover:border-amber-500/35 transition-all duration-300 shadow-2xl flex flex-col justify-between group">
                   <div className="mb-3.5 px-1 flex items-center justify-between">
                     <div>
-                      <h3 className="text-base font-bold text-white group-hover:text-sonic-cyan transition-colors">
+                      <h3 className="font-cinematic text-base font-bold text-white group-hover:text-amber-300 transition-colors">
                         {item.title}
                       </h3>
-                      <p className="text-xs text-ivory-400 mt-0.5 line-clamp-1">
+                      <p className="text-xs text-[#9e998c] mt-0.5 line-clamp-1">
                         {item.subtitle}
                       </p>
                     </div>
@@ -221,7 +222,7 @@ export const ScreenshotGallery: React.FC = () => {
                   <button
                     type="button"
                     onClick={(e) => handleOpen(idx, e.currentTarget)}
-                    className="relative rounded-2xl overflow-hidden bg-obsidian-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-sonic-cyan group/btn w-full block shadow-2xl"
+                    className="relative rounded-2xl overflow-hidden bg-[#090b10] focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 group/btn w-full block shadow-2xl"
                     aria-label={`View full size ${item.title}`}
                   >
                     <img
@@ -230,9 +231,9 @@ export const ScreenshotGallery: React.FC = () => {
                       className="w-full h-auto object-cover transform group-hover/btn:scale-[1.03] transition-transform duration-500"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-obsidian-950/40 opacity-0 group-hover/btn:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
-                      <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-obsidian-950 font-semibold text-xs shadow-xl">
-                        <Eye className="w-3.5 h-3.5" />
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/btn:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                      <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-black font-semibold text-xs shadow-xl">
+                        <Eye className="w-3.5 h-3.5 text-amber-600" />
                         <span>Inspect Full Size</span>
                       </div>
                     </div>
@@ -255,7 +256,7 @@ export const ScreenshotGallery: React.FC = () => {
           {/* Top Bar Actions */}
           <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10 max-w-5xl mx-auto">
             <div className="flex items-center gap-3">
-              <span className="text-xs font-mono text-sonic-cyan px-3 py-1 rounded-full bg-white/[0.08] border border-white/10">
+              <span className="text-xs font-mono text-amber-400 px-3 py-1 rounded-full bg-white/[0.08] border border-white/10">
                 {selectedIdx + 1} / {screenshots.length}
               </span>
               <div className="hidden sm:block text-left">
@@ -271,7 +272,7 @@ export const ScreenshotGallery: React.FC = () => {
             <button
               ref={modalCloseBtnRef}
               onClick={handleClose}
-              className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-sonic-cyan"
+              className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400"
               aria-label="Close image viewer (Escape)"
             >
               <X className="w-5 h-5" />
@@ -281,7 +282,7 @@ export const ScreenshotGallery: React.FC = () => {
           {/* Navigation Controls */}
           <button
             onClick={handlePrev}
-            className="absolute left-2 sm:left-6 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-sonic-cyan"
+            className="absolute left-2 sm:left-6 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-amber-400"
             aria-label="Previous screenshot (Left Arrow)"
           >
             <ChevronLeft className="w-6 h-6" />
@@ -298,7 +299,7 @@ export const ScreenshotGallery: React.FC = () => {
 
           <button
             onClick={handleNext}
-            className="absolute right-2 sm:right-6 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-sonic-cyan"
+            className="absolute right-2 sm:right-6 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-amber-400"
             aria-label="Next screenshot (Right Arrow)"
           >
             <ChevronRight className="w-6 h-6" />
