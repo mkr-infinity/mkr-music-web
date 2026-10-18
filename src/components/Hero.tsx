@@ -11,7 +11,7 @@ export const Hero: React.FC = () => {
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden" aria-label="Hero">
       {/* Central Moving Light Refraction */}
       <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] md:w-[1100px] md:h-[550px] bg-gradient-to-tr from-sonic-cyan/20 via-sonic-violet/20 to-sonic-pink/15 rounded-full blur-[140px] pointer-events-none -z-10 animate-aurora"
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] md:w-[1100px] md:h-[550px] bg-gradient-to-tr from-sonic-cyan/35 via-sonic-violet/30 to-sonic-pink/25 rounded-full blur-[130px] mix-blend-screen pointer-events-none -z-10 animate-aurora"
         aria-hidden="true"
       />
 

@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
-import { Coffee, Copy, Check, Heart, QrCode, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Coffee, Copy, Check, Heart, QrCode, Sparkles, X, HeartHandshake } from 'lucide-react';
 import { TiltCard } from './TiltCard';
 
 export const SupportSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
   const upiId = 'mkr-infinity@ybl';
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setShowThankYou(false);
+      }
+    };
+    if (showThankYou) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showThankYou]);
 
   const handleCopyUpi = async () => {
     try {
@@ -21,7 +34,8 @@ export const SupportSection: React.FC = () => {
         document.body.removeChild(textarea);
       }
       setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
+      setShowThankYou(true);
+      setTimeout(() => setCopied(false), 3000);
     } catch {
       setCopied(false);
     }
@@ -127,6 +141,78 @@ export const SupportSection: React.FC = () => {
           All financial contributions are voluntary and directly support continuous open-source feature development and releases.
         </div>
       </div>
+
+      {/* Celebratory Thank-You Modal for UPI Supporters */}
+      {showThankYou && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="thank-you-title"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-obsidian-950/80 backdrop-blur-xl animate-in fade-in duration-300"
+          onClick={() => setShowThankYou(false)}
+        >
+          <div
+            className="relative w-full max-w-md p-8 sm:p-10 rounded-3xl neo-glass border border-emerald-500/40 shadow-2xl overflow-hidden text-center transform animate-in zoom-in-95 duration-300"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Ambient colorful glow behind modal */}
+            <div
+              className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 bg-gradient-to-tr from-emerald-500/25 via-pink-500/20 to-sonic-cyan/25 rounded-full blur-3xl pointer-events-none"
+              aria-hidden="true"
+            />
+
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setShowThankYou(false)}
+              className="absolute top-4 right-4 p-2 rounded-full text-ivory-400 hover:text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-sonic-emerald"
+              aria-label="Close thank-you modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Animated Pulsing Heart Icon */}
+            <div className="relative mx-auto w-20 h-20 mb-6 flex items-center justify-center">
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-emerald-400 via-pink-500 to-sonic-gold blur-lg opacity-60 animate-pulse" />
+              <div className="relative w-full h-full rounded-3xl bg-obsidian-900 border border-white/20 flex items-center justify-center shadow-xl">
+                <HeartHandshake className="w-10 h-10 text-emerald-400 animate-bounce" />
+              </div>
+            </div>
+
+            {/* Title & Grateful Message */}
+            <h3 id="thank-you-title" className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
+              Thank You So Much! ❤️
+            </h3>
+            <p className="text-sm text-ivory-200 leading-relaxed mb-6">
+              Your voluntary backing directly powers MKR Music’s independent development, keeping it <span className="text-emerald-400 font-semibold">100% ad-free</span>, private, and continuously updated for music lovers everywhere.
+            </p>
+
+            {/* Copied UPI Pill */}
+            <div className="p-3.5 rounded-2xl bg-obsidian-950/90 border border-emerald-500/40 flex items-center justify-between mb-5 font-mono text-sm">
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-emerald-400 stroke-[3]" />
+                <span className="text-emerald-300 font-semibold">{upiId}</span>
+              </div>
+              <span className="text-[11px] font-semibold text-emerald-400 px-2 py-0.5 rounded-full bg-emerald-500/15">
+                Copied!
+              </span>
+            </div>
+
+            <p className="text-xs text-ivory-400 mb-6">
+              Open your preferred UPI app (Google Pay, PhonePe, Paytm, or BHIM) and paste to contribute.
+            </p>
+
+            {/* Acknowledgment Dismiss Button */}
+            <button
+              type="button"
+              onClick={() => setShowThankYou(false)}
+              className="w-full neo-button py-3.5 px-6 rounded-2xl font-bold text-sm text-white hover:text-emerald-300 transition-all shadow-lg shadow-emerald-500/20"
+            >
+              You're Awesome! Close
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

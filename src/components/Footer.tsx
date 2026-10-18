@@ -81,7 +81,7 @@ export const Footer: React.FC = () => {
           {/* Quick Navigation */}
           <div>
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4 font-mono">
-              Product
+              App
             </h4>
             <ul className="space-y-2.5 text-xs">
               <li>
@@ -91,7 +91,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a href="#story" className="hover:text-sonic-cyan transition-colors">
-                  Product Story
+                  App Story
                 </a>
               </li>
               <li>

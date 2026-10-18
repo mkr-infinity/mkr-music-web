@@ -121,7 +121,7 @@ export const ProductStory: React.FC = () => {
   const current = steps[activeStep];
 
   return (
-    <section id="story" className="py-24 md:py-32 relative overflow-hidden" aria-label="Product Story">
+    <section id="story" className="py-24 md:py-32 relative overflow-hidden" aria-label="App Story">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <div className="neo-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sonic-violet text-xs font-mono uppercase tracking-widest mb-4">

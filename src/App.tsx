@@ -30,7 +30,7 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-obsidian-950 text-ivory-100 selection:bg-sonic-cyan/30 selection:text-white flex flex-col relative">
+    <div className="min-h-screen bg-transparent text-ivory-100 selection:bg-sonic-cyan/30 selection:text-white flex flex-col relative">
       {/* Interactive Audio-Particle & Aurora Mesh Background */}
       <InteractiveBackground />
 
@@ -42,7 +42,7 @@ export const App: React.FC = () => {
         {/* Hero Section */}
         <Hero />
 
-        {/* Immersive Product Storytelling */}
+        {/* Immersive App Storytelling */}
         <ProductStory />
 
         {/* Signature Features Showcase */}

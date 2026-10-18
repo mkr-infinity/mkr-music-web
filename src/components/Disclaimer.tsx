@@ -3,9 +3,9 @@ import { AlertTriangle, ShieldCheck, Scale, FileText } from 'lucide-react';
 
 export const Disclaimer: React.FC = () => {
   return (
-    <section className="py-16 bg-obsidian-900 border-t border-white/[0.06] text-xs text-ivory-400" aria-label="Privacy and Legal Disclaimer">
+    <section className="py-16 bg-transparent border-t border-white/[0.08] text-xs text-ivory-400" aria-label="Privacy and Legal Disclaimer">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 rounded-2xl bg-obsidian-950 border border-white/[0.06] space-y-6">
+        <div className="p-8 rounded-3xl neo-glass border border-white/[0.1] space-y-6">
           <div className="flex items-center gap-2 text-sonic-amber font-semibold uppercase tracking-wider text-[11px]">
             <AlertTriangle className="w-4 h-4 flex-shrink-0" />
             <span>Independent Project & Trademark Disclaimer</span>

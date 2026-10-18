@@ -9,12 +9,12 @@ export default {
     extend: {
       colors: {
         obsidian: {
-          950: '#040507',
-          900: '#080a0f',
-          850: '#0e111a',
-          800: '#141824',
-          750: '#1a2030',
-          700: '#232a3f',
+          950: '#090d20', // Rich deep cosmic midnight sapphire (eliminates harsh black)
+          900: '#0e1533', // Royal indigo obsidian
+          850: '#141d44',
+          800: '#1b2656',
+          750: '#23316e',
+          700: '#2c3c86',
         },
         sonic: {
           gold: '#f59e0b',
