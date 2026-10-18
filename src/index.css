@@ -4,8 +4,8 @@
 
 :root {
   color-scheme: dark;
-  --bg-graphite: #08090b;
-  --bg-card: #11131a;
+  --bg-graphite: #080809;
+  --bg-card: #121214;
   --color-green: #22c55e;
   --color-yellow: #facc15;
   --color-cream: #fbf8ee;
@@ -13,13 +13,13 @@
 
 body {
   margin: 0;
-  background-color: #08090b;
+  background-color: #080809;
   background-image: 
-    radial-gradient(circle at 18% 12%, rgba(34, 197, 94, 0.12) 0%, transparent 42%),
-    radial-gradient(circle at 82% 18%, rgba(250, 204, 21, 0.1) 0%, transparent 45%),
-    radial-gradient(circle at 50% 55%, rgba(22, 163, 74, 0.07) 0%, transparent 50%),
-    radial-gradient(circle at 85% 85%, rgba(251, 248, 238, 0.05) 0%, transparent 45%),
-    linear-gradient(to bottom, #08090b 0%, #0d0f14 50%, #08090b 100%);
+    radial-gradient(circle at 18% 12%, rgba(34, 197, 94, 0.10) 0%, transparent 45%),
+    radial-gradient(circle at 82% 18%, rgba(250, 204, 21, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 50% 55%, rgba(22, 163, 74, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 85% 85%, rgba(251, 248, 238, 0.03) 0%, transparent 45%),
+    linear-gradient(to bottom, #080809 0%, #0c0d0e 50%, #080809 100%);
   background-attachment: fixed;
   color: #fbf8ee;
   font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -27,55 +27,97 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar - Warm Graphite */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #08090b;
+  background: #080809;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1b1e28;
+  background: #1c1c1f;
   border-radius: 9999px;
-  border: 1px solid rgba(250, 204, 21, 0.2);
+  border: 1px solid rgba(250, 204, 21, 0.18);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #262b3a;
-  border-color: rgba(34, 197, 94, 0.4);
+  background: #27272b;
+  border-color: rgba(34, 197, 94, 0.35);
 }
 
-/* Neo-Glassmorphism Styles */
+/* 21st.dev-Inspired Frosted Glass */
 .neo-glass {
-  background: rgba(17, 20, 27, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(14, 15, 17, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.12);
 }
 
+/* 21st.dev-Inspired Luminous Glowing Cards */
 .neo-glass-card {
-  background: linear-gradient(145deg, rgba(19, 23, 31, 0.82) 0%, rgba(12, 14, 19, 0.88) 100%);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  position: relative;
+  background: linear-gradient(145deg, rgba(18, 19, 21, 0.85) 0%, rgba(11, 11, 13, 0.92) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.88), inset 0 1px 1px rgba(255, 255, 255, 0.12);
   border-radius: 1.5rem;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Luminous gradient border highlight on hover */
+.neo-glass-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.35) 0%,
+    rgba(250, 204, 21, 0.2) 40%,
+    rgba(255, 255, 255, 0.04) 75%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.55;
+  transition: opacity 0.35s ease, filter 0.35s ease;
+}
+
 .neo-glass-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(34, 197, 94, 0.35);
-  box-shadow: 0 24px 56px -12px rgba(0, 0, 0, 0.9), 0 0 28px -4px rgba(34, 197, 94, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.95), 0 0 32px -4px rgba(34, 197, 94, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.neo-glass-card:hover::before {
+  opacity: 1;
+  filter: drop-shadow(0 0 5px rgba(34, 197, 94, 0.4));
+}
+
+/* Amber/Wheat Variant */
+.neo-glass-yellow-card::before {
+  background: linear-gradient(
+    135deg,
+    rgba(250, 204, 21, 0.45) 0%,
+    rgba(34, 197, 94, 0.2) 40%,
+    rgba(255, 255, 255, 0.04) 75%,
+    transparent 100%
+  );
 }
 
 .neo-glass-yellow-card:hover {
-  border-color: rgba(250, 204, 21, 0.4);
-  box-shadow: 0 24px 56px -12px rgba(0, 0, 0, 0.9), 0 0 28px -4px rgba(250, 204, 21, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.95), 0 0 32px -4px rgba(250, 204, 21, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.neo-glass-yellow-card:hover::before {
+  filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.45));
 }
 
 /* 3D Perspective and Scrollable Cards */

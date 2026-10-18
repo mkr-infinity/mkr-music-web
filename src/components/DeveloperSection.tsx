@@ -7,27 +7,27 @@ import { GithubIcon, InstagramIcon, TelegramIcon } from './BrandIcons';
 export const DeveloperSection: React.FC = () => {
   return (
     <section className="py-20 relative overflow-hidden" aria-label="About the Crafter">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="neo-glass-card rounded-3xl p-8 sm:p-12 border border-white/10 relative overflow-hidden">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="neo-glass-card rounded-3xl p-8 sm:p-12 border border-white/10 relative overflow-hidden group">
           
           {/* Subtle Ambient Glow Behind Card */}
           <div
-            className="absolute -top-24 right-0 w-80 h-80 bg-gradient-to-bl from-anime-yellow/15 via-anime-green/10 to-transparent rounded-full blur-3xl pointer-events-none"
+            className="absolute -top-24 right-0 w-80 h-80 bg-gradient-to-bl from-anime-yellow/12 via-anime-green/10 to-transparent rounded-full blur-3xl pointer-events-none"
             aria-hidden="true"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
             
-            {/* Crafter Picture */}
+            {/* Crafter Picture - Official GitHub Avatar */}
             <div className="md:col-span-4 flex justify-center md:justify-start">
-              <div className="relative group">
-                <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-3xl p-1 bg-gradient-to-tr from-anime-green via-anime-yellow to-anime-cream shadow-neo-card overflow-hidden transition-transform duration-300 group-hover:scale-105">
+              <div className="relative group/pic">
+                <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-3xl p-1 bg-gradient-to-tr from-anime-green via-anime-yellow to-anime-cream shadow-neo-card overflow-hidden transition-transform duration-300 group-hover/pic:scale-105">
                   <img
-                    src={getAssetUrl('assets/developer_anime.png')}
+                    src="https://avatars.githubusercontent.com/u/125804924?v=4"
                     onError={(e) => {
                       const target = e.currentTarget;
-                      if (!target.src.includes('avatars.githubusercontent.com')) {
-                        target.src = 'https://avatars.githubusercontent.com/u/125804924?v=4';
+                      if (!target.src.includes('developer_avatar.png')) {
+                        target.src = getAssetUrl('assets/developer_avatar.png');
                       }
                     }}
                     alt="Mohammad Kaif Raja (mkr-infinity)"
@@ -75,7 +75,7 @@ export const DeveloperSection: React.FC = () => {
                 Dedicated independent software crafter passionate about sovereign listening, Android performance engineering, and acoustic precision. Creator and maintainer of MKR Music.
               </p>
 
-              {/* Developer Links */}
+              {/* Developer Links (Pure graphite & warm green/yellow borders) */}
               <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
                 <a
                   href={OFFICIAL_LINKS.devGitHub}
@@ -102,7 +102,7 @@ export const DeveloperSection: React.FC = () => {
                   href={OFFICIAL_LINKS.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-graphite-900 hover:bg-graphite-800 text-anime-cream border border-white/10 hover:border-pink-500/40 text-xs font-semibold transition-all"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-graphite-900 hover:bg-graphite-800 text-anime-cream border border-white/10 hover:border-anime-yellow/40 text-xs font-semibold transition-all"
                 >
                   <InstagramIcon size={14} />
                   <span>Instagram</span>

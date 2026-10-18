@@ -9,13 +9,14 @@ export default {
     extend: {
       colors: {
         graphite: {
-          950: '#090a0d', // Deep Nordic charcoal base
-          900: '#0f1116', // Dark earth tone
-          850: '#14171f', // Surface card
-          800: '#1b1f2a', // Elevated surface / border
-          750: '#232836',
-          700: '#2e3547',
-          600: '#434d65',
+          950: '#080809', // Deep Nordic charcoal base (zero blue)
+          900: '#0e0f10', // Dark earth tone
+          850: '#141416', // Surface card
+          800: '#1c1c1f', // Elevated surface / border
+          750: '#242428',
+          700: '#2f2f35',
+          600: '#46464e',
+          500: '#64646e',
         },
         anime: {
           green: {
@@ -49,11 +50,12 @@ export default {
         mono: ['DM Mono', 'JetBrains Mono', 'monospace'],
       },
       boxShadow: {
-        'neo-glass': '0 12px 36px 0 rgba(0, 0, 0, 0.55)',
+        'neo-glass': '0 12px 36px 0 rgba(0, 0, 0, 0.75)',
         'neo-glow-green': '0 0 35px -5px rgba(34, 197, 94, 0.4)',
         'neo-glow-yellow': '0 0 35px -5px rgba(250, 204, 21, 0.35)',
         'neo-glow-cream': '0 0 35px -5px rgba(251, 248, 238, 0.25)',
-        'neo-card': '0 16px 40px -10px rgba(0, 0, 0, 0.75), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
+        'neo-card': '0 16px 40px -10px rgba(0, 0, 0, 0.85), inset 0 1px 0 0 rgba(255, 255, 255, 0.12)',
+        'glass-inner': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.14)',
       },
       animation: {
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',

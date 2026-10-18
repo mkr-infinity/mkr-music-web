@@ -6,16 +6,17 @@ The official website for **MKR Music**, a refined, Material Design, free & open-
 
 ## ✨ Features & Highlights
 
-- **Anime Neo-Glassmorphism Visuals**: Translucent frosted glass cards, layered borders, ambient cyber glows, and Japanese anime badges.
+- **Anime Neo-Glassmorphism Visuals**: 21st.dev-inspired floating glass cards with glowing borders, magnetic cursor grid background, and warm Vinland Saga palette (moss green, amber gold, parchment cream, and dark graphite).
+- **Tri-Engine 3-in-1 Streaming**: Import Spotify playlists without Premium, sync YouTube Music accounts, and stream JioSaavn regional audio simultaneously.
+- **Discord Rich Presence & Last.fm**: Real-time listening broadcast to Discord and native background Last.fm scrobbler.
 - **Instant Audio Playback**: Bypasses initial cache write buffer lag to start track streaming immediately upon click.
 - **Configurable Smart Caching (5s–90s)**: Only caches tracks you genuinely enjoy; skipped tracks are discarded to preserve local storage.
 - **Interactive 10-Band Equalizer**: Live in-browser DSP parametric frequency sliders (31Hz–16kHz) with sound presets (Anime Pop, Bass Punch, Vocal Clarity, Studio Hi-Res, Flat).
 - **Interactive Audio Visualizer**: 60fps canvas frequency monitor with gradient peaks and ambient reaction.
-- **12 Authentic App Screenshots**: Full-resolution mobile interface gallery with category filters and keyboard-accessible lightbox.
+- **15 Authentic App Screenshots**: Full-resolution mobile interface gallery with category filters and keyboard-accessible uncropped lightbox.
 - **Floating Sticky APK Download**: Responsive bottom-right floating pill that appears on scroll for 1-tap download of `mkr-music-universal.apk`.
-- **Live GitHub Release Engine**: Live verification from GitHub API with local caching and direct asset downloading.
-- **Voluntary Support Section**: 1-click verified UPI copy (`mkr-infinity@ybl`) with an appreciation modal and Buy Me a Coffee integration.
-- **Multi-Host Ready**: Pre-configured with relative base paths (`./`) and SPA rewrites for instant deployment to **GitHub Pages**, **Vercel**, and **Netlify**.
+- **Voluntary Support Section**: 1-click verified UPI copy (`mkr-infinity@ybl`) with a dead-center appreciation modal and Buy Me a Coffee integration.
+- **Multi-Host Ready**: Automated GitHub Actions workflow (`.github/workflows/deploy.yml`), relative base paths (`./`), and SPA rewrites for instant deployment to **GitHub Pages**, **Vercel**, and **Netlify**.
 
 ---
 
