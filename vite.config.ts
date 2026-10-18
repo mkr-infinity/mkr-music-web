@@ -1,10 +1,16 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   base: './',
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
@@ -14,14 +20,19 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          lucide: ['lucide-react']
-        }
-      }
-    }
+          lucide: ['lucide-react'],
+        },
+      },
+    },
+  },
+  server: {
+    port: 5000,
+    host: '0.0.0.0',
+    allowedHosts: true,
   },
   preview: {
-    host: true,
-    port: 4173,
-    allowedHosts: true
-  }
+    port: 5000,
+    host: '0.0.0.0',
+    allowedHosts: true,
+  },
 });

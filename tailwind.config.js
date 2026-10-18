@@ -8,89 +8,84 @@ export default {
   theme: {
     extend: {
       colors: {
-        obsidian: {
-          950: '#07080c', // Pure cinematic obsidian
-          900: '#0c0e14', // Deep velvet night
-          850: '#12151e',
-          800: '#191d29',
-          750: '#212635',
-          700: '#2a3142',
+        graphite: {
+          950: '#090a0d', // Ultra dark obsidian graphite base
+          900: '#0e1015', // Deep graphite background
+          850: '#13161e', // Card background / surface
+          800: '#1a1d27', // Card border / hover surface
+          750: '#222634', // Secondary surface
+          700: '#2d3345',
+          600: '#424a63',
+          500: '#64708d',
         },
-        cinematic: {
-          crimson: '#991b1b', // Deep blood crimson from Silent Soul
-          blood: '#7f1d1d',
-          wine: '#450a0a',
-          vermilion: '#ea580c',
-          gold: '#f59e0b',    // Sunset gold from MKR Music banner
-          amber: '#d97706',
-          copper: '#b45309',
-          champagne: '#fef3c7',
-          charcoal: '#161922',
-          smoke: '#232836',
+        anime: {
+          green: {
+            DEFAULT: '#22c55e',
+            neon: '#00ff87',
+            light: '#4ade80',
+            mint: '#86efac',
+            dark: '#15803d',
+            glow: 'rgba(34, 197, 94, 0.4)',
+          },
+          yellow: {
+            DEFAULT: '#facc15',
+            electric: '#ffe600',
+            amber: '#fbbf24',
+            gold: '#f59e0b',
+            cream: '#fef08a',
+            glow: 'rgba(250, 204, 21, 0.4)',
+          },
+          cream: {
+            DEFAULT: '#fbf8ee',
+            pure: '#fdfbf7',
+            soft: '#f5f0dc',
+            warm: '#ece4c9',
+            muted: '#c7bea5',
+            dark: '#8c8269',
+          },
         },
-        sonic: {
-          gold: '#f59e0b',
-          amber: '#fbbf24',
-          emerald: '#10b981',
-          crimson: '#ef4444',
-          indigo: '#6366f1',
-          cyan: '#06b6d4',
-          violet: '#8b5cf6',
-          fuchsia: '#d946ef',
-          pink: '#ec4899',
-          sky: '#38bdf8',
-        },
-        ivory: {
-          50: '#fdfbf7',
-          100: '#f5f2eb',
-          200: '#e7e3d8',
-          300: '#c9c4b7',
-          400: '#9e998c',
-          500: '#6e695d',
-        }
       },
       fontFamily: {
-        cinzel: ['Cinzel', 'serif'],
-        serif: ['Playfair Display', 'serif'],
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        display: ['Cinzel', 'Playfair Display', 'Inter', 'serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        sans: ['Manrope', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['DM Mono', 'JetBrains Mono', 'Fira Code', 'monospace'],
+        anime: ['"Zen Kaku Gothic New"', 'Manrope', 'sans-serif'],
       },
       boxShadow: {
-        'glow-cyan': '0 0 50px -10px rgba(6, 182, 212, 0.35)',
-        'glow-violet': '0 0 50px -10px rgba(139, 92, 246, 0.35)',
-        'glow-gold': '0 0 50px -10px rgba(245, 158, 11, 0.35)',
-        'glow-emerald': '0 0 50px -10px rgba(16, 185, 129, 0.35)',
-        'glow-pink': '0 0 50px -10px rgba(236, 72, 153, 0.35)',
+        'neo-glass': '0 8px 32px 0 rgba(0, 0, 0, 0.45)',
+        'neo-glow-green': '0 0 35px -5px rgba(34, 197, 94, 0.4)',
+        'neo-glow-yellow': '0 0 35px -5px rgba(250, 204, 21, 0.35)',
+        'neo-glow-cream': '0 0 35px -5px rgba(251, 248, 238, 0.25)',
+        'neo-card': '0 16px 40px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
+        'neo-card-hover': '0 20px 48px -10px rgba(0, 0, 0, 0.8), 0 0 25px -5px rgba(34, 197, 94, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 0.2)',
       },
       animation: {
-        'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'float-slow': 'float 6s ease-in-out infinite',
-        'float-reverse': 'float-reverse 7s ease-in-out infinite',
-        'wave': 'wave 1.5s ease-in-out infinite alternate',
-        'aurora': 'aurora 18s ease infinite alternate',
-        'spin-slow': 'spin 20s linear infinite',
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'float': 'float 5s ease-in-out infinite',
+        'float-alt': 'float-alt 6s ease-in-out infinite',
+        'glow-pulse': 'glow-pulse 3s ease-in-out infinite alternate',
+        'spin-slow': 'spin 18s linear infinite',
+        'scanline': 'scanline 8s linear infinite',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-12px)' },
+          '50%': { transform: 'translateY(-10px)' },
         },
-        'float-reverse': {
+        'float-alt': {
           '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(12px)' },
+          '50%': { transform: 'translateY(10px)' },
         },
-        wave: {
-          '0%': { height: '20%' },
-          '100%': { height: '100%' },
+        'glow-pulse': {
+          '0%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(34, 197, 94, 0.3))' },
+          '100%': { opacity: '0.9', filter: 'drop-shadow(0 0 25px rgba(250, 204, 21, 0.5))' },
         },
-        aurora: {
-          '0%': { transform: 'translate(0px, 0px) scale(1)' },
-          '50%': { transform: 'translate(30px, -20px) scale(1.08)' },
-          '100%': { transform: 'translate(-20px, 25px) scale(0.96)' },
-        }
-      }
+        scanline: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(1000%)' },
+        },
+      },
     },
   },
   plugins: [],
-}
+};

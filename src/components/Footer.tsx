@@ -1,206 +1,258 @@
 import React from 'react';
-import { GitBranch, Heart, Globe, Send } from 'lucide-react';
+import {
+  Globe,
+  Coffee,
+  ArrowUp,
+  Download,
+  ExternalLink
+} from 'lucide-react';
+import { OFFICIAL_LINKS } from '@/lib/release';
+import { APP_LOGO } from '@/lib/assets';
+import { GithubIcon, InstagramIcon, TelegramIcon } from './BrandIcons';
 
 export const Footer: React.FC = () => {
-  return (
-    <footer id="footer" className="relative border-t border-white/[0.08] bg-obsidian-950/85 backdrop-blur-2xl pt-16 pb-12 text-ivory-400 mt-20">
-      {/* Subtle top crimson/amber ambient line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
+  return (
+    <footer className="border-t border-white/10 bg-graphite-950/90 pt-16 pb-12 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
-          {/* Brand Info with default logo.jpg */}
-          <div className="lg:col-span-2 space-y-4">
-            <a href="./" className="flex items-center gap-3.5 group">
-              <div className="w-10 h-10 rounded-2xl overflow-hidden bg-obsidian-900 p-0.5 border border-amber-500/30 group-hover:border-amber-400/60 shadow-xl transition-colors">
+        
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/5">
+          
+          {/* Brand Info (2 cols) */}
+          <div className="lg:col-span-2 flex flex-col items-start">
+            <a href="#" className="flex items-center gap-3 mb-4 group">
+              <div className="w-10 h-10 rounded-full p-0.5 bg-gradient-to-tr from-anime-green via-anime-yellow to-anime-cream shadow-neo-glow-green overflow-hidden">
                 <img
-                  src="./assets/logo.jpg"
-                  alt="MKR Music Logo"
-                  className="w-full h-full object-cover rounded-[14px]"
+                  src={APP_LOGO}
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.src.endsWith('/favicon.jpg')) {
+                      target.src = './favicon.jpg';
+                    }
+                  }}
+                  alt="MKR Music"
+                  className="w-full h-full object-cover rounded-full"
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="font-cinematic font-bold tracking-wider text-xl text-white">MKR Music</span>
-                <span className="text-[11px] font-mono tracking-wide text-amber-400">Your music. Your mood. Your style.</span>
+              <div>
+                <span className="font-extrabold text-xl text-anime-cream group-hover:text-anime-green transition-colors">
+                  MKR Music
+                </span>
+                <span className="block text-[10px] font-mono text-anime-cream/50">
+                  Android Music Client
+                </span>
               </div>
             </a>
-            <p className="text-xs sm:text-sm text-ivory-300 leading-relaxed max-w-sm">
-              The ultimate ad-free music experience for Android.
-              Stream YouTube Music, JioSaavn, and Spotify with 320 kbps high fidelity audio and synced lyrics.
+
+            <p className="text-sm text-anime-cream/65 leading-relaxed max-w-sm mb-6">
+              A free, open-source YouTube Music & local player for Android. Crafted for instantaneous audio streaming, smart caching, and acoustic mastery.
             </p>
-            <div className="flex items-center gap-3 pt-2">
+
+            <div className="flex items-center gap-3">
               <a
-                href="https://github.com/mkr-infinity/mkr-music"
+                href={OFFICIAL_LINKS.androidRepo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-ivory-300 hover:text-white hover:border-white/30 hover:bg-white/[0.08] transition-all"
+                className="p-2.5 rounded-xl bg-graphite-900 border border-white/10 text-anime-cream hover:text-anime-green hover:border-anime-green/40 transition-all"
                 aria-label="GitHub Repository"
               >
-                <GitBranch className="w-4 h-4" />
+                <GithubIcon size={18} />
               </a>
               <a
-                href="https://www.instagram.com/mkr_infinity"
+                href={OFFICIAL_LINKS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-ivory-300 hover:text-rose-400 hover:border-rose-400/40 hover:bg-rose-500/10 transition-all"
+                className="p-2.5 rounded-xl bg-graphite-900 border border-white/10 text-anime-cream hover:text-anime-yellow hover:border-anime-yellow/40 transition-all"
                 aria-label="Instagram Profile"
               >
-                <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                </svg>
+                <InstagramIcon size={18} />
               </a>
               <a
-                href="https://t.me/mkr_infinity"
+                href={OFFICIAL_LINKS.telegram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-ivory-300 hover:text-sky-400 hover:border-sky-400/40 hover:bg-sky-500/10 transition-all"
+                className="p-2.5 rounded-xl bg-graphite-900 border border-white/10 text-anime-cream hover:text-anime-green hover:border-anime-green/40 transition-all"
                 aria-label="Telegram Channel"
               >
-                <Send className="w-4 h-4" />
+                <TelegramIcon size={18} />
               </a>
               <a
-                href="https://mkr-infinity.github.io"
+                href={OFFICIAL_LINKS.devWebsite}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-ivory-300 hover:text-emerald-400 hover:border-emerald-400/40 hover:bg-emerald-500/10 transition-all"
+                className="p-2.5 rounded-xl bg-graphite-900 border border-white/10 text-anime-cream hover:text-anime-cream hover:border-white/40 transition-all"
                 aria-label="Developer Website"
               >
-                <Globe className="w-4 h-4" />
-              </a>
-              <a
-                href="https://buymeacoffee.com/mkr_infinity"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-ivory-300 hover:text-amber-400 hover:border-amber-400/40 hover:bg-amber-500/10 transition-all"
-                aria-label="Buy Me a Coffee"
-              >
-                <Heart className="w-4 h-4" />
+                <Globe size={18} />
               </a>
             </div>
           </div>
 
           {/* Quick Navigation */}
           <div>
-            <h4 className="text-xs font-mono uppercase tracking-widest text-amber-400 mb-4">
-              App
+            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-anime-green mb-4">
+              Explore
             </h4>
-            <ul className="space-y-2.5 text-xs">
+            <ul className="space-y-2.5 text-sm text-anime-cream/70">
               <li>
-                <a href="#features" className="hover:text-amber-300 transition-colors">
-                  Key Features
+                <a href="#features" className="hover:text-anime-cream transition-colors">
+                  Features & UI
                 </a>
               </li>
               <li>
-                <a href="#story" className="hover:text-amber-300 transition-colors">
-                  App Story
+                <a href="#sound" className="hover:text-anime-cream transition-colors">
+                  10-Band Equalizer
                 </a>
               </li>
               <li>
-                <a href="#gallery" className="hover:text-amber-300 transition-colors">
-                  Screenshots Gallery
+                <a href="#screenshots" className="hover:text-anime-cream transition-colors">
+                  App Screenshots
                 </a>
               </li>
               <li>
-                <a href="#install" className="hover:text-amber-300 transition-colors">
-                  Installation Guide
+                <a href="#requirements" className="hover:text-anime-cream transition-colors">
+                  Specifications
+                </a>
+              </li>
+              <li>
+                <a href="#support" className="hover:text-anime-cream transition-colors">
+                  Support & Backing
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Developer & Community */}
           <div>
-            <h4 className="text-xs font-mono uppercase tracking-widest text-amber-400 mb-4">
-              Resources
+            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-anime-yellow mb-4">
+              Community
             </h4>
-            <ul className="space-y-2.5 text-xs">
+            <ul className="space-y-2.5 text-sm text-anime-cream/70">
               <li>
                 <a
-                  href="https://github.com/mkr-infinity/mkr-music/releases/latest"
+                  href={OFFICIAL_LINKS.devGitHub}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-amber-300 transition-colors"
+                  className="inline-flex items-center gap-1 hover:text-anime-cream transition-colors"
                 >
-                  Latest Stable Release
+                  <span>Developer GitHub</span>
+                  <ExternalLink size={12} />
                 </a>
               </li>
               <li>
                 <a
-                  href="https://github.com/mkr-infinity/mkr-music"
+                  href={OFFICIAL_LINKS.androidRepo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-amber-300 transition-colors"
+                  className="inline-flex items-center gap-1 hover:text-anime-cream transition-colors"
                 >
-                  Source Code (GitHub)
+                  <span>MKR Music Repo</span>
+                  <ExternalLink size={12} />
                 </a>
               </li>
               <li>
                 <a
-                  href="https://github.com/mkr-infinity/mkr-music/issues"
+                  href={OFFICIAL_LINKS.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-amber-300 transition-colors"
+                  className="inline-flex items-center gap-1 hover:text-anime-cream transition-colors"
                 >
-                  Bug Reports & Requests
+                  <span>Instagram</span>
+                  <ExternalLink size={12} />
                 </a>
               </li>
               <li>
-                <a href="#faq" className="hover:text-amber-300 transition-colors">
-                  FAQ & Help
+                <a
+                  href={OFFICIAL_LINKS.telegram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 hover:text-anime-cream transition-colors"
+                >
+                  <span>Telegram</span>
+                  <ExternalLink size={12} />
+                </a>
+              </li>
+              <li>
+                <a
+                  href={OFFICIAL_LINKS.devWebsite}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 hover:text-anime-cream transition-colors"
+                >
+                  <span>Developer Site</span>
+                  <ExternalLink size={12} />
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Support & Legal */}
+          {/* Downloads & Releases */}
           <div>
-            <h4 className="text-xs font-mono uppercase tracking-widest text-amber-400 mb-4">
-              Support
+            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-anime-cream mb-4">
+              Downloads
             </h4>
-            <ul className="space-y-2.5 text-xs">
+            <ul className="space-y-2.5 text-sm text-anime-cream/70">
               <li>
-                <a href="#support" className="hover:text-amber-300 transition-colors">
-                  Buy Me a Coffee
-                </a>
-              </li>
-              <li>
-                <a href="#support" className="hover:text-emerald-400 transition-colors">
-                  UPI: <span className="font-mono text-emerald-400">mkr-infinity@ybl</span>
+                <a
+                  href={OFFICIAL_LINKS.universalApkDownload}
+                  download={OFFICIAL_LINKS.universalApkName}
+                  className="inline-flex items-center gap-1.5 text-anime-green font-semibold hover:underline"
+                >
+                  <Download size={13} />
+                  <span>Universal APK</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="https://github.com/mkr-infinity/mkr-music/blob/main/LICENSE"
+                  href={OFFICIAL_LINKS.latestRelease}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-anime-cream transition-colors"
                 >
-                  GNU GPL-3.0 License
+                  Latest Release
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-white transition-colors">
-                  About Developer
+                <a
+                  href={OFFICIAL_LINKS.issues}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-anime-cream transition-colors"
+                >
+                  Report an Issue
+                </a>
+              </li>
+              <li>
+                <a
+                  href={OFFICIAL_LINKS.buyMeACoffee}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-anime-yellow font-semibold hover:underline"
+                >
+                  <Coffee size={13} />
+                  <span>Buy Me a Coffee</span>
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Clean Bottom Bar */}
-        <div className="pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ivory-400">
-          <div className="flex items-center gap-3">
-            <span className="text-white font-cinematic font-bold">MKR Music</span>
-            <span className="text-amber-500">•</span>
-            <span className="text-ivory-300">Your music. Your mood. Your style.</span>
-          </div>
-          <div className="flex items-center gap-4 text-[11px] font-mono text-ivory-400">
-            <span>Universal Latest</span>
-            <span>•</span>
-            <span>GNU GPL-3.0 License</span>
-          </div>
+        {/* Bottom Bar without copyright line */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-anime-cream/50">
+          <span>Crafted for listeners who value music sovereignty and acoustic fidelity.</span>
+
+          <button
+            type="button"
+            onClick={scrollToTop}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-graphite-900 border border-white/10 hover:text-anime-cream hover:border-white/30 transition-all font-mono cursor-pointer"
+          >
+            <span>Back to Top</span>
+            <ArrowUp size={13} />
+          </button>
         </div>
       </div>
     </footer>

@@ -1,49 +1,35 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+interface Ripple {
+  x: number;
+  y: number;
+  radius: number;
+  maxRadius: number;
+  opacity: number;
+}
+
 export const InteractiveBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [scrollY, setScrollY] = useState(0);
+  const [cursorPos, setCursorPos] = useState({ x: -1000, y: -1000 });
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
+    const handlePointerMove = (e: PointerEvent) => {
+      setCursorPos({ x: e.clientX, y: e.clientY });
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    return () => window.removeEventListener('pointermove', handlePointerMove);
   }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
-    const ctx = canvas.getContext('2d', { alpha: true });
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    let animationFrameId: number;
+    let animId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
-
-    // Mouse coordinates with smooth spring lerp
-    const mouse = {
-      x: width / 2,
-      y: height / 2,
-      targetX: width / 2,
-      targetY: height / 2,
-      isHovered: false,
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.targetX = e.clientX;
-      mouse.targetY = e.clientY;
-      mouse.isHovered = true;
-    };
-
-    const handleMouseLeave = () => {
-      mouse.isHovered = false;
-    };
 
     const handleResize = () => {
       if (!canvas) return;
@@ -51,242 +37,165 @@ export const InteractiveBackground: React.FC = () => {
       height = canvas.height = window.innerHeight;
     };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('mouseleave', handleMouseLeave);
-    window.addEventListener('resize', handleResize, { passive: true });
+    window.addEventListener('resize', handleResize);
 
-    // 1. Floating Cinematic Embers / Fireflies
-    interface Ember {
-      x: number;
-      y: number;
-      size: number;
-      speedY: number;
-      speedX: number;
-      opacity: number;
-      color: string;
-      swayOffset: number;
-      swaySpeed: number;
-    }
+    const mouse = { x: -9999, y: -9999, targetX: -9999, targetY: -9999 };
+    const ripples: Ripple[] = [];
 
-    const emberColors = [
-      'rgba(245, 158, 11,',  // Sunset Amber
-      'rgba(251, 191, 36,',  // Warm Gold
-      'rgba(234, 88, 12,',   // Vermilion
-      'rgba(244, 63, 94,',   // Crimson Rose
-      'rgba(254, 243, 199,', // Champagne Glow
-    ];
+    const handlePointerMove = (e: MouseEvent) => {
+      mouse.targetX = e.clientX;
+      mouse.targetY = e.clientY;
+    };
 
-    const emberCount = Math.min(Math.floor((width * height) / 24000), 45);
-    const embers: Ember[] = [];
-
-    for (let i = 0; i < emberCount; i++) {
-      embers.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        size: Math.random() * 2.2 + 0.8,
-        speedY: -(Math.random() * 0.45 + 0.2),
-        speedX: (Math.random() - 0.5) * 0.3,
-        opacity: Math.random() * 0.6 + 0.2,
-        color: emberColors[Math.floor(Math.random() * emberColors.length)],
-        swayOffset: Math.random() * Math.PI * 2,
-        swaySpeed: Math.random() * 0.015 + 0.008,
+    const handlePointerDown = (e: MouseEvent) => {
+      ripples.push({
+        x: e.clientX,
+        y: e.clientY,
+        radius: 0,
+        maxRadius: 280,
+        opacity: 0.8,
       });
-    }
+      if (ripples.length > 6) ripples.shift();
+    };
 
-    // 2. Interactive Acoustic Tension Wires (Inspired by Silent Soul Reference)
-    interface Wire {
-      startX: number;
-      startY: number;
-      endX: number;
-      endY: number;
-      controlX: number;
-      controlY: number;
-      targetControlY: number;
-      vy: number;
-    }
+    window.addEventListener('mousemove', handlePointerMove, { passive: true });
+    window.addEventListener('mousedown', handlePointerDown, { passive: true });
 
-    const wires: Wire[] = [
-      {
-        startX: 0,
-        startY: height * 0.25,
-        endX: width,
-        endY: height * 0.45,
-        controlX: width * 0.5,
-        controlY: height * 0.35,
-        targetControlY: height * 0.35,
-        vy: 0,
-      },
-      {
-        startX: 0,
-        startY: height * 0.72,
-        endX: width,
-        endY: height * 0.58,
-        controlX: width * 0.5,
-        controlY: height * 0.65,
-        targetControlY: height * 0.65,
-        vy: 0,
-      },
-    ];
-
-    let time = 0;
+    // Grid configuration
+    const spacing = 44;
+    const influenceRadius = 220;
+    const maxWarp = 22;
 
     const render = () => {
-      if (document.hidden) {
-        animationFrameId = requestAnimationFrame(render);
-        return;
-      }
-
-      mouse.x += (mouse.targetX - mouse.x) * 0.08;
-      mouse.y += (mouse.targetY - mouse.y) * 0.08;
+      // Lerp mouse coordinates smoothly
+      mouse.x += (mouse.targetX - mouse.x) * 0.12;
+      mouse.y += (mouse.targetY - mouse.y) * 0.12;
 
       ctx.clearRect(0, 0, width, height);
-      time += 0.02;
 
-      // --- LAYER 1: Ambient Warm Cursor Spotlight ---
-      if (mouse.isHovered) {
-        const spotGrad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 340);
-        spotGrad.addColorStop(0, 'rgba(245, 158, 11, 0.12)');
-        spotGrad.addColorStop(0.4, 'rgba(153, 27, 27, 0.08)');
-        spotGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-        ctx.fillStyle = spotGrad;
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 340, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      // --- LAYER 2: Acoustic Tension Strings with Pluck Physics ---
-      for (let i = 0; i < wires.length; i++) {
-        const wire = wires[i];
-
-        // Pluck reaction when mouse is near string midpoint
-        const distToMouse = Math.hypot(wire.controlX - mouse.x, wire.controlY - mouse.y);
-        if (mouse.isHovered && distToMouse < 180) {
-          const force = (1 - distToMouse / 180) * (mouse.y > wire.controlY ? 35 : -35);
-          wire.targetControlY = (wire.startY + wire.endY) / 2 + force;
-        } else {
-          wire.targetControlY = (wire.startY + wire.endY) / 2 + Math.sin(time + i) * 6;
-        }
-
-        // Spring physics
-        const dy = wire.targetControlY - wire.controlY;
-        wire.vy = wire.vy * 0.88 + dy * 0.08;
-        wire.controlY += wire.vy;
-
-        // Render string
-        ctx.beginPath();
-        ctx.moveTo(wire.startX, wire.startY);
-        ctx.quadraticCurveTo(wire.controlX, wire.controlY, wire.endX, wire.endY);
-        ctx.strokeStyle = i === 0 ? 'rgba(245, 158, 11, 0.16)' : 'rgba(153, 27, 27, 0.2)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // Harmonic node on wire
-        const nodeX = wire.controlX;
-        const nodeY = wire.controlY;
-        ctx.beginPath();
-        ctx.arc(nodeX, nodeY, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(251, 191, 36, 0.6)';
-        ctx.fill();
-      }
-
-      // --- LAYER 3: Ascending Atmospheric Embers ---
-      for (let i = 0; i < embers.length; i++) {
-        const ember = embers[i];
-
-        if (!prefersReducedMotion) {
-          ember.swayOffset += ember.swaySpeed;
-          ember.y += ember.speedY;
-          ember.x += ember.speedX + Math.sin(ember.swayOffset) * 0.4;
-
-          // Mouse airflow deflection
-          const dx = mouse.x - ember.x;
-          const dy = mouse.y - ember.y;
-          const dist = Math.hypot(dx, dy);
-          if (mouse.isHovered && dist < 120) {
-            const repel = (1 - dist / 120) * 2;
-            ember.x -= (dx / dist) * repel;
-            ember.y -= (dy / dist) * repel;
-          }
-
-          // Loop embers at screen edges
-          if (ember.y < -20) {
-            ember.y = height + 10;
-            ember.x = Math.random() * width;
-          }
-          if (ember.x < -20) ember.x = width + 10;
-          if (ember.x > width + 20) ember.x = -10;
-        }
-
-        // Draw ember with soft glowing halo
-        ctx.beginPath();
-        ctx.arc(ember.x, ember.y, ember.size, 0, Math.PI * 2);
-        ctx.fillStyle = `${ember.color} ${ember.opacity})`;
-        ctx.fill();
-
-        if (ember.size > 1.6) {
+      // 1. Draw Subtle Static Background Mesh
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.025)';
+      for (let x = 0; x < width; x += spacing * 2) {
+        for (let y = 0; y < height; y += spacing * 2) {
           ctx.beginPath();
-          ctx.arc(ember.x, ember.y, ember.size * 2.2, 0, Math.PI * 2);
-          ctx.fillStyle = `${ember.color} ${ember.opacity * 0.25})`;
+          ctx.arc(x, y, 0.8, 0, Math.PI * 2);
           ctx.fill();
         }
       }
 
-      if (!prefersReducedMotion) {
-        animationFrameId = requestAnimationFrame(render);
+      // 2. Update and draw ripples
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const r = ripples[i];
+        r.radius += 5;
+        r.opacity *= 0.96;
+
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(34, 197, 94, ${r.opacity * 0.5})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        if (r.opacity < 0.01 || r.radius > r.maxRadius) {
+          ripples.splice(i, 1);
+        }
       }
+
+      // 3. Draw Warping Kinetic Grid Nodes and Links
+      const cols = Math.ceil(width / spacing) + 1;
+      const rows = Math.ceil(height / spacing) + 1;
+
+      for (let c = 0; c < cols; c++) {
+        for (let r = 0; r < rows; r++) {
+          const originX = c * spacing;
+          const originY = r * spacing;
+
+          const dx = originX - mouse.x;
+          const dy = originY - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          let warpedX = originX;
+          let warpedY = originY;
+          let proximity = 0;
+
+          if (dist < influenceRadius && dist > 0) {
+            proximity = 1 - dist / influenceRadius;
+            const factor = Math.sin(proximity * (Math.PI / 2));
+            const warp = factor * maxWarp;
+            const angle = Math.atan2(dy, dx);
+            warpedX -= Math.cos(angle) * warp;
+            warpedY -= Math.sin(angle) * warp;
+          }
+
+          // Apply ripple displacement
+          for (const rip of ripples) {
+            const rdx = originX - rip.x;
+            const rdy = originY - rip.y;
+            const rdist = Math.sqrt(rdx * rdx + rdy * rdy);
+            const waveWidth = 40;
+            const diff = Math.abs(rdist - rip.radius);
+            if (diff < waveWidth) {
+              const str = (1 - diff / waveWidth) * rip.opacity * 14;
+              const angle = Math.atan2(rdy, rdx);
+              warpedX += Math.cos(angle) * str;
+              warpedY += Math.sin(angle) * str;
+              proximity = Math.max(proximity, rip.opacity * 0.7);
+            }
+          }
+
+          // Draw Node Dot
+          const radius = proximity > 0.1 ? 1.2 + proximity * 2.2 : 0.9;
+          ctx.beginPath();
+          ctx.arc(warpedX, warpedY, radius, 0, Math.PI * 2);
+
+          if (proximity > 0.2) {
+            // Anime Green / Yellow interactive glow
+            ctx.fillStyle = `rgba(34, 197, 94, ${0.4 + proximity * 0.6})`;
+            ctx.shadowColor = 'rgba(34, 197, 94, 0.6)';
+            ctx.shadowBlur = 6;
+          } else {
+            ctx.fillStyle = 'rgba(251, 248, 238, 0.08)';
+            ctx.shadowBlur = 0;
+          }
+          ctx.fill();
+        }
+      }
+
+      ctx.shadowBlur = 0;
+      animId = requestAnimationFrame(render);
     };
 
     render();
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handlePointerMove);
+      window.removeEventListener('mousedown', handlePointerDown);
+      cancelAnimationFrame(animId);
     };
   }, []);
 
-  // Parallax offsets linked to scroll
-  const parallaxY1 = scrollY * 0.2;
-  const parallaxY2 = -scrollY * 0.15;
-
   return (
-    <div
-      className="fixed inset-0 pointer-events-none -z-20 overflow-hidden bg-[#07080c]"
-      aria-hidden="true"
-    >
-      {/* 1. Deep Obsidian Base with Twilight Crimson & Sunset Amber Ambient Blobs */}
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+      {/* Base Dark Graphite Background */}
+      <div className="absolute inset-0 bg-graphite-950" />
+
+      {/* Interactive Cursor Spotlight Glow */}
       <div
-        className="absolute -top-32 left-1/4 w-[750px] h-[550px] rounded-full bg-gradient-to-br from-red-950/25 via-amber-900/15 to-transparent blur-[140px] pointer-events-none transition-transform duration-700 ease-out"
+        className="absolute w-[600px] h-[600px] rounded-full blur-[120px] transition-transform duration-75 ease-out opacity-40 pointer-events-none"
         style={{
-          transform: `translate3d(0, ${parallaxY1}px, 0)`,
-        }}
-      />
-      <div
-        className="absolute top-1/2 -right-24 w-[650px] h-[600px] rounded-full bg-gradient-to-bl from-amber-950/20 via-red-950/15 to-transparent blur-[150px] pointer-events-none transition-transform duration-700 ease-out"
-        style={{
-          transform: `translate3d(0, ${parallaxY2}px, 0)`,
+          transform: `translate3d(${cursorPos.x - 300}px, ${cursorPos.y - 300}px, 0)`,
+          background:
+            'radial-gradient(circle, rgba(34, 197, 94, 0.22) 0%, rgba(250, 204, 21, 0.12) 40%, transparent 70%)',
         }}
       />
 
-      {/* 2. Fine Cinematic Grid / Acoustic Lattice Texture */}
-      <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(to right, rgba(245, 158, 11, 0.4) 1px, transparent 1px), linear-gradient(to bottom, rgba(245, 158, 11, 0.4) 1px, transparent 1px)`,
-          backgroundSize: '40px 40px',
-        }}
-      />
+      {/* Ambient Atmospheric Fixed Aura Orbs */}
+      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-gradient-to-tr from-anime-green/10 via-anime-yellow/5 to-transparent rounded-full blur-[140px]" />
+      <div className="absolute top-1/2 -right-40 w-[550px] h-[550px] bg-gradient-to-bl from-anime-yellow/10 via-anime-green/5 to-transparent rounded-full blur-[140px]" />
+      <div className="absolute -bottom-40 left-1/3 w-[650px] h-[650px] bg-gradient-to-t from-anime-green/10 to-transparent rounded-full blur-[150px]" />
 
-      {/* 3. Subtle Vignette Border Mask */}
-      <div className="absolute inset-0 bg-radial-vignette pointer-events-none opacity-80" />
-
-      {/* 4. Interactive Canvas Layer (Embers, Plucked Acoustic Strings, Warm Spotlight) */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none"
-      />
+      {/* Interactive Kinetic Canvas */}
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-80" />
     </div>
   );
 };

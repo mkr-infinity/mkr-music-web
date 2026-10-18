@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "type-check": "tsc --noEmit",
-    "test": "node --test test/*.test.mjs"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "lucide-react": "^1.16.0",

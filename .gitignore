@@ -23,6 +23,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+tsconfig.tsbuildinfo
 
 # OS files
 .DS_Store

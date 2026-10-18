@@ -1,185 +1,160 @@
 import React, { useState, useEffect } from 'react';
-import { Download, Menu, X, ShieldCheck, Sparkles } from 'lucide-react';
-import { useLatestRelease } from '../hooks/useLatestRelease';
+import { Download, Menu, X, ExternalLink, Music, Disc, Sliders, Smartphone, Heart } from 'lucide-react';
+import { OFFICIAL_LINKS } from '@/lib/release';
+import { APP_LOGO } from '@/lib/assets';
+import { GithubIcon } from './BrandIcons';
 
 export const Navbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const release = useLatestRelease();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 20);
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMobileMenuOpen]);
-
-  // Handle escape key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isMobileMenuOpen]);
-
   const navLinks = [
-    { name: 'Features', href: '#features' },
-    { name: 'Story', href: '#story' },
-    { name: 'Screenshots', href: '#gallery' },
-    { name: 'Install', href: '#install' },
-    { name: 'Support', href: '#support' },
-    { name: 'FAQ', href: '#faq' },
+    { label: 'Features', href: '#features', icon: Music },
+    { label: 'Studio DSP', href: '#sound', icon: Sliders },
+    { label: 'Screens', href: '#screenshots', icon: Smartphone },
+    { label: 'Requirements', href: '#requirements', icon: Disc },
+    { label: 'Support & UPI', href: '#support', icon: Heart },
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'cinematic-card py-3 border-b border-amber-500/20 shadow-2xl'
-          : 'bg-transparent py-5'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Brand Logo with Ensō / Official Mark */}
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pointer-events-none">
+      <div className="max-w-5xl mx-auto pointer-events-auto">
+        <div
+          className={`flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-300 ${
+            scrolled
+              ? 'bg-graphite-950/85 backdrop-blur-2xl border border-white/15 shadow-2xl shadow-black/60'
+              : 'bg-graphite-900/70 backdrop-blur-xl border border-white/10 shadow-lg'
+          }`}
+        >
+          {/* Brand Logo & Name */}
           <a
-            href="./"
-            className="flex items-center gap-3.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-2xl p-1"
+            href="#"
+            className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-anime-green rounded-full"
           >
-            <div className="relative w-10 h-10 rounded-2xl overflow-hidden bg-black p-0.5 border border-amber-500/30 shadow-xl group-hover:border-amber-400 transition-all">
+            <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full p-0.5 bg-gradient-to-tr from-anime-green via-anime-yellow to-anime-cream shadow-neo-glow-green transition-transform duration-300 group-hover:scale-105 overflow-hidden">
               <img
-                src="./assets/logo-enso.jpg"
-                alt="MKR Music Ensō Logo"
-                className="w-full h-full object-cover rounded-[14px]"
+                src={APP_LOGO}
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.src.endsWith('/favicon.jpg')) {
+                    target.src = './favicon.jpg';
+                  }
+                }}
+                alt="MKR Music logo"
+                className="w-full h-full object-cover rounded-full"
               />
             </div>
-            <div className="flex flex-col text-left">
-              <span className="font-cinematic font-bold text-lg tracking-wider text-white group-hover:text-amber-300 transition-colors">
-                MKR MUSIC
+            <div className="flex flex-col">
+              <span className="font-extrabold text-base sm:text-lg tracking-tight text-anime-cream group-hover:text-anime-green transition-colors leading-none">
+                MKR Music
               </span>
-              <span className="text-[10px] font-kicker text-amber-400/80">
-                Your Music • Your World
+              <span className="text-[10px] font-mono text-anime-cream/50 mt-1">
+                Android Music Player
               </span>
             </div>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8" aria-label="Main Navigation">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-xs font-mono uppercase tracking-widest text-[#c9c4b7] hover:text-white transition-colors duration-200 hover:underline hover:decoration-amber-400 hover:underline-offset-8"
-              >
-                {link.name}
-              </a>
-            ))}
+          {/* Desktop Nav Items */}
+          <nav className="hidden md:flex items-center gap-1">
+            {navLinks.map((item) => {
+              const Icon = item.icon;
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold text-anime-cream/75 hover:text-anime-cream hover:bg-white/5 transition-all"
+                >
+                  <Icon size={13} className="text-anime-green/70" />
+                  <span>{item.label}</span>
+                </a>
+              );
+            })}
           </nav>
 
-          {/* Desktop Action Button */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Right Action Buttons */}
+          <div className="hidden sm:flex items-center gap-2.5">
             <a
-              href={release.downloadUrl}
-              className="cinematic-button inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full text-xs font-bold text-white hover:text-amber-200 active:scale-95"
-              download={release.status === 'success' ? 'mkr-music-universal.apk' : undefined}
+              href={OFFICIAL_LINKS.androidRepo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full bg-graphite-900/90 hover:bg-graphite-800 border border-white/10 text-anime-cream/80 hover:text-anime-green transition-all"
+              aria-label="GitHub Repository"
             >
-              <Download className="w-3.5 h-3.5 text-amber-300" />
+              <GithubIcon size={16} />
+            </a>
+
+            <a
+              href={OFFICIAL_LINKS.universalApkDownload}
+              download={OFFICIAL_LINKS.universalApkName}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold bg-gradient-to-r from-anime-green via-emerald-400 to-anime-green text-graphite-950 shadow-neo-glow-green hover:shadow-lg hover:shadow-anime-green/50 hover:brightness-110 active:scale-95 transition-all cursor-pointer"
+            >
+              <Download size={14} />
               <span>Download APK</span>
-              {release.fileSize && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 font-mono text-amber-300 border border-amber-500/30">
-                  {release.fileSize}
-                </span>
-              )}
             </a>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <div className="flex md:hidden items-center gap-3">
-            <a
-              href={release.downloadUrl}
-              className="p-2.5 rounded-xl cinematic-button text-white hover:text-amber-300 transition-colors"
-              aria-label="Download APK"
-              download={release.status === 'success' ? 'mkr-music-universal.apk' : undefined}
-            >
-              <Download className="w-4 h-4 text-amber-300" />
-            </a>
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2.5 rounded-xl cinematic-card text-[#f5f2eb] hover:text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
-              aria-expanded={isMobileMenuOpen}
-              aria-label="Toggle navigation menu"
-            >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-full bg-graphite-900/90 border border-white/10 text-anime-cream hover:text-anime-green transition-colors"
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          >
+            {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 top-[68px] z-40 cinematic-card md:hidden overflow-y-auto border-t border-amber-500/20 animate-in fade-in duration-200"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="px-6 py-8 flex flex-col gap-6">
-            <nav className="flex flex-col gap-4" aria-label="Mobile Navigation">
-              {navLinks.map((link) => (
+      {/* Mobile Curved Floating Drawer */}
+      {mobileMenuOpen && (
+        <div className="md:hidden max-w-sm mx-auto mt-3 p-5 rounded-3xl neo-glass bg-graphite-950/95 border border-white/15 shadow-2xl backdrop-blur-2xl pointer-events-auto animate-in fade-in slide-in-from-top-3 duration-200">
+          <div className="flex flex-col gap-1.5">
+            {navLinks.map((item) => {
+              const Icon = item.icon;
+              return (
                 <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg font-medium text-ivory-200 hover:text-amber-400 py-2.5 transition-colors border-b border-white/[0.06]"
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl text-xs font-semibold text-anime-cream hover:bg-white/5 hover:text-anime-green transition-colors"
                 >
-                  {link.name}
+                  <Icon size={15} className="text-anime-green" />
+                  <span>{item.label}</span>
                 </a>
-              ))}
-            </nav>
+              );
+            })}
 
-            <div className="pt-4 flex flex-col gap-4">
-              <a
-                href={release.downloadUrl}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-semibold cinematic-button text-amber-950 font-cinematic uppercase tracking-wider text-xs transition-all shadow-xl shadow-amber-500/20"
-                download={release.status === 'success' ? 'mkr-music-universal.apk' : undefined}
-              >
-                <Download className="w-4 h-4" />
-                <span>Download Universal APK</span>
-                {release.fileSize && (
-                  <span className="text-[11px] px-2 py-0.5 rounded-md bg-black/15 font-mono">
-                    {release.fileSize}
-                  </span>
-                )}
-              </a>
+            <div className="h-px bg-white/10 my-2" />
 
-              <div className="flex items-center justify-center gap-4 text-xs text-ivory-400 pt-4">
-                <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400" /> 100% Ad-Free
-                </span>
-                <span>•</span>
-                <span className="flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-amber-400" /> 320 kbps Sound
-                </span>
-              </div>
-            </div>
+            <a
+              href={OFFICIAL_LINKS.universalApkDownload}
+              download={OFFICIAL_LINKS.universalApkName}
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-full text-xs font-bold bg-gradient-to-r from-anime-green to-emerald-400 text-graphite-950 shadow-neo-glow-green"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <Download size={15} />
+              <span>Download Universal APK</span>
+            </a>
+
+            <a
+              href={OFFICIAL_LINKS.androidRepo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full flex items-center justify-center gap-2 py-2 rounded-full text-[11px] font-semibold text-anime-cream/70 hover:text-anime-cream"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <GithubIcon size={14} />
+              <span>GitHub Repository</span>
+              <ExternalLink size={11} />
+            </a>
           </div>
         </div>
       )}

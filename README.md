@@ -1,144 +1,83 @@
 # MKR Music — Official Web Showcase
 
-The official production website for **MKR Music**, an elite open-source music streaming and offline audio player for Android. Built with React 18, TypeScript, Vite, and Tailwind CSS, featuring an editorial cinematic aesthetic, interactive storytelling, authentic application showcases, and a dynamic APK release engine.
+The official website for **MKR Music**, a refined, Material Design, free & open-source YouTube Music and local audio player for Android. Built with React 18, TypeScript, Vite 6, and Tailwind CSS, featuring an immersive **Anime Neo-Glassmorphism** visual architecture with neon emerald green, electric yellow, warm cream, and dark graphite tones.
 
 ---
 
-## 🚀 Key Highlights
+## ✨ Features & Highlights
 
-- **Cinematic Product Storytelling**: 5-stage interactive narrative exploring discovery, studio playback, synced lyrics, dynamic canvas visualizers, and acoustic equalization.
-- **Flagship Features Showcase**: Deep dives into Tri-Engine streaming (YouTube Music + JioSaavn + Spotify playlist sync), 10-band MKR Studio Equalizer, Dolby Atmos simulation, audio output routing, and sovereign zero-telemetry privacy.
-- **12-Screenshot Interactive Lightbox**: Full-resolution authentic mobile interface screenshots with keyboard accessibility (Escape, ArrowLeft, ArrowRight) and touch swipe support.
-- **Dynamic Release Engine**: Automatically discovers and links the official `mkr-music-universal.apk` from GitHub Releases with 5-minute caching and graceful fallback handling.
-- **5-Step Android Installation Walkthrough**: Clear instructions guiding users through APK installation without compromising system security safeguards.
-- **Voluntary Project Support**: Built-in 1-click UPI copy (`mkr-infinity@ybl`) with instant feedback and Buy Me a Coffee integration.
-- **Multi-Host Ready**: Configured for instant deployment on GitHub Pages, Netlify, and Vercel.
-
----
-
-## 🛠️ Tech Stack & Architecture
-
-- **Framework**: [React 18](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
-- **Bundler**: [Vite 6](https://vitejs.dev/) with relative base asset paths (`base: './'`)
-- **Styling**: [Tailwind CSS 3](https://tailwindcss.com/) with custom obsidian dark theme tokens
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Testing**: Node.js Native Test Runner (`node --test`)
+- **Anime Neo-Glassmorphism Visuals**: Translucent frosted glass cards, layered borders, ambient cyber glows, and Japanese anime badges.
+- **Instant Audio Playback**: Bypasses initial cache write buffer lag to start track streaming immediately upon click.
+- **Configurable Smart Caching (5s–90s)**: Only caches tracks you genuinely enjoy; skipped tracks are discarded to preserve local storage.
+- **Interactive 10-Band Equalizer**: Live in-browser DSP parametric frequency sliders (31Hz–16kHz) with sound presets (Anime Pop, Bass Punch, Vocal Clarity, Studio Hi-Res, Flat).
+- **Interactive Audio Visualizer**: 60fps canvas frequency monitor with gradient peaks and ambient reaction.
+- **12 Authentic App Screenshots**: Full-resolution mobile interface gallery with category filters and keyboard-accessible lightbox.
+- **Floating Sticky APK Download**: Responsive bottom-right floating pill that appears on scroll for 1-tap download of `mkr-music-universal.apk`.
+- **Live GitHub Release Engine**: Live verification from GitHub API with local caching and direct asset downloading.
+- **Voluntary Support Section**: 1-click verified UPI copy (`mkr-infinity@ybl`) with an appreciation modal and Buy Me a Coffee integration.
+- **Multi-Host Ready**: Pre-configured with relative base paths (`./`) and SPA rewrites for instant deployment to **GitHub Pages**, **Vercel**, and **Netlify**.
 
 ---
 
-## 📦 Prerequisites & Installation
+## 🔗 Official Links & Destinations
+
+- **Android App Repository**: [github.com/mkr-infinity/mkr-music](https://github.com/mkr-infinity/mkr-music)
+- **Developer GitHub**: [github.com/mkr-infinity](https://github.com/mkr-infinity)
+- **Latest Stable Release**: [github.com/mkr-infinity/mkr-music/releases/latest](https://github.com/mkr-infinity/mkr-music/releases/latest)
+- **Direct Universal APK Download**: [mkr-music-universal.apk](https://github.com/mkr-infinity/mkr-music/releases/latest/download/mkr-music-universal.apk)
+- **Instagram**: [instagram.com/mkr_infinity](https://www.instagram.com/mkr_infinity)
+- **Telegram**: [t.me/mkr_infinity](https://t.me/mkr_infinity)
+- **Developer Website**: [mkr-infinity.github.io](https://mkr-infinity.github.io)
+- **Buy Me a Coffee**: [buymeacoffee.com/mkr_infinity](https://buymeacoffee.com/mkr_infinity)
+- **UPI ID**: `mkr-infinity@ybl`
+
+---
+
+## 🛠️ Development & Build
 
 ### Prerequisites
 - Node.js `v18.0.0` or higher (tested on Node `v22.x`)
-- npm `v9.0.0` or higher (or pnpm)
+- npm `v9.0.0` or higher
 
-### Setup
+### Install Dependencies
 ```bash
-# Clone the website repository
-git clone https://github.com/mkr-infinity/mkr-music-web.git
-cd mkr-music-web
-
-# Install dependencies
 npm install
 ```
 
----
-
-## 💻 Available Scripts
-
-| Command | Purpose |
-| :--- | :--- |
-| `npm run dev` | Starts Vite local development server at `http://localhost:5173` |
-| `npm run build` | Performs TypeScript type-check and compiles production bundle to `dist/` |
-| `npm run preview` | Previews the compiled `dist/` production build locally |
-| `npm run type-check` | Runs `tsc --noEmit` to validate all TypeScript types |
-| `npm test` | Runs unit tests for release service and asset selection logic |
-
----
-
-## 🎯 Dynamic APK Discovery & Exact Asset Matching
-
-The website queries the official GitHub API endpoint:
-```
-https://api.github.com/repos/mkr-infinity/mkr-music/releases/latest
+### Start Development Server
+```bash
+npm run dev
 ```
 
-### Exact Matching Rules
-1. **Case-Sensitive Exact Filename**: The service searches release assets exclusively for `mkr-music-universal.apk`.
-2. **Strict Verification**: Partial matches (e.g. `mkr-music-universal-v6.0.8.apk` or `universal.apk`) are strictly rejected.
-3. **No Hardcoded Versions**: In adherence to product standards, the download action displays **Universal Latest** during loading/default states, and shows the live APK size (~34.65 MB) once verified.
-4. **Graceful Fallback**: If the release asset is missing or rate limits occur, the UI displays an informative status and links directly to the official GitHub releases page (`https://github.com/mkr-infinity/mkr-music/releases/latest`).
-5. **5-Minute Cache**: Successful responses are cached in `sessionStorage` and memory for 5 minutes (`300,000 ms`) to prevent rate limiting across page navigation.
+### Typecheck & Production Build
+```bash
+# Typecheck
+npm run typecheck
 
----
-
-## 📂 Asset Organization
-
+# Build for production (outputs to dist/)
+npm run build
 ```
-public/
-├── assets/
-│   ├── banner.png               # High-res showcase banner
-│   ├── icon.png                 # App launcher icon / favicon (512x512)
-│   ├── logo.png                 # MKR Music branding logo
-│   └── screenshots/             # 12 authentic Android app screenshots
-│       ├── home.jpg             # Home screen & quick picks
-│       ├── search.jpg           # Search & multi-engine discovery
-│       ├── player.jpg           # Now playing & playback controls
-│       ├── immersive_player.jpg # Distraction-free immersive player
-│       ├── canvas_player.jpg    # Apple-style dynamic video canvas
-│       ├── lyrics.jpg           # Synchronized glowing TTML lyrics
-│       ├── artist.jpg           # Artist profile & discography
-│       ├── equalizer.jpg        # 10-band MKR Studio Equalizer
-│       ├── audio_output.jpg     # Bluetooth routing & live kbps badge
-│       ├── settings.jpg         # Settings dashboard
-│       ├── appearance.jpg       # Appearance & 12 adaptive icons
-│       └── storage_cache.jpg    # Storage, cache & offline backup
-├── 404.html                     # Standalone custom 404 fallback page
-├── manifest.webmanifest         # PWA web application manifest
-├── robots.txt                   # Search crawler directives
-└── sitemap.xml                  # Search engine XML sitemap
+
+### Preview Production Build
+```bash
+npm run preview
 ```
 
 ---
 
-## 🌐 Deployment Matrix
+## 🚀 Deployment
 
-### 1. GitHub Pages
-- **Configuration**: `vite.config.ts` sets `base: './'`, enabling correct asset resolution under both custom root domains and repository subpaths (e.g., `https://mkr-infinity.github.io/mkr-music-web/`).
-- **404 Routing**: `public/404.html` provides the custom "Lost in the silence" page with return navigation for GitHub Pages.
-- **Deployment**:
-  ```bash
-  npm run build
-  # Deploy dist/ directory to the gh-pages branch
-  ```
+### GitHub Pages
+Set your GitHub repository settings: **Pages** -> **Source: Deploy from branch** -> select `/dist` (or use GitHub Actions to build and deploy).
 
-### 2. Netlify
-- **Configuration**: Root `netlify.toml` automatically specifies:
-  ```toml
-  [build]
-    publish = "dist"
-    command = "npm run build"
+### Vercel
+Deploy directly by importing the repo. Configuration is pre-set in `vercel.json`.
 
-  [[redirects]]
-    from = "/*"
-    to = "/index.html"
-    status = 200
-  ```
-
-### 3. Vercel
-- **Configuration**: Root `vercel.json` provides clean single-page app rewrite rules:
-  ```json
-  {
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/index.html" }
-    ]
-  }
-  ```
+### Netlify
+Deploy directly. Build command `npm run build` and publish directory `dist` are pre-set in `netlify.toml`.
 
 ---
 
-## 🛡️ License & Attributions
+## 📄 License
 
-- **Code License**: Licensed under the [GNU General Public License v3.0 (GPL-3.0)](https://github.com/mkr-infinity/mkr-music/blob/main/LICENSE).
-- **Creator**: Developed by **Mohammad Kaif Raja** ([@mkr-infinity](https://github.com/mkr-infinity)).
-- **Independent Project**: MKR Music is an independent open-source project and is not affiliated with Google LLC, YouTube, JioSaavn, or Spotify AB.
+MKR Music is free software released under the [GPL-3.0 License](https://github.com/mkr-infinity/mkr-music/blob/main/LICENSE).

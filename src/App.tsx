@@ -1,83 +1,87 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { StickyDownload } from './components/StickyDownload';
-import { ProductStory } from './components/ProductStory';
 import { FeaturesShowcase } from './components/FeaturesShowcase';
-import { ScreenshotGallery } from './components/ScreenshotGallery';
-import { DownloadGuide } from './components/DownloadGuide';
+import { ScreenshotGallery, ScreenshotLightbox } from './components/ScreenshotGallery';
+import { Requirements } from './components/Requirements';
 import { SupportSection } from './components/SupportSection';
-import { AboutSection } from './components/AboutSection';
-import { Disclaimer } from './components/Disclaimer';
-import { FAQ } from './components/FAQ';
+import { StickyDownload } from './components/StickyDownload';
 import { Footer } from './components/Footer';
-import { NotFound } from './components/NotFound';
 import { InteractiveBackground } from './components/InteractiveBackground';
-import { CustomCursor } from './components/CustomCursor';
 
-export const App: React.FC = () => {
-  const [is404, setIs404] = useState(false);
+export function App() {
+  const [activeScreenshot, setActiveScreenshot] = useState<number | null>(null);
 
+  // Scroll Reveal Observer
   useEffect(() => {
-    // Check if the current pathname or hash indicates a 404
-    const path = window.location.pathname;
-    if (path.endsWith('/404') || path.endsWith('/404.html')) {
-      setIs404(true);
-    }
+    const handleObserver = () => {
+      const items = document.querySelectorAll('.reveal-item');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      items.forEach((item) => observer.observe(item));
+
+      return () => observer.disconnect();
+    };
+
+    const cleanup = handleObserver();
+    return cleanup;
   }, []);
 
-  if (is404) {
-    return <NotFound onBackHome={() => setIs404(false)} />;
-  }
-
   return (
-    <div className="min-h-screen bg-transparent text-ivory-100 selection:bg-amber-500/30 selection:text-white flex flex-col relative">
-      {/* Lag-free Desktop Cursor Companion & Ember Ring */}
-      <CustomCursor />
-
-      {/* Interactive Audio Tension Strings, Parallax Artwork & Ember Background */}
+    <div className="min-h-screen bg-graphite-950 text-anime-cream selection:bg-anime-green selection:text-graphite-950 relative overflow-x-hidden">
+      {/* 21st.dev-inspired Interactive Cursor-Reactive Kinetic Grid Background */}
       <InteractiveBackground />
 
-      {/* Top Navigation */}
+      {/* Curved Floating Navbar */}
       <Navbar />
 
-      {/* Main Content Sections */}
-      <main className="flex-grow">
-        {/* Hero Section */}
-        <Hero />
+      {/* Main Content Sections with Background Visibility */}
+      <main id="top" className="relative z-10">
+        <Hero onOpenScreenshot={(idx) => setActiveScreenshot(idx)} />
 
-        {/* Immersive App Storytelling */}
-        <ProductStory />
+        <div className="reveal-item">
+          <FeaturesShowcase onOpenScreenshot={(idx) => setActiveScreenshot(idx)} />
+        </div>
 
-        {/* Signature Features Showcase */}
-        <FeaturesShowcase />
+        <div className="reveal-item">
+          <ScreenshotGallery onOpenScreenshot={(idx) => setActiveScreenshot(idx)} />
+        </div>
 
-        {/* Interactive 12-Screenshot Gallery */}
-        <ScreenshotGallery />
+        <div className="reveal-item">
+          <Requirements />
+        </div>
 
-        {/* Official Download & Android Installation Guide */}
-        <DownloadGuide />
-
-        {/* Optional Project Support (Buy Me a Coffee + UPI) */}
-        <SupportSection />
-
-        {/* About Creator & Open-Source Lineage */}
-        <AboutSection />
-
-        {/* Independent Trademark & Privacy Disclaimer */}
-        <Disclaimer />
-
-        {/* Accessible FAQ & Community Links */}
-        <FAQ />
+        <div className="reveal-item">
+          <SupportSection />
+        </div>
       </main>
 
-      {/* Polished Footer */}
-      <Footer />
+      {/* Footer */}
+      <div className="relative z-10">
+        <Footer />
+      </div>
 
-      {/* Scroll-triggered Sticky Download Action */}
+      {/* Bottom Right Floating Download Button (appears on scroll) */}
       <StickyDownload />
+
+      {/* Fullscreen Screenshot Lightbox */}
+      <ScreenshotLightbox
+        activeIndex={activeScreenshot}
+        onClose={() => setActiveScreenshot(null)}
+        onChange={(idx) => setActiveScreenshot(idx)}
+      />
     </div>
   );
-};
+}
 
 export default App;

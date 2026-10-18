@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://mkr-infinity.github.io/mkr-music-web/sitemap.xml

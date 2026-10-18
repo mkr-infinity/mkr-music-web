@@ -1,321 +1,301 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { X, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
-import { ScreenshotItem } from '../types';
-import { TiltCard } from './TiltCard';
+import React, { useState } from 'react';
+import { Eye, ArrowLeft, ArrowRight, X, Smartphone, Layers } from 'lucide-react';
+import { getAssetUrl } from '@/lib/assets';
 
-export const ScreenshotGallery: React.FC = () => {
-  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
-  const triggerRef = useRef<HTMLButtonElement | null>(null);
-  const modalCloseBtnRef = useRef<HTMLButtonElement | null>(null);
+export interface ScreenshotItem {
+  title: string;
+  category: 'playback' | 'discovery' | 'tuning' | 'settings';
+  file: string;
+  alt: string;
+  description: string;
+}
 
-  const categoryColors: Record<string, { text: string; bg: string; border: string; glow: string }> = {
-    Browse: { text: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/25', glow: 'rgba(245, 158, 11, 0.2)' },
-    Discovery: { text: 'text-amber-300', bg: 'bg-amber-400/10', border: 'border-amber-400/25', glow: 'rgba(251, 191, 36, 0.2)' },
-    Playback: { text: 'text-rose-400', bg: 'bg-rose-500/10', border: 'border-rose-500/25', glow: 'rgba(225, 29, 72, 0.2)' },
-    Visuals: { text: 'text-orange-400', bg: 'bg-orange-500/10', border: 'border-orange-500/25', glow: 'rgba(234, 88, 12, 0.2)' },
-    Lyrics: { text: 'text-amber-300', bg: 'bg-amber-500/10', border: 'border-amber-500/25', glow: 'rgba(245, 158, 11, 0.2)' },
-    Acoustics: { text: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/25', glow: 'rgba(16, 185, 129, 0.2)' },
-    Preferences: { text: 'text-[#c9c4b7]', bg: 'bg-white/[0.06]', border: 'border-white/10', glow: 'rgba(255, 255, 255, 0.1)' },
-    Customization: { text: 'text-amber-300', bg: 'bg-amber-500/10', border: 'border-amber-500/25', glow: 'rgba(245, 158, 11, 0.2)' },
-    Storage: { text: 'text-rose-300', bg: 'bg-rose-500/10', border: 'border-rose-500/25', glow: 'rgba(244, 63, 94, 0.2)' },
-  };
+export const SCREENSHOTS: ScreenshotItem[] = [
+  {
+    title: 'A Home for Every Mood',
+    category: 'discovery',
+    file: 'home.jpg',
+    alt: 'MKR Music home screen with mood filters, quick picks and community playlists',
+    description: 'Dynamic home screen with quick picks, recent rotations, and atmospheric mood filters.',
+  },
+  {
+    title: 'Find What You Feel',
+    category: 'discovery',
+    file: 'search.jpg',
+    alt: 'MKR Music search screen with instant suggestions and album artwork',
+    description: 'Rapid search with instant song suggestions, trending music, and rich album artwork.',
+  },
+  {
+    title: 'The Player, Made Personal',
+    category: 'playback',
+    file: 'player.jpg',
+    alt: 'MKR Music now playing screen with album art and listening controls',
+    description: 'Material 3 playback interface with seamless controls, queue management, and volume normalization.',
+  },
+  {
+    title: 'Artwork Takes Over',
+    category: 'playback',
+    file: 'immersive_player.jpg',
+    alt: 'MKR Music immersive player with full-screen artwork',
+    description: 'Full-screen immersive player mode letting high-res cover art fill the entire display.',
+  },
+  {
+    title: 'Canvas Video Player',
+    category: 'playback',
+    file: 'canvas_player.jpg',
+    alt: 'MKR Music canvas player with artwork and playback information',
+    description: 'Ambient canvas loops and animated visual motion synced directly with song playback.',
+  },
+  {
+    title: 'Synchronized Lyrics',
+    category: 'playback',
+    file: 'lyrics.jpg',
+    alt: 'MKR Music synchronized lyrics displayed over softened artwork',
+    description: 'Time-aligned karaoke lyrics with instant verse seeking and ambient glow background.',
+  },
+  {
+    title: 'Artist Deep Dive',
+    category: 'discovery',
+    file: 'artist.jpg',
+    alt: 'MKR Music artist profile with biography and top songs',
+    description: 'Rich artist profiles with discographies, singles, related creators, and biographies.',
+  },
+  {
+    title: 'Hardware Audio Chooser',
+    category: 'tuning',
+    file: 'audio_output.jpg',
+    alt: 'MKR Music audio output chooser with Bluetooth and audio quality options',
+    description: 'Direct routing to Bluetooth headphones, USB DACs, and system audio engines.',
+  },
+  {
+    title: 'Studio 10-Band Equalizer',
+    category: 'tuning',
+    file: 'equalizer.jpg',
+    alt: 'MKR Music 10-band equalizer interface with presets and bass boost',
+    description: 'Parametric acoustic fine-tuning with 10 decibel sliders and custom sound presets.',
+  },
+  {
+    title: 'Atmosphere & Appearance',
+    category: 'settings',
+    file: 'appearance.jpg',
+    alt: 'MKR Music appearance settings for themes, launcher icons and fonts',
+    description: 'Custom anime themes, accent colors, launcher icon styles, and display typography.',
+  },
+  {
+    title: 'Storage & Cache Control',
+    category: 'settings',
+    file: 'storage_cache.jpg',
+    alt: 'MKR Music storage screen with adjustable song cache timing and limits',
+    description: 'Fine-grained song caching delay (5s–90s) and protective capacity quota controls.',
+  },
+  {
+    title: 'Streamlined Settings',
+    category: 'settings',
+    file: 'settings.jpg',
+    alt: 'MKR Music settings screen with clean categories and direct search',
+    description: 'Organized preference categories with granular instant keyword search and zero clutter.',
+  },
+];
 
-  const screenshots: ScreenshotItem[] = [
-    {
-      id: 'home',
-      title: 'Home Screen',
-      subtitle: 'Personalized feeds, quick picks, and mood radio',
-      category: 'Browse',
-      filename: './assets/screenshots/home.jpg',
-      aspect: '9/19.5',
-    },
-    {
-      id: 'search',
-      title: 'Search & Explore',
-      subtitle: 'Unified discovery across YouTube Music, JioSaavn & Spotify',
-      category: 'Discovery',
-      filename: './assets/screenshots/search.jpg',
-      aspect: '9/19.5',
-    },
-    {
-      id: 'player',
-      title: 'Now Playing',
-      subtitle: 'Audiophile playback controls and queue management',
-      category: 'Playback',
-      filename: './assets/screenshots/player.jpg',
-      aspect: '9/19.5',
-    },
-    {
-      id: 'immersive',
-      title: 'Immersive View',
-      subtitle: 'Full-bleed album artwork with distraction-free UI',
-      category: 'Visuals',
-      filename: './assets/screenshots/immersive_player.jpg',
-      aspect: '9/19.5',
-    },
-    {
-      id: 'canvas',
-      title: 'Dynamic Canvas',
-      subtitle: 'Apple Music-style fluid video canvas visualizer',
-      category: 'Visuals',
-      filename: './assets/screenshots/canvas_player.jpg',
-      aspect: '9/19.5',
-    },
-    {
-      id: 'lyrics',
-      title: 'Synchronized Lyrics',
-      subtitle: 'Real-time word-by-word scrolling lyrics with glowing typography',
-      category: 'Lyrics',
-      filename: './assets/screenshots/lyrics.jpg',
-      aspect: '9/19.5',
-    },
-    {
-      id: 'artist',
-      title: 'Artist Profile',
-      subtitle: 'Full discography, singles, top tracks, and related artists',
-      category: 'Browse',
-      filename: './assets/screenshots/artist.jpg',
-      aspect: '9/19.5',
-    },
-    {
-      id: 'audio_output',
-      title: 'Audio Output Switcher',
-      subtitle: 'Instant Bluetooth routing and live bitrate quality badge',
-      category: 'Acoustics',
-      filename: './assets/screenshots/audio_output.jpg',
-      aspect: '9/19.5',
-    },
-    {
-      id: 'settings',
-      title: 'Settings Dashboard',
-      subtitle: 'Comprehensive controls for streaming, cache, and player',
-      category: 'Preferences',
-      filename: './assets/screenshots/settings.jpg',
-      aspect: '9/19.5',
-    },
-    {
-      id: 'appearance',
-      title: 'Appearance & Themes',
-      subtitle: 'Material 3 expressive themes and 12 adaptive launcher icons',
-      category: 'Customization',
-      filename: './assets/screenshots/appearance.jpg',
-      aspect: '9/19.5',
-    },
-    {
-      id: 'storage_cache',
-      title: 'Storage & Cache',
-      subtitle: 'Delayed cache management and local encrypted backups',
-      category: 'Storage',
-      filename: './assets/screenshots/storage_cache.jpg',
-      aspect: '9/19.5',
-    },
-    {
-      id: 'equalizer',
-      title: 'MKR Studio Equalizer',
-      subtitle: '10-band hardware EQ, Dolby Atmos simulation, and acoustic presets',
-      category: 'Acoustics',
-      filename: './assets/screenshots/equalizer.jpg',
-      aspect: '9/19.5',
-    },
-  ];
+interface ScreenshotGalleryProps {
+  onOpenScreenshot: (index: number) => void;
+}
 
-  const handleOpen = (idx: number, btn: HTMLButtonElement) => {
-    triggerRef.current = btn;
-    setSelectedIdx(idx);
-  };
+export const ScreenshotGallery: React.FC<ScreenshotGalleryProps> = ({ onOpenScreenshot }) => {
+  const [filter, setFilter] = useState<'all' | 'playback' | 'discovery' | 'tuning' | 'settings'>('all');
 
-  const handleClose = () => {
-    setSelectedIdx(null);
-    if (triggerRef.current) {
-      triggerRef.current.focus();
-    }
-  };
-
-  const handleNext = () => {
-    if (selectedIdx !== null) {
-      setSelectedIdx((selectedIdx + 1) % screenshots.length);
-    }
-  };
-
-  const handlePrev = () => {
-    if (selectedIdx !== null) {
-      setSelectedIdx((selectedIdx - 1 + screenshots.length) % screenshots.length);
-    }
-  };
-
-  // Keyboard navigation & body scroll lock
-  useEffect(() => {
-    if (selectedIdx === null) {
-      document.body.style.overflow = '';
-      return;
-    }
-
-    document.body.style.overflow = 'hidden';
-
-    // Focus close button on modal open
-    setTimeout(() => {
-      modalCloseBtnRef.current?.focus();
-    }, 50);
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        handleClose();
-      } else if (e.key === 'ArrowRight') {
-        handleNext();
-      } else if (e.key === 'ArrowLeft') {
-        handlePrev();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [selectedIdx]);
+  const filteredScreenshots = SCREENSHOTS.map((item, originalIndex) => ({
+    ...item,
+    originalIndex,
+  })).filter((item) => filter === 'all' || item.category === filter);
 
   return (
-    <section id="gallery" className="py-24 md:py-32 relative overflow-hidden" aria-label="Screenshot Gallery">
+    <section id="screenshots" className="py-24 md:py-32 relative overflow-hidden" aria-label="Authentic App Screenshots">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <div className="cinematic-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-amber-300 text-xs font-kicker mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
-            <span>— AUTHENTIC INTERFACE GALLERY</span>
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-graphite-900/90 border border-white/10 text-xs font-mono text-anime-yellow mb-4">
+            <Smartphone size={13} />
+            <span>Actual Application Interface</span>
           </div>
-          <h2 className="font-cinematic text-3xl sm:text-5xl font-black tracking-tight text-white mb-6">
-            Crafted with Precision
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-anime-cream tracking-tight mb-6">
+            A Glimpse Inside <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-anime-yellow via-anime-cream to-anime-green">
+              Your New Listening Haven.
+            </span>
           </h2>
-          <p className="text-base sm:text-lg text-[#c9c4b7]">
-            Hover to experience 3D depth, or click any screenshot to inspect the application in high-resolution clarity.
+          <p className="text-base sm:text-lg text-anime-cream/70 leading-relaxed">
+            Captured directly from the live Android application. Click any screenshot to open the high-resolution lightbox.
           </p>
         </div>
 
-        {/* 3-Column 3D Tilt Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {screenshots.map((item, idx) => {
-            const colors = categoryColors[item.category] || categoryColors.Preferences;
-            return (
-              <TiltCard
-                key={item.id}
-                maxTilt={7}
-                spotlightColor={colors.glow}
-                className="h-full"
-              >
-                <div className="h-full cinematic-card rounded-3xl p-4 sm:p-5 border border-amber-500/15 hover:border-amber-500/35 transition-all duration-300 shadow-2xl flex flex-col justify-between group">
-                  <div className="mb-3.5 px-1 flex items-center justify-between">
-                    <div>
-                      <h3 className="font-cinematic text-base font-bold text-white group-hover:text-amber-300 transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs text-[#9e998c] mt-0.5 line-clamp-1">
-                        {item.subtitle}
-                      </p>
-                    </div>
-                    <span
-                      className={`text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full border ${colors.bg} ${colors.text} ${colors.border}`}
-                    >
-                      {item.category}
-                    </span>
-                  </div>
-
-                  {/* Screenshot Card Button */}
-                  <button
-                    type="button"
-                    onClick={(e) => handleOpen(idx, e.currentTarget)}
-                    className="relative rounded-2xl overflow-hidden bg-[#090b10] focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 group/btn w-full block shadow-2xl"
-                    aria-label={`View full size ${item.title}`}
-                  >
-                    <img
-                      src={item.filename}
-                      alt={item.title}
-                      className="w-full h-auto object-cover transform group-hover/btn:scale-[1.03] transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/btn:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
-                      <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-black font-semibold text-xs shadow-xl">
-                        <Eye className="w-3.5 h-3.5 text-amber-600" />
-                        <span>Inspect Full Size</span>
-                      </div>
-                    </div>
-                  </button>
-                </div>
-              </TiltCard>
-            );
-          })}
+        {/* Filter Chips */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+          {[
+            { id: 'all', label: 'All Screens (12)' },
+            { id: 'playback', label: 'Playback & Lyrics' },
+            { id: 'discovery', label: 'Home & Discovery' },
+            { id: 'tuning', label: 'Sound & Equalizer' },
+            { id: 'settings', label: 'Storage & Appearance' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setFilter(tab.id as typeof filter)}
+              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                filter === tab.id
+                  ? 'bg-anime-green text-graphite-950 font-bold shadow-neo-glow-green scale-105'
+                  : 'bg-graphite-900/80 text-anime-cream/70 hover:text-anime-cream hover:bg-graphite-800 border border-white/5'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
-      </div>
 
-      {/* Accessible Fullscreen Lightbox Modal */}
-      {selectedIdx !== null && (
-        <div
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
-          role="dialog"
-          aria-modal="true"
-          aria-label={screenshots[selectedIdx].title}
-        >
-          {/* Top Bar Actions */}
-          <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10 max-w-5xl mx-auto">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-mono text-amber-400 px-3 py-1 rounded-full bg-white/[0.08] border border-white/10">
-                {selectedIdx + 1} / {screenshots.length}
-              </span>
-              <div className="hidden sm:block text-left">
-                <div className="text-sm font-bold text-white">
-                  {screenshots[selectedIdx].title}
-                </div>
-                <div className="text-xs text-ivory-400">
-                  {screenshots[selectedIdx].subtitle}
+        {/* Screenshots Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {filteredScreenshots.map((item) => (
+            <div
+              key={item.file}
+              onClick={() => onOpenScreenshot(item.originalIndex)}
+              className="neo-glass-card rounded-2xl sm:rounded-3xl p-2.5 sm:p-3 flex flex-col cursor-pointer group hover:scale-[1.02] transition-all"
+            >
+              <div className="relative aspect-[9/16] rounded-xl sm:rounded-2xl overflow-hidden bg-graphite-950 mb-3">
+                <img
+                  src={getAssetUrl(`assets/screenshots/${item.file}`)}
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.src.includes('/assets/screenshots/')) {
+                      target.src = `./assets/screenshots/${item.file}`;
+                    }
+                  }}
+                  alt={item.alt}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-graphite-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-xs">
+                  <div className="p-3 rounded-full bg-anime-green text-graphite-950 shadow-neo-glow-green transform scale-90 group-hover:scale-100 transition-transform">
+                    <Eye size={20} />
+                  </div>
                 </div>
               </div>
-            </div>
 
+              <div className="px-1.5 pb-1">
+                <h3 className="text-xs sm:text-sm font-bold text-anime-cream group-hover:text-anime-green transition-colors truncate">
+                  {item.title}
+                </h3>
+                <p className="text-[11px] text-anime-cream/60 line-clamp-1 mt-0.5">
+                  {item.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+interface ScreenshotLightboxProps {
+  activeIndex: number | null;
+  onClose: () => void;
+  onChange: (index: number) => void;
+}
+
+export const ScreenshotLightbox: React.FC<ScreenshotLightboxProps> = ({
+  activeIndex,
+  onClose,
+  onChange,
+}) => {
+  if (activeIndex === null) return null;
+  const current = SCREENSHOTS[activeIndex];
+
+  const handlePrev = () => {
+    onChange((activeIndex - 1 + SCREENSHOTS.length) % SCREENSHOTS.length);
+  };
+
+  const handleNext = () => {
+    onChange((activeIndex + 1) % SCREENSHOTS.length);
+  };
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Screenshot viewer: ${current.title}`}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-graphite-950/90 backdrop-blur-2xl animate-in fade-in duration-200"
+      onClick={onClose}
+    >
+      <div
+        className="relative max-w-4xl w-full neo-glass-card p-4 sm:p-6 rounded-3xl border border-white/20 shadow-2xl flex flex-col max-h-[92vh] overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Top Bar */}
+        <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
+          <div>
+            <span className="text-[10px] font-mono text-anime-green uppercase tracking-wider block mb-1">
+              MKR Music Interface
+            </span>
+            <h2 className="text-base sm:text-xl font-bold text-anime-cream">
+              {current.title}
+            </h2>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-2 rounded-xl bg-graphite-900 hover:bg-white/10 text-anime-cream transition-colors cursor-pointer"
+            aria-label="Close screenshot viewer"
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Center Image Container */}
+        <div className="relative flex-1 flex items-center justify-center overflow-hidden min-h-[300px] max-h-[60vh] py-2">
+          <img
+            src={getAssetUrl(`assets/screenshots/${current.file}`)}
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (!target.src.includes('/assets/screenshots/')) {
+                target.src = `./assets/screenshots/${current.file}`;
+              }
+            }}
+            alt={current.alt}
+            className="max-h-full max-w-full object-contain rounded-2xl shadow-2xl"
+          />
+        </div>
+
+        {/* Bottom Details & Navigation */}
+        <div className="pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <p className="text-anime-cream/70 text-center sm:text-left">
+            {current.description}
+          </p>
+
+          <div className="flex items-center gap-2">
             <button
-              ref={modalCloseBtnRef}
-              onClick={handleClose}
-              className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400"
-              aria-label="Close image viewer (Escape)"
+              type="button"
+              onClick={handlePrev}
+              className="px-3 py-1.5 rounded-xl bg-graphite-900 hover:bg-graphite-800 text-anime-cream flex items-center gap-1 border border-white/10 cursor-pointer"
             >
-              <X className="w-5 h-5" />
+              <ArrowLeft size={13} />
+              <span>Prev</span>
+            </button>
+            <span className="font-mono text-anime-cream/50 px-2">
+              {activeIndex + 1} / {SCREENSHOTS.length}
+            </span>
+            <button
+              type="button"
+              onClick={handleNext}
+              className="px-3 py-1.5 rounded-xl bg-graphite-900 hover:bg-graphite-800 text-anime-cream flex items-center gap-1 border border-white/10 cursor-pointer"
+            >
+              <span>Next</span>
+              <ArrowRight size={13} />
             </button>
           </div>
-
-          {/* Navigation Controls */}
-          <button
-            onClick={handlePrev}
-            className="absolute left-2 sm:left-6 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-amber-400"
-            aria-label="Previous screenshot (Left Arrow)"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-
-          {/* Image Showcase */}
-          <div className="max-h-[85vh] max-w-full flex items-center justify-center">
-            <img
-              src={screenshots[selectedIdx].filename}
-              alt={screenshots[selectedIdx].title}
-              className="max-h-[82vh] w-auto max-w-[90vw] object-contain rounded-2xl shadow-2xl border border-white/20"
-            />
-          </div>
-
-          <button
-            onClick={handleNext}
-            className="absolute right-2 sm:right-6 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-amber-400"
-            aria-label="Next screenshot (Right Arrow)"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-
-          {/* Bottom Caption for Mobile */}
-          <div className="sm:hidden absolute bottom-4 text-center px-4">
-            <div className="text-xs font-bold text-white">
-              {screenshots[selectedIdx].title}
-            </div>
-            <div className="text-[11px] text-ivory-400">
-              {screenshots[selectedIdx].subtitle}
-            </div>
-          </div>
         </div>
-      )}
-    </section>
+      </div>
+    </div>
   );
 };
