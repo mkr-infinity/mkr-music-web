@@ -38,6 +38,67 @@ export function App() {
     return cleanup;
   }, []);
 
+  // 60FPS Mouse Repulsive Physical Effect on all cards
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let activeCard: HTMLElement | null = null;
+    let rAFId: number;
+
+    const handlePointerMove = (e: PointerEvent) => {
+      // Fine pointers only (mouse, trackpad, stylus)
+      if (e.pointerType === 'touch') return;
+
+      const target = (e.target as HTMLElement)?.closest?.('.neo-glass-card') as HTMLElement | null;
+
+      if (activeCard && activeCard !== target) {
+        activeCard.style.transform = '';
+        activeCard = null;
+      }
+
+      if (!target) return;
+
+      activeCard = target;
+
+      cancelAnimationFrame(rAFId);
+      rAFId = requestAnimationFrame(() => {
+        if (!activeCard) return;
+        const rect = activeCard.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Normalized offset from card center (-1 to 1)
+        const dx = Math.max(-1, Math.min(1, (e.clientX - centerX) / (rect.width / 2)));
+        const dy = Math.max(-1, Math.min(1, (e.clientY - centerY) / (rect.height / 2)));
+
+        // Repulsive physics: pushes the card away from the cursor position
+        const repelX = -dx * 10;
+        const repelY = -dy * 10;
+        const tiltX = -dy * 7;
+        const tiltY = dx * 7;
+
+        activeCard.style.transform = `perspective(1000px) translate3d(${repelX}px, ${repelY}px, 0) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(0.995)`;
+      });
+    };
+
+    const handlePointerOut = (e: PointerEvent) => {
+      if (activeCard && !activeCard.contains(e.relatedTarget as Node)) {
+        activeCard.style.transform = '';
+        activeCard = null;
+      }
+    };
+
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    document.addEventListener('pointerout', handlePointerOut, { passive: true });
+
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      document.removeEventListener('pointerout', handlePointerOut);
+      cancelAnimationFrame(rAFId);
+      if (activeCard) activeCard.style.transform = '';
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-graphite-950 text-anime-cream selection:bg-anime-green selection:text-graphite-950 relative overflow-x-hidden">
       {/* 21st.dev-inspired Interactive Cursor-Reactive Kinetic Grid Background */}

@@ -30,12 +30,12 @@ export const Navbar: React.FC = () => {
       if (Math.abs(delta) < 8) return;
 
       if (delta > 0) {
-        // User scrolls down -> reveal the navbar
-        setIsVisible(true);
-      } else {
-        // User scrolls up -> auto hide the navbar
+        // User scrolls from up to down -> hide the top bar
         setIsVisible(false);
         setMobileMenuOpen(false);
+      } else {
+        // User scrolls from down to up -> show the top bar
+        setIsVisible(true);
       }
 
       lastScrollY = currentScrollY;

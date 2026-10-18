@@ -113,14 +113,29 @@ export const SupportSection: React.FC = () => {
               </p>
 
               {/* UPI ID Display Field */}
-              <div className="p-4 rounded-2xl bg-graphite-950/90 border border-white/10 mb-4 select-all flex items-center justify-between font-mono text-sm">
+              <div
+                onClick={handleCopyUpi}
+                className="p-4 rounded-2xl bg-graphite-950/90 border border-white/10 hover:border-anime-green/50 mb-3 select-all flex items-center justify-between font-mono text-sm cursor-pointer transition-colors group/copy"
+                title="Click to copy UPI ID"
+              >
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-anime-cream/50 uppercase">Verified UPI ID</span>
-                  <span className="text-anime-green font-bold text-base">{OFFICIAL_LINKS.upiId}</span>
+                  <span className="text-[10px] text-anime-cream/50 uppercase tracking-wider">Verified Official UPI ID</span>
+                  <span className="text-anime-green font-bold text-base sm:text-lg group-hover/copy:underline">{OFFICIAL_LINKS.upiId}</span>
                 </div>
-                <span className="text-xs px-2.5 py-1 rounded-lg bg-white/5 text-anime-cream/60">
-                  BHIM / YBL
-                </span>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 group-hover/copy:bg-anime-green/10 text-anime-cream/70 group-hover/copy:text-anime-green transition-colors text-xs font-semibold">
+                  <Copy size={13} />
+                  <span>Click to Copy</span>
+                </div>
+              </div>
+
+              {/* Supported UPI Apps Pills */}
+              <div className="flex flex-wrap items-center gap-1.5 mb-5 font-mono text-[10px] text-anime-cream/60">
+                <span className="text-anime-cream/40 mr-0.5">Works with:</span>
+                {['Google Pay', 'PhonePe', 'Paytm', 'BHIM', 'Cred', 'Amazon Pay'].map((app) => (
+                  <span key={app} className="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/5">
+                    {app}
+                  </span>
+                ))}
               </div>
 
               {copyError && (
@@ -136,8 +151,8 @@ export const SupportSection: React.FC = () => {
               onClick={handleCopyUpi}
               className={`w-full py-4 px-6 rounded-2xl font-bold text-sm flex items-center justify-center gap-2.5 transition-all focus:outline-none focus:ring-2 focus:ring-anime-green cursor-pointer active:scale-98 ${
                 copied
-                  ? 'bg-anime-green text-graphite-950 shadow-neo-glow-green font-extrabold'
-                  : 'bg-graphite-900 hover:bg-graphite-800 text-anime-cream border border-anime-green/40 hover:border-anime-green shadow-neo-card'
+                  ? 'liquid-glass-btn text-graphite-950 font-extrabold shadow-[0_12px_32px_rgba(34,197,94,0.7)]'
+                  : 'bg-graphite-900/90 hover:bg-graphite-850 text-anime-cream border border-anime-green/40 hover:border-anime-green shadow-neo-card hover:shadow-neo-glow-green'
               }`}
               aria-label="Copy UPI ID to clipboard"
             >
@@ -174,14 +189,24 @@ export const SupportSection: React.FC = () => {
                 Back development using international debit/credit cards, Apple Pay, Google Pay, or PayPal via the official Buy Me a Coffee page.
               </p>
 
-              <div className="p-4 rounded-2xl bg-graphite-950/90 border border-white/10 mb-4 flex items-center justify-between font-mono text-sm">
+              <div className="p-4 rounded-2xl bg-graphite-950/90 border border-white/10 mb-3 flex items-center justify-between font-mono text-sm">
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-anime-cream/50 uppercase">Verified Creator Portal</span>
+                  <span className="text-[10px] text-anime-cream/50 uppercase tracking-wider">Verified Creator Portal</span>
                   <span className="text-anime-yellow font-bold">buymeacoffee.com/mkr_infinity</span>
                 </div>
                 <span className="text-xs px-2.5 py-1 rounded-lg bg-white/5 text-anime-cream/60">
                   Worldwide
                 </span>
+              </div>
+
+              {/* Supported Payment Methods Pills */}
+              <div className="flex flex-wrap items-center gap-1.5 mb-5 font-mono text-[10px] text-anime-cream/60">
+                <span className="text-anime-cream/40 mr-0.5">Accepts:</span>
+                {['Apple Pay', 'Google Pay', 'Visa', 'Mastercard', 'PayPal'].map((method) => (
+                  <span key={method} className="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/5">
+                    {method}
+                  </span>
+                ))}
               </div>
             </div>
 
@@ -189,7 +214,7 @@ export const SupportSection: React.FC = () => {
               href={OFFICIAL_LINKS.buyMeACoffee}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-4 px-6 rounded-2xl font-bold text-sm bg-gradient-to-r from-anime-yellow via-amber-400 to-anime-yellow text-graphite-950 shadow-neo-glow-yellow hover:brightness-110 flex items-center justify-center gap-2.5 transition-all text-center cursor-pointer active:scale-98"
+              className="w-full py-4 px-6 rounded-2xl font-bold text-sm bg-gradient-to-r from-anime-yellow via-amber-400 to-anime-yellow text-graphite-950 shadow-[0_8px_25px_-4px_rgba(250,204,21,0.5)] hover:shadow-[0_14px_35px_-4px_rgba(250,204,21,0.7)] hover:brightness-110 flex items-center justify-center gap-2.5 transition-all text-center cursor-pointer active:scale-98 select-none"
               aria-label="Support via Buy Me a Coffee"
             >
               <Heart size={16} className="fill-graphite-950" />
