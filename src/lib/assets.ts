@@ -70,3 +70,18 @@ export function handleDeveloperAvatarError(e: React.SyntheticEvent<HTMLImageElem
     target.src = './assets/developer_anime.png';
   }
 }
+
+export const SOLO_LEVELING_BG = getAssetUrl('assets/solo_leveling_music_bg.jpg');
+
+export function handleSoloLevelingBgError(e: React.SyntheticEvent<HTMLImageElement, Event>) {
+  const target = e.currentTarget;
+  const attempt = Number(target.getAttribute('data-error-attempt') || 0);
+  if (attempt === 0) {
+    target.setAttribute('data-error-attempt', '1');
+    target.src = './assets/solo_leveling_music_bg.jpg';
+  } else if (attempt === 1) {
+    target.setAttribute('data-error-attempt', '2');
+    target.src = 'assets/solo_leveling_music_bg.jpg';
+  }
+}
+

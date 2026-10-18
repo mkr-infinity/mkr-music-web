@@ -1,7 +1,7 @@
 import React from 'react';
 import { Download, ArrowRight, Disc3, Zap, Headphones, Sliders, Shield, Layers, Radio } from 'lucide-react';
 import { OFFICIAL_LINKS } from '@/lib/release';
-import { getAssetUrl, APP_LOGO, handleScreenshotError } from '@/lib/assets';
+import { getAssetUrl, APP_LOGO, handleScreenshotError, SOLO_LEVELING_BG, handleSoloLevelingBgError } from '@/lib/assets';
 import { GithubIcon, SpotifyIcon, YouTubeMusicIcon } from './BrandIcons';
 import { AudioVisualizer } from './AudioVisualizer';
 
@@ -12,6 +12,24 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
   return (
     <section className="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden">
+      {/* Solo Leveling Anime Aesthetic Hero Wallpaper Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+        <img
+          src={SOLO_LEVELING_BG}
+          onError={handleSoloLevelingBgError}
+          alt="Solo Leveling anime listening music aesthetic"
+          role="presentation"
+          className="w-full h-full object-cover object-[center_30%] sm:object-center opacity-40 sm:opacity-50 scale-100 sm:scale-105 transform-gpu transition-all duration-1000"
+        />
+        {/* Cinematic Vignette, Dark Obsidian & Emerald Fog Gradients for Crisp Typography */}
+        <div className="absolute inset-0 bg-gradient-to-t from-graphite-950 via-graphite-950/70 to-graphite-950/35" />
+        <div className="absolute inset-0 bg-gradient-to-r from-graphite-950/95 via-graphite-950/65 to-graphite-950/30" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_0%,rgba(8,8,9,0.6)_55%,#080809_100%)]" />
+        {/* Subtle glowing emerald and golden acoustic mist */}
+        <div className="absolute -top-24 left-1/4 w-[600px] h-[500px] bg-anime-green/10 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-1/4 -right-16 w-[500px] h-[500px] bg-anime-yellow/10 rounded-full blur-[130px] pointer-events-none" />
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
