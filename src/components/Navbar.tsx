@@ -6,12 +6,41 @@ import { GithubIcon } from './BrandIcons';
 
 export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+
+      // Always show navbar when near the very top of the page
+      if (currentScrollY <= 30) {
+        setIsVisible(true);
+        setScrolled(false);
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      setScrolled(true);
+
+      const delta = currentScrollY - lastScrollY;
+      // Filter out small jitter
+      if (Math.abs(delta) < 8) return;
+
+      if (delta > 0) {
+        // User scrolls down -> reveal the navbar
+        setIsVisible(true);
+      } else {
+        // User scrolls up -> auto hide the navbar
+        setIsVisible(false);
+        setMobileMenuOpen(false);
+      }
+
+      lastScrollY = currentScrollY;
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -25,13 +54,17 @@ export const Navbar: React.FC = () => {
   ];
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 px-3 sm:px-6 pt-3 sm:pt-5 pointer-events-none flex justify-center">
+    <header
+      className={`fixed top-0 inset-x-0 z-50 px-3 sm:px-6 pt-3 sm:pt-5 pointer-events-none flex justify-center transition-all duration-300 ease-in-out ${
+        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-24 opacity-0'
+      }`}
+    >
       <div className="w-full max-w-5xl pointer-events-auto">
         <div
-          className={`neo-glass-navbar flex items-center justify-between px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-300 ${
+          className={`liquid-glass-navbar flex items-center justify-between px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-full transition-all duration-300 ${
             scrolled
-              ? 'opacity-100 shadow-[0_24px_50px_-12px_rgba(0,0,0,0.95)]'
-              : 'opacity-95'
+              ? 'shadow-[0_28px_64px_-12px_rgba(0,0,0,0.95)]'
+              : 'shadow-[0_16px_40px_-10px_rgba(0,0,0,0.7)]'
           }`}
         >
           {/* Brand Logo & Name */}
@@ -91,9 +124,9 @@ export const Navbar: React.FC = () => {
             <a
               href={OFFICIAL_LINKS.universalApkDownload}
               download={OFFICIAL_LINKS.universalApkName}
-              className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full text-xs font-bold bg-gradient-to-r from-anime-green via-emerald-400 to-anime-green text-graphite-950 shadow-[0_4px_16px_rgba(34,197,94,0.4),inset_0_1px_0_rgba(255,255,255,0.4)] hover:shadow-[0_8px_24px_rgba(34,197,94,0.6)] hover:brightness-110 active:scale-95 transition-all cursor-pointer"
+              className="liquid-glass-btn group/btn inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-extrabold tracking-wide text-graphite-950 cursor-pointer select-none"
             >
-              <Download size={13} />
+              <Download size={14} className="stroke-[2.5] group-hover/btn:-translate-y-0.5 transition-transform duration-200" />
               <span>Download APK</span>
             </a>
           </div>

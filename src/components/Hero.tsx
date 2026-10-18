@@ -61,10 +61,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenScreenshot }) => {
               <a
                 href={OFFICIAL_LINKS.universalApkDownload}
                 download={OFFICIAL_LINKS.universalApkName}
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-base font-bold bg-gradient-to-r from-anime-green via-emerald-400 to-anime-green text-graphite-950 shadow-neo-glow-green hover:shadow-xl hover:shadow-anime-green/50 hover:brightness-110 active:scale-95 transition-all text-center group cursor-pointer"
+                className="liquid-glass-btn inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-base font-extrabold text-graphite-950 text-center group cursor-pointer shadow-[0_12px_32px_-4px_rgba(34,197,94,0.65)] hover:shadow-[0_18px_45px_-4px_rgba(34,197,94,0.85)]"
                 aria-label="Download Universal APK for Android"
               >
-                <Download size={20} className="transition-transform group-hover:-translate-y-0.5" />
+                <Download size={20} className="stroke-[2.5] transition-transform group-hover:-translate-y-0.5" />
                 <span>Download Universal APK</span>
               </a>
 

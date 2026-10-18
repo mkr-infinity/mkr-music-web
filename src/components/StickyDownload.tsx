@@ -30,7 +30,7 @@ export const StickyDownload: React.FC = () => {
       <a
         href={OFFICIAL_LINKS.universalApkDownload}
         download={OFFICIAL_LINKS.universalApkName}
-        className="group flex items-center gap-3 p-2 sm:p-2.5 sm:pr-5 rounded-2xl sm:rounded-full neo-glass-navbar border border-anime-green/40 hover:border-anime-green shadow-[0_16px_36px_-10px_rgba(0,0,0,0.9),0_0_20px_-4px_rgba(34,197,94,0.3)] hover:shadow-[0_20px_45px_-8px_rgba(0,0,0,0.95),0_0_30px_-2px_rgba(34,197,94,0.45)] transition-all transform hover:-translate-y-1.5 active:scale-95 cursor-pointer"
+        className="group flex items-center gap-3 p-2 sm:p-2.5 sm:pr-5 rounded-2xl sm:rounded-full liquid-glass-navbar border border-anime-green/40 hover:border-anime-green shadow-[0_20px_45px_-8px_rgba(0,0,0,0.95),0_0_25px_-2px_rgba(34,197,94,0.35)] hover:shadow-[0_24px_55px_-6px_rgba(0,0,0,0.98),0_0_35px_-2px_rgba(34,197,94,0.55)] transition-all transform hover:-translate-y-2 active:scale-95 cursor-pointer select-none"
         aria-label="Download Universal APK"
       >
         {/* App Logo */}
@@ -54,8 +54,8 @@ export const StickyDownload: React.FC = () => {
         </div>
 
         {/* Download Icon Pill */}
-        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl sm:rounded-full bg-gradient-to-tr from-anime-green to-emerald-400 text-graphite-950 flex items-center justify-center font-bold shadow-[0_4px_12px_rgba(34,197,94,0.4)] group-hover:scale-105 transition-transform flex-shrink-0 ml-1">
-          <Download size={16} />
+        <div className="liquid-glass-btn w-8 h-8 sm:w-9 sm:h-9 rounded-xl sm:rounded-full text-graphite-950 flex items-center justify-center font-bold shadow-md shadow-anime-green/40 group-hover:scale-105 transition-transform flex-shrink-0 ml-1">
+          <Download size={16} className="stroke-[2.5]" />
         </div>
       </a>
     </aside>
